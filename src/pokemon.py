@@ -2,8 +2,9 @@
 # -*- coding: UTF-8 -*-
 # A basic pokemon class.
 
+
 class Pokemon:
-    
+
     def __init__(self, name, national_number=None, type1=None, type2=None):
         if national_number == None:
             self.number = int(name[0])
@@ -15,13 +16,16 @@ class Pokemon:
             self.number = int(national_number)
             self.type1 = type1
             self.type2 = type2
-        
+
     def get_number(self):
         return self.number
+
     def get_name(self):
         return self.name
+
     def get_type1(self):
         return self.type1
+
     def get_type2(self):
         return self.type2
 

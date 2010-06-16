@@ -4,14 +4,15 @@
 
 import pokedex
 
+
 class Settings:
     user_dex = []
     game = ""
     filename = ""
-    
+
     def __init__(self):
         self.user_dex = [1] * (pokedex.MAX_DEX + 1)
-    
+
     def status(self, pokenum):
         temp = self.user_dex[pokenum]
         if temp == 1:
@@ -22,7 +23,7 @@ class Settings:
             return "caught"
         else:
             return "unknown"
-    
+
     def valid(self, pokenum, bitstring):
         temp = int(self.user_dex[pokenum])
         if (int(bitstring) % (temp * 2)) / temp == 1:
@@ -32,5 +33,6 @@ class Settings:
 
     def get_filename(self):
         return self.filename
+
     def set_filename(self, filename):
         self.filename = filename
