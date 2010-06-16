@@ -315,7 +315,7 @@
                 <property name="tab_fill">False</property>
               </packing>
             </child>
-            <child>
+            <!--child>
               <object class="GtkScrolledWindow" id="scroll6">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -342,7 +342,7 @@
                 <property name="position">6</property>
                 <property name="tab_fill">False</property>
               </packing>
-            </child>
+            </child-->
             <child>
               <object class="GtkScrolledWindow" id="scroll7">
                 <property name="visible">True</property>

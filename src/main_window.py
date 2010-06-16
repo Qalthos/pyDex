@@ -33,8 +33,8 @@ class MainWindow:
                                                          str, str, str)
         self.sinnoh_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
                                                           str, str, str)
-        self.isshu_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                         str, str, str)
+        #self.isshu_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
+        #                                                 str, str, str)
         self.evolution_model = gtk.ListStore(gtk.gdk.Pixbuf, str, str,
                                              gtk.gdk.Pixbuf, str)
         self.evolution_model.set_sort_func(2, sort)
@@ -94,9 +94,9 @@ class MainWindow:
         build_pokemon_columns(list)
 
         # Build the listing of pokemon (Isshu).
-        list = self.builder.get_object("isshu_pokemon")
-        list.set_model(self.isshu_model)
-        build_pokemon_columns(list)
+        #list = self.builder.get_object("isshu_pokemon")
+        #list.set_model(self.isshu_model)
+        #build_pokemon_columns(list)
 
         list = self.builder.get_object("evolvable_pokemon")
         list.set_model(self.evolution_model)
@@ -150,15 +150,14 @@ class MainWindow:
             if pokenum in regional_dex.sinnoh_ids:
                 pokarray[1] = regional_dex.sinnoh_ids.index(pokenum)
                 self.sinnoh_model.append(pokarray)
-            if pokenum in regional_dex.isshu_ids:
-                pokarray[1] = regional_dex.isshu_ids.index(pokenum)
-                self.isshu_model.append(pokarray)
+            #if pokenum in regional_dex.isshu_ids:
+            #    pokarray[1] = regional_dex.isshu_ids.index(pokenum)
+            #    self.isshu_model.append(pokarray)
 
         for pokepair in self.evolutions.evo:
             pokeold = pokepair.old.get_number()
             pokenew = pokepair.new.get_number()
-            if self.user_settings.valid(pokeold, 0b100) and
-            self.user_settings.valid(pokenew, 0b011):
+            if self.user_settings.valid(pokeold, 0b100) and self.user_settings.valid(pokenew, 0b011):
                 pokarray = [gtk.gdk.pixbuf_new_from_file(self.image_dir +
                                         "icons/" + str(pokeold) + ".png"),
                             pokepair.old.get_name(), pokepair.method,
@@ -186,8 +185,7 @@ class MainWindow:
 
     def show_dialog(self, menu_item):
         item_name = menu_item.get_name()
-        if item_name == "save_menu_item" and
-        not self.user_settings.filename == "":
+        if item_name == "save_menu_item" and not self.user_settings.filename == "":
             io.write_config(self.user_settings)
             self.changed = False
             return
@@ -313,8 +311,8 @@ class MainWindow:
                 region = regional_dex.hoenn_ids
             elif  new_page_num == 4:
                 region = regional_dex.sinnoh_ids
-            elif  new_page_num == 5:
-                region = regional_dex.isshu_ids
+            #elif  new_page_num == 5:
+            #    region = regional_dex.isshu_ids
             else:
                 status.push(0, str(len(self.evolution_model)) +
                                  " pokemon waiting to evolve")
@@ -358,7 +356,7 @@ class MainWindow:
         self.johto_model.clear()
         self.hoenn_model.clear()
         self.sinnoh_model.clear()
-        self.isshu_model.clear()
+        #self.isshu_model.clear()
         self.evolution_model.clear()
 
 

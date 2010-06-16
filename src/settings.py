@@ -25,6 +25,8 @@ class Settings:
             return "unknown"
 
     def valid(self, pokenum, bitstring):
+        if pokenum > pokedex.MAX_DEX:
+            return False
         temp = int(self.user_dex[pokenum])
         if (int(bitstring) % (temp * 2)) / temp == 1:
             return True
