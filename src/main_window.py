@@ -184,7 +184,7 @@ class MainWindow:
         self.add_pokemon()
 
     def show_dialog(self, menu_item):
-        item_name = menu_item.get_name()
+        item_name = get_name(menu_item)
         if item_name == "save_menu_item" and not self.user_settings.filename == "":
             io.write_config(self.user_settings)
             self.changed = False
@@ -205,7 +205,7 @@ class MainWindow:
         global user_settings
         chooser = self.builder.get_object("file_chooser")
         config.get_instance().set_last_file(chooser.get_filename())
-        if button.get_name() == "continue":
+        if get_name(button) == "continue":
             if button.get_label() == "Save":
                 self.user_settings.set_filename(chooser.get_filename())
                 io.write_config(self.user_settings)
@@ -245,11 +245,11 @@ class MainWindow:
 
     def hide_info(self, button):
         number = int(self.builder.get_object("number").get_label())
-        if button.get_name() == "info_okay":
+        if get_name(button) == "info_okay":
             last_value = self.user_settings.user_dex[number]
             for radio in self.builder.get_object("radio_caught").get_group():
                 if radio.get_active():
-                    label = radio.get_name()
+                    label = get_name(radio)
                     if label == "radio_caught":
                         self.user_settings.user_dex[number] = 4
                     elif label == "radio_seen":
@@ -360,82 +360,11 @@ class MainWindow:
         self.evolution_model.clear()
 
 
-class MainWindowHack(MainWindow):
-
-    def __init__(self):
-        MainWindow.__init__(self)
-
-    # Reaction methods.
-    def toggle(self, button):
-        if button.get_label() == "Missing":
-            self.filter ^= 0b001
-        elif button.get_label() == "Seen":
-            self.filter ^= 0b010
-        elif button.get_label() == "Caught":
-            self.filter ^= 0b100
-        self.add_pokemon()
-
-    def show_dialog(self, menu_item):
-        item_name = menu_item.get_label()
-        if item_name == "gtk-save" and not self.user_settings.filename == "":
-            io.write_config(self.user_settings)
-            self.changed = False
-            return
-        button = self.builder.get_object("continue")
-        chooser = self.builder.get_object("file_chooser")
-        if item_name == "gtk-open":
-            button.set_label("Open")
-            chooser.set_action(gtk.FILE_CHOOSER_ACTION_OPEN)
-        else:
-            button.set_label("Save")
-            chooser.set_action(gtk.FILE_CHOOSER_ACTION_SAVE)
-
-        chooser.set_current_folder(io.settings_dir)
-        chooser.show()
-
-    def hide_dialog(self, button):
-        global user_settings
-        chooser = self.builder.get_object("file_chooser")
-        config.get_instance().set_last_file(chooser.get_filename())
-        if button.get_label() == "Save":
-            self.user_settings.set_filename(chooser.get_filename())
-            io.write_config(self.user_settings)
-        elif button.get_label() == "Open":
-            self.user_settings = io.read_config(chooser.get_filename())
-            self.add_pokemon()
-        self.changed = False
-        self.builder.get_object("main_window").set_title(
-                                   chooser.get_filename())
-        chooser.hide()
-
-    def hide_info(self, button):
-        number = int(self.builder.get_object("number").get_label())
-        if button.get_label() == "OK":
-            last_value = self.user_settings.user_dex[number]
-            for radio in self.builder.get_object("radio_caught").get_group():
-                if radio.get_active():
-                    label = radio.get_label()
-                    if label == "Caught":
-                        self.user_settings.user_dex[number] = 4
-                    elif label == "Seen":
-                        self.user_settings.user_dex[number] = 2
-                    elif label == "Missing":
-                        self.user_settings.user_dex[number] = 1
-            if not last_value == self.user_settings.user_dex[number]:
-                self.add_pokemon()
-                self.changed = True
-            else:
-                print self.user_settings.user_dex[number]
-        self.builder.get_object("info_box").hide()
-
-    def quit(self, button):
-        if button.get_label() == "Save":
-            io.write_config(self.user_settings)
-        self.builder.get_object("quit_dialog").hide()
-        if button.get_label() == "Cancel":
-            return
-        io.write_settings()
-        gtk.main_quit()
+def get_name(buildable):
+    if gtk.gtk_version[1] < 17:
+        return buildable.get_name()
+    else: # Grrrr, broken get_name()
+        return gtk.Buildable.get_name(buildable)
 
 
 def build_pokemon_columns(list, regional=True):

@@ -15,11 +15,7 @@ if __name__ == "__main__":
     # Fix for relative paths
     os.chdir(os.path.abspath(os.path.dirname(sys.argv[0])))
 
-    # Change file based on version of pyGTK
-    if gtk.gtk_version[1] < 17:
-        mw = main_window.MainWindow()
-    else: # Grrrr, broken get_name()
-        mw = main_window.MainWindowHack()
+    mw = main_window.MainWindow()
 
     # Read settings and open last open file.
     io.read_settings()
