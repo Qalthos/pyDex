@@ -33,8 +33,8 @@ class MainWindow:
                                                          str, str, str)
         self.sinnoh_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
                                                           str, str, str)
-        #self.isshu_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-        #                                                 str, str, str)
+        self.isshu_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
+                                                         str, str, str)
         self.evolution_model = gtk.ListStore(gtk.gdk.Pixbuf, str, str,
                                              gtk.gdk.Pixbuf, str)
         self.evolution_model.set_sort_func(2, sort)
@@ -132,11 +132,11 @@ class MainWindow:
             pokenum = pokemon.get_number()
             if not self.user_settings.valid(pokenum, self.filter):
                 continue
-            pokarray = [gtk.gdk.pixbuf_new_from_file(self.image_dir +
-                                    "icons/" + str(pokenum) + ".png"),
-                          pokenum, pokenum, pokemon.get_name(),
-                          pokemon.get_type1(), pokemon.get_type2(),
-                          self.user_settings.status(pokenum)]
+            pokarray = [gtk.gdk.pixbuf_new_from_file(
+                                  self.load_image(pokenum)),
+                            pokenum, pokenum, pokemon.get_name(),
+                            pokemon.get_type1(), pokemon.get_type2(),
+                            self.user_settings.status(pokenum)]
             self.national_model.append(pokarray)
             if pokenum in regional_dex.kanto_ids:
                 pokarray[1] = regional_dex.kanto_ids.index(pokenum)
@@ -158,11 +158,11 @@ class MainWindow:
             pokeold = pokepair.old.get_number()
             pokenew = pokepair.new.get_number()
             if self.user_settings.valid(pokeold, 0b100) and self.user_settings.valid(pokenew, 0b011):
-                pokarray = [gtk.gdk.pixbuf_new_from_file(self.image_dir +
-                                        "icons/" + str(pokeold) + ".png"),
+                pokarray = [gtk.gdk.pixbuf_new_from_file(
+                                      self.load_image(pokeold)),
                             pokepair.old.get_name(), pokepair.method,
-                            gtk.gdk.pixbuf_new_from_file(self.image_dir +
-                                        "icons/" + str(pokenew) + ".png"),
+                            gtk.gdk.pixbuf_new_from_file(
+                                      self.load_image(pokenew)),
                             pokepair.new.get_name()]
                 self.evolution_model.append(pokarray)
 
@@ -213,8 +213,7 @@ class MainWindow:
                 self.user_settings = io.read_config(chooser.get_filename())
                 self.add_pokemon()
             self.changed = False
-            self.builder.get_object("main_window").set_title(
-                                                    chooser.get_filename())
+            self.builder.get_object("main_window").set_title(chooser.get_filename())
         chooser.hide()
 
     def show_info(self, tv, *ignored):
@@ -223,13 +222,7 @@ class MainWindow:
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon.get_number()))
-        if os.path.exists(self.image_dir + "portraits/" +
-                      str(pokemon.get_number()) + ".png"):
-            self.builder.get_object("image").set_from_file(self.image_dir +
-                         "portraits/" + str(pokemon.get_number()) + ".png")
-        else:
-            self.builder.get_object("image").set_from_file(self.image_dir +
-                             "icons/" + str(pokemon.get_number()) + ".png")
+        self.builder.get_object("image").set_from_file(self.load_image(pokemon.get_number(), True))
         self.builder.get_object("info_type1").set_label(pokemon.get_type1())
         if not pokemon.get_type2() == "---":
             self.builder.get_object("info_type2").set_label(pokemon.get_type2())
@@ -270,13 +263,7 @@ class MainWindow:
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon.get_number()))
-        if os.path.exists(self.image_dir + "portraits/" +
-                      str(pokemon.get_number()) + ".png"):
-            self.builder.get_object("image").set_from_file(self.image_dir +
-                         "portraits/" + str(pokemon.get_number()) + ".png")
-        else:
-            self.builder.get_object("image").set_from_file(self.image_dir +
-                             "icons/" + str(pokemon.get_number()) + ".png")
+        self.builder.get_object("image").set_from_file(self.load_image(pokemon.get_number(), True))
         self.builder.get_object("info_type1").set_label(pokemon.get_type1())
         if not pokemon.get_type2() == "---":
             self.builder.get_object("info_type2").set_label(pokemon.get_type2())
@@ -356,8 +343,17 @@ class MainWindow:
         self.johto_model.clear()
         self.hoenn_model.clear()
         self.sinnoh_model.clear()
-        #self.isshu_model.clear()
+        self.isshu_model.clear()
         self.evolution_model.clear()
+
+    def load_image(self, image_number, portrait=False):
+        if portrait and os.path.exists(
+                "%sportraits/%d.png" % (self.image_dir, image_number)):
+            return "%sportraits/%d.png" % (self.image_dir, image_number)
+        elif os.path.exists(
+                    "%sicons/%d.png" % (self.image_dir, image_number)):
+            return "%sicons/%d.png" % (self.image_dir, image_number)
+        return "%sblank.png" % self.image_dir
 
 
 def get_name(buildable):
