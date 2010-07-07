@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# The main window of the pokedex.
+
+"""The main window of the pokedex.  This module handles all the GTK/Glade
+specific functions
+
+"""
 
 import os
 
@@ -357,6 +361,12 @@ class MainWindow:
 
 
 def get_name(buildable):
+    """Returns the gtk.Buildable.get_name() for the specified widget, rather
+    than the gtk.Widget.get_name() which gets called by default in newer GTK
+    versions.
+
+    """
+
     if gtk.gtk_version[1] < 17:
         return buildable.get_name()
     else: # Grrrr, broken get_name()
@@ -385,7 +395,10 @@ def search(model, column, key, iter, data=None):
 
 def sort(model, iter1, iter2, data=None):
     """Orders evolutions.  Trades first, then special trades, then levels, then
-       special levels, then the rest alphabetically."""
+    special levels, then the rest alphabetically.
+
+    """
+
     method1 = model.get(iter1, 2)[0]
     method2 = model.get(iter2, 2)[0]
     if method2 == None:
@@ -408,6 +421,7 @@ def sort(model, iter1, iter2, data=None):
 
 def normal_sort(method1, method2):
     """Normal, everyday, alphanumeric sort."""
+
     if method1 < method2:
         return -1
     elif method2 < method1:

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# Common config vars.
+""" This module keeps track of variables common to the running of the program.
+
+"""
 
 this = None
 

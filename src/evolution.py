@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Listing of available evolutions.
 
+"""This class provides a way of querying evolutionary methods of pokemon."""
+
 import pokedex
 
 this = None
