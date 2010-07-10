@@ -45,7 +45,7 @@ def read_dex(filename):
     return userdex
 
 
-def write_config(config):
+def write_config():
     """Writes the current pyDex configuration to a standard location."""
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
