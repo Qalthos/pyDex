@@ -13,8 +13,12 @@ def write_dex(userdex):
     """Writes the current pokedex to a file."""
     print "Writing to %s" % userdex.get_filename()
     dex_file = open(userdex.get_filename(), "w")
-    for pokemon in userdex.user_dex:
+    dex_file.write("%s\n" % userdex.get_game())
+    # user_dex index 0 is junk to keep index to dexnum translation straight
+    # Skip it.
+    for pokemon in userdex.user_dex[1:]:
         dex_file.write("%s\n" % pokemon)
+    dex_file.write("\n%s\n" % userdex.unown_code)
     dex_file.close()
 
 
@@ -25,6 +29,8 @@ def read_dex(filename):
     dex_file = open(filename)
 
     try:
+        # Read the game version
+        game = dex_file.next()
         for line in dex_file:
             line = line.strip()
             if len(line) == 0:
@@ -32,6 +38,8 @@ def read_dex(filename):
             if len(userdex) > pokedex.MAX_DEX:
                 continue
             userdex.append(int(line))
+        # Read the Unown code
+        unown = dex_file.next()
     except StopIteration:
         print "Error reading file! Only %d read." % len(userdex)
 
