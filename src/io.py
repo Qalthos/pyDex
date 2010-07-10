@@ -1,47 +1,51 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# I/O functions for PyDex
+"""Provides a method of reading and writing to or from pyDex files."""
 
-import config
 import os
-import settings
 
 settings_dir = os.path.expanduser("~/.pyDex/")
+import config
+import pokedex
 
 
 def write_dex(userdex):
+    """Writes the current pokedex to a file."""
     print "Writing to %s" % userdex.get_filename()
-    file = open(userdex.get_filename(), "w")
+    dex_file = open(userdex.get_filename(), "w")
     for pokemon in userdex.user_dex:
-        file.write(str(pokemon) + "\n")
-    file.close()
+        dex_file.write("%s\n" % pokemon)
+    dex_file.close()
 
 
 def read_dex(filename):
+    """Loads the pokedex stored in filename into pyDex."""
     print "Reading from", filename
     userdex = settings.Settings()
     userdex.set_filename(filename)
-    file = open(filename)
-    for num, line in enumerate(file):
+    dex_file = open(filename)
+        for num, line in enumerate(dex_file):
         userdex.user_dex[num] = int(line.strip())
-    file.close()
+    dex_file.close()
 
     return userdex
 
 
 def write_settings():
+    """Writes the current pyDex configuration to a standard location."""
     if not os.path.exists(settings_dir):
         os.makedirs(settings_dir)
-    file = open(settings_dir + "config", "w")
-    file.write(config.get_instance().get_last_file())
-    file.close()
+    config_file = open(settings_dir + "config", "w")
+    config_file.write(config.get_instance().get_last_file())
+    config_file.close()
 
 
 def read_settings():
+    """Reads saved pyDex configuration from a standard location."""
     if not os.path.exists(settings_dir):
         os.makedirs(settings_dir)
     if not os.path.exists(settings_dir + "config"):
         return
-    file = open(settings_dir + "config")
-    config.get_instance().set_last_file(file.next())
-    file.close()
+    config_file = open(settings_dir + "config")
+    config.get_instance().set_last_file(config_file.next())
+    config_file.close()

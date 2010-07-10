@@ -13,11 +13,11 @@ class Evodex:
 
     def __init__(self):
         self.evo = []
-        file = open("evo.dat")
-        for line in file:
+        data = open("evo.dat")
+        for line in data:
             entry = line.split()
             self.evo.append(Evolution(entry[0], entry[1], entry[2]))
-        file.close()
+        data.close()
 
 
 class Evolution:

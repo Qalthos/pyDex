@@ -12,13 +12,13 @@ class Pokedex:
 
     def __init__(self):
         self.dex = []
-        file = open("ndex.dat")
-        for line in file:
+        nat_data = open("ndex.dat")
+        for line in nat_data:
             pokarray = line.split()
             if len(pokarray) == 3:
                 pokarray.append("---")
             self.dex.append(pokemon.Pokemon(pokarray))
-        file.close()
+        nat_data.close()
 
 
 def get_instance():

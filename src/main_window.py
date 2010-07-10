@@ -73,42 +73,42 @@ class MainWindow:
             self.builder.get_object("main_window").set_title(filename)
 
         # Build the listing of pokemon (national).
-        list = self.builder.get_object("national_pokemon")
-        list.set_model(self.national_model)
-        build_pokemon_columns(list, False)
+        list_store = self.builder.get_object("national_pokemon")
+        list_store.set_model(self.national_model)
+        build_pokemon_columns(list_store, False)
 
         # Build the listing of pokemon (Kanto).
-        list = self.builder.get_object("kanto_pokemon")
-        list.set_model(self.kanto_model)
-        build_pokemon_columns(list)
+        list_store = self.builder.get_object("kanto_pokemon")
+        list_store.set_model(self.kanto_model)
+        build_pokemon_columns(list_store)
 
         # Build the listing of pokemon (Johto).
-        list = self.builder.get_object("johto_pokemon")
-        list.set_model(self.johto_model)
-        build_pokemon_columns(list)
+        list_store = self.builder.get_object("johto_pokemon")
+        list_store.set_model(self.johto_model)
+        build_pokemon_columns(list_store)
 
         # Build the listing of pokemon (Hoenn).
-        list = self.builder.get_object("hoenn_pokemon")
-        list.set_model(self.hoenn_model)
-        build_pokemon_columns(list)
+        list_store = self.builder.get_object("hoenn_pokemon")
+        list_store.set_model(self.hoenn_model)
+        build_pokemon_columns(list_store)
 
         # Build the listing of pokemon (Sinnoh).
-        list = self.builder.get_object("sinnoh_pokemon")
-        list.set_model(self.sinnoh_model)
-        build_pokemon_columns(list)
+        list_store = self.builder.get_object("sinnoh_pokemon")
+        list_store.set_model(self.sinnoh_model)
+        build_pokemon_columns(list_store)
 
         # Build the listing of pokemon (Isshu).
-        #list = self.builder.get_object("isshu_pokemon")
-        #list.set_model(self.isshu_model)
-        #build_pokemon_columns(list)
+        #list_store = self.builder.get_object("isshu_pokemon")
+        #list_store.set_model(self.isshu_model)
+        #build_pokemon_columns(list_store)
 
-        list = self.builder.get_object("evolvable_pokemon")
-        list.set_model(self.evolution_model)
-        list.append_column(make_column("icon", "image", 0))
-        list.append_column(make_column("name", "text", 1))
-        list.append_column(make_column("method", "text", 2))
-        list.append_column(make_column("icon", "image", 3))
-        list.append_column(make_column("name", "text", 4))
+        list_store = self.builder.get_object("evolvable_pokemon")
+        list_store.set_model(self.evolution_model)
+        list_store.append_column(make_column("icon", "image", 0))
+        list_store.append_column(make_column("name", "text", 1))
+        list_store.append_column(make_column("method", "text", 2))
+        list_store.append_column(make_column("icon", "image", 3))
+        list_store.append_column(make_column("name", "text", 4))
 
         # Populate the game dropdown
         game_name = self.builder.get_object("game_name")
@@ -206,7 +206,6 @@ class MainWindow:
         chooser.show()
 
     def hide_dialog(self, button):
-        global user_settings
         chooser = self.builder.get_object("file_chooser")
         config.get_instance().set_last_file(chooser.get_filename())
         if get_name(button) == "continue":
@@ -373,20 +372,21 @@ def get_name(buildable):
         return gtk.Buildable.get_name(buildable)
 
 
-def build_pokemon_columns(list, regional=True):
-    list.append_column(make_column("icon", "image", 0))
-    list.append_column(make_column("#", "text", 1))
+def build_pokemon_columns(list_store, regional=True):
+    list_store.append_column(make_column("icon", "image", 0))
+    list_store.append_column(make_column("#", "text", 1))
     if regional:
-        list.append_column(make_column("N#", "text", 2))
-    list.append_column(make_column("name", "text", 3))
-    list.append_column(make_column("type 1", "text", 4))
-    list.append_column(make_column("type 2", "text", 5))
-    list.append_column(make_column("status", "text", 6))
-    list.set_search_equal_func(search)
+        list_store.append_column(make_column("N#", "text", 2))
+    list_store.append_column(make_column("name", "text", 3))
+    list_store.append_column(make_column("type 1", "text", 4))
+    list_store.append_column(make_column("type 2", "text", 5))
+    list_store.append_column(make_column("status", "text", 6))
+    list_store.set_search_equal_func(search)
 
 
-def search(model, column, key, iter, data=None):
-    row_data = model.get(iter, 1, 2, 3, 4, 5)
+def search(model, column, key, iterator, data=None):
+    """Checks each row to see if it matches the search pattern."""
+    row_data = model.get(iterator, 1, 2, 3, 4, 5)
     for datum in row_data:
         if not str(datum).lower().find(key.lower()) == -1:
             return False
@@ -430,11 +430,11 @@ def normal_sort(method1, method2):
         return 0
 
 
-def make_column(title, type, id):
-    column = gtk.TreeViewColumn(title, gtk.CellRendererText(), text=id)
-    if type == "image":
-        column = gtk.TreeViewColumn(title, gtk.CellRendererPixbuf(), pixbuf=id)
+def make_column(title, column_type, column_id):
+    column = gtk.TreeViewColumn(title, gtk.CellRendererText(), text=column_id)
+    if column_type == "image":
+        column = gtk.TreeViewColumn(title, gtk.CellRendererPixbuf(), pixbuf=column_id)
     column.set_resizable(True)
-    column.set_sort_column_id(id)
+    column.set_sort_column_id(column_id)
 
     return column
