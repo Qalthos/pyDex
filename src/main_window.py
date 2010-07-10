@@ -26,21 +26,17 @@ class MainWindow:
     def __init__(self):
         self.pokedex = pokedex.get_instance()
         self.evolutions = evolution.get_instance()
-        self.national_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                            str, str, str)
-        self.kanto_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                         str, str, str)
-        self.johto_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                         str, str, str)
-        self.hoenn_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                         str, str, str)
-        self.sinnoh_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                          str, str, str)
-        self.isshu_model = gtk.ListStore(gtk.gdk.Pixbuf, int, int, str,
-                                                         str, str, str)
-        self.evolution_model = gtk.ListStore(gtk.gdk.Pixbuf, str, str,
-                                             gtk.gdk.Pixbuf, str)
-        self.evolution_model.set_sort_func(2, sort)
+        self.models = {
+          "national": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "kanto": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "johto": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "hoenn": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "sinnoh": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "isshu": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "evolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str),
+          "prevolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str)
+        }
+        self.models["evolution"].set_sort_func(2, sort)
 
         self.filter = 0b111
 
@@ -72,36 +68,17 @@ class MainWindow:
 
         # Build the listing of pokemon (national).
         list_store = self.builder.get_object("national_pokemon")
-        list_store.set_model(self.national_model)
+        list_store.set_model(self.models["national"])
         build_pokemon_columns(list_store, False)
 
         # Build the listing of pokemon (Kanto).
-        list_store = self.builder.get_object("kanto_pokemon")
-        list_store.set_model(self.kanto_model)
-        build_pokemon_columns(list_store)
-
-        # Build the listing of pokemon (Johto).
-        list_store = self.builder.get_object("johto_pokemon")
-        list_store.set_model(self.johto_model)
-        build_pokemon_columns(list_store)
-
-        # Build the listing of pokemon (Hoenn).
-        list_store = self.builder.get_object("hoenn_pokemon")
-        list_store.set_model(self.hoenn_model)
-        build_pokemon_columns(list_store)
-
-        # Build the listing of pokemon (Sinnoh).
-        list_store = self.builder.get_object("sinnoh_pokemon")
-        list_store.set_model(self.sinnoh_model)
-        build_pokemon_columns(list_store)
-
-        # Build the listing of pokemon (Isshu).
-        #list_store = self.builder.get_object("isshu_pokemon")
-        #list_store.set_model(self.isshu_model)
-        #build_pokemon_columns(list_store)
+        for region in regional_dex.IDS:
+            list_store = self.builder.get_object("%s_pokemon" % region)
+            list_store.set_model(self.models[region])
+            build_pokemon_columns(list_store)
 
         list_store = self.builder.get_object("evolvable_pokemon")
-        list_store.set_model(self.evolution_model)
+        list_store.set_model(self.models["evolution"])
         list_store.append_column(make_column("icon", "image", 0))
         list_store.append_column(make_column("name", "text", 1))
         list_store.append_column(make_column("method", "text", 2))
@@ -139,22 +116,11 @@ class MainWindow:
                             pokenum, pokenum, pokemon.get_name(),
                             pokemon.get_type1(), pokemon.get_type2(),
                             self.pokedex.status(pokenum)]
-            self.national_model.append(pokarray)
-            if pokenum in regional_dex.kanto_ids:
-                pokarray[1] = regional_dex.kanto_ids.index(pokenum)
-                self.kanto_model.append(pokarray)
-            if pokenum in regional_dex.johto_ids:
-                pokarray[1] = regional_dex.johto_ids.index(pokenum)
-                self.johto_model.append(pokarray)
-            if pokenum in regional_dex.hoenn_ids:
-                pokarray[1] = regional_dex.hoenn_ids.index(pokenum)
-                self.hoenn_model.append(pokarray)
-            if pokenum in regional_dex.sinnoh_ids:
-                pokarray[1] = regional_dex.sinnoh_ids.index(pokenum)
-                self.sinnoh_model.append(pokarray)
-            #if pokenum in regional_dex.isshu_ids:
-            #    pokarray[1] = regional_dex.isshu_ids.index(pokenum)
-            #    self.isshu_model.append(pokarray)
+            self.models["national"].append(pokarray)
+            for region_name, region in regional_dex.IDS.items():
+                if pokenum in region:
+                    pokarray[1] = region.index(pokenum)
+                    self.models[region_name].append(pokarray)
 
         for pokepair in self.evolutions.evo:
             pokeold = pokepair.old.get_number()
@@ -166,7 +132,7 @@ class MainWindow:
                             gtk.gdk.pixbuf_new_from_file(
                                       self.load_image(pokenew)),
                             pokepair.new.get_name()]
-                self.evolution_model.append(pokarray)
+                self.models["evolution"].append(pokarray)
 
         notebook = self.builder.get_object("dex_type")
         self.refresh_status(notebook, None, notebook.get_current_page())
@@ -304,8 +270,8 @@ class MainWindow:
             #elif  new_page_num == 5:
             #    region = regional_dex.isshu_ids
             else:
-                status.push(0, str(len(self.evolution_model)) +
-                                 " pokemon waiting to evolve")
+                status.push(0, "%d pokemon waiting to evolve" %
+                                        len(self.models["evolution"]))
                 return
             for line in self.pokedex.dex:
                 if line.number in region:
@@ -341,13 +307,8 @@ class MainWindow:
 
     # Convenience Methods
     def clear_models(self):
-        self.national_model.clear()
-        self.kanto_model.clear()
-        self.johto_model.clear()
-        self.hoenn_model.clear()
-        self.sinnoh_model.clear()
-        self.isshu_model.clear()
-        self.evolution_model.clear()
+        for model in self.models.values():
+            model.clear()
 
     def load_image(self, image_number, portrait=False):
         if portrait and os.path.exists(
