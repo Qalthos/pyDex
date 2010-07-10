@@ -63,8 +63,8 @@ def read_config():
     config_file = open(config_dir + "config")
     config = {}
     for line in config_file:
-        line = line.split()
-        config[line[0]] = line[1]
+        config["filename"] = line.strip()
+        break
     config_file.close()
 
     return config
