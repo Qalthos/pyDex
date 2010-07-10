@@ -190,7 +190,7 @@ class MainWindow:
     def show_dialog(self, menu_item):
         item_name = get_name(menu_item)
         if item_name == "save_menu_item" and not self.user_settings.filename == "":
-            io.write_config(self.user_settings)
+            io.write_dex(self.user_settings)
             self.changed = False
             return
         button = self.builder.get_object("continue")
@@ -212,9 +212,9 @@ class MainWindow:
         if get_name(button) == "continue":
             if button.get_label() == "Save":
                 self.user_settings.set_filename(chooser.get_filename())
-                io.write_config(self.user_settings)
+                io.write_dex(self.pokedex)
             elif button.get_label() == "Open":
-                self.user_settings = io.read_config(chooser.get_filename())
+                self.user_settings = io.read_dex(chooser.get_filename())
                 self.add_pokemon()
             self.changed = False
             self.builder.get_object("main_window").set_title(chooser.get_filename())
@@ -333,7 +333,7 @@ class MainWindow:
 
     def quit(self, button):
         if button.get_label() == "Save":
-            io.write_config(self.user_settings)
+            io.write_dex(self.user_settings)
         self.builder.get_object("quit_dialog").hide()
         if button.get_label() == "Cancel":
             return

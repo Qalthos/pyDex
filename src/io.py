@@ -9,15 +9,15 @@ import settings
 settings_dir = os.path.expanduser("~/.pyDex/")
 
 
-def write_config(userdex):
-    print "Writing to", userdex.get_filename()
+def write_dex(userdex):
+    print "Writing to %s" % userdex.get_filename()
     file = open(userdex.get_filename(), "w")
     for pokemon in userdex.user_dex:
         file.write(str(pokemon) + "\n")
     file.close()
 
 
-def read_config(filename):
+def read_dex(filename):
     print "Reading from", filename
     userdex = settings.Settings()
     userdex.set_filename(filename)

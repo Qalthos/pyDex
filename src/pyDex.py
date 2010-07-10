@@ -21,8 +21,9 @@ if __name__ == "__main__":
     # Read settings and open last open file.
     io.read_settings()
     filename = config.get_instance().get_last_file()
+    # If we can find the file, load it.
     if os.path.exists(filename):
-        mw.user_settings = io.read_config(filename)
+        mw.user_settings = io.read_dex(filename)
 
     mw.main()
     gtk.main()
