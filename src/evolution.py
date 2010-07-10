@@ -44,6 +44,8 @@ def expand(string):
       "DST": "DeepSeaTooth", "E": "Electirizer", "KR": "King's Rock",
       "M": "Magmarizer", "MC": "Metal Coat", "P": "Protector",
       "RC": "ReaperCloth", "UG": "Up-Grade"}
+    other = {"B": "Level up with maximum Beauty", "H": "Happiness",
+      "R": "Level up with Remoraid in party"}
 
     suffix = ""
     # Sometimes additional information is also encoded.  This information is
@@ -67,14 +69,10 @@ def expand(string):
         else:
             string = ""
         string = "Trade" + string
-    elif string == "B":
-        string = "Level up with maximum Beauty"
-    elif string == "H":
-        string = "Happiness"
-    elif string == "R":
-        string = "Level up with Remoraid in party"
     elif string.startswith("L"):
         string = "Level " + string[1:]
+    else:
+        string = other[string]
 
     # Now we can deal with a suffix if one exists.
     if suffix == "(D)":
