@@ -266,15 +266,15 @@ class MainWindow:
         else:
             region = None
             if  new_page_num == 1:
-                region = regional_dex.kanto_ids
+                region = regional_dex.IDS["kanto"]
             elif  new_page_num == 2:
-                region = regional_dex.johto_ids
+                region = regional_dex.IDS["johto"]
             elif  new_page_num == 3:
-                region = regional_dex.hoenn_ids
+                region = regional_dex.IDS["hoenn"]
             elif  new_page_num == 4:
-                region = regional_dex.sinnoh_ids
-            #elif  new_page_num == 5:
-            #    region = regional_dex.isshu_ids
+                region = regional_dex.IDS["sinnoh"]
+            elif  new_page_num == 5:
+                region = regional_dex.IDS["isshu"]
             else:
                 status.push(0, "%d pokemon waiting to evolve" %
                                         len(self.models["evolution"]))
