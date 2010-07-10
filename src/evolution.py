@@ -14,18 +14,16 @@ class Evodex:
     def __init__(self):
         self.evo = []
         data = open("evo.dat")
+        dex = pokedex.get_instance().dex
         for line in data:
             entry = line.split()
-            self.evo.append(Evolution(entry[0], entry[1], entry[2]))
+            # pokedex unfortunately doesn't have a placeholder at 0
+            self.evo.append({
+              "old": dex[int(entry[0]) - 1],
+              "method": entry[1],
+              "new": dex[int(entry[2]) - 1]
+            })
         data.close()
-
-
-class Evolution:
-
-    def __init__(self, old, method, new):
-        self.old = pokedex.get_instance().dex[int(old) - 1]
-        self.method = expand(method)
-        self.new = pokedex.get_instance().dex[int(new) - 1]
 
 
 def expand(string):

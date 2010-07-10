@@ -129,15 +129,16 @@ class MainWindow:
                     self.models[region_name].append(pokarray)
 
         for pokepair in self.evolutions.evo:
-            pokeold = pokepair.old.get_number()
-            pokenew = pokepair.new.get_number()
+            pokeold = pokepair["old"].get_number()
+            pokenew = pokepair["new"].get_number()
             if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
-                pokarray = [gtk.gdk.pixbuf_new_from_file(
-                                      self.load_image(pokeold)),
-                            pokepair.old.get_name(), pokepair.method,
-                            gtk.gdk.pixbuf_new_from_file(
-                                      self.load_image(pokenew)),
-                            pokepair.new.get_name()]
+                pokarray = [
+                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
+                  pokepair["old"].get_name(),
+                  pokepair["method"],
+                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
+                  pokepair["new"].get_name()
+                ]
                 self.models["evolution"].append(pokarray)
 
         notebook = self.builder.get_object("dex_type")
