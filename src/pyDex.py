@@ -19,7 +19,7 @@ if __name__ == "__main__":
     mw = main_window.MainWindow()
 
     # Read settings and open last open file.
-    io.read_settings()
+    io.read_config()
     filename = config.get_instance().get_last_file()
     # If we can find the file, load it.
     if os.path.exists(filename):

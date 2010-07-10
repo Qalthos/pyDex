@@ -7,7 +7,7 @@ import os
 import config
 import pokedex
 
-config_dir = os.path.expanduser("~/.pyDex2/")
+config_dir = os.path.expanduser("~/.pyDex/")
 
 
 def write_dex(userdex):
@@ -22,10 +22,9 @@ def write_dex(userdex):
 def read_dex(filename):
     """Loads the pokedex stored in filename into pyDex."""
     print "Reading from", filename
-    userdex = settings.Settings()
-    userdex.set_filename(filename)
+    userdex = [0]
     dex_file = open(filename)
-        for num, line in enumerate(dex_file):
+    for num, line in enumerate(dex_file):
         userdex.user_dex[num] = int(line.strip())
     dex_file.close()
 
