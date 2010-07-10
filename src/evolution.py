@@ -24,88 +24,46 @@ class Evolution:
 
     def __init__(self, old, method, new):
         self.old = pokedex.get_instance().dex[int(old) - 1]
-        self.method = format(method)
+        self.method = expand(method)
         self.new = pokedex.get_instance().dex[int(new) - 1]
 
 
-def format(string):
+def expand(string):
+    """This method expands the shorthand evolutionary methods from their
+    compressed form to a more human-readable one.
+
+    """
+
+    holding = {"OS": "Oval Stone", "RC": "Razor Claw", "RF": "Razor Fang"}
+    knowing = {"AP": "AncientPower", "DH": "DoubleHit", "M": "Mimic",
+      "RO": "Rollout"}
+    location = {"217": "Route 217", "C": "Mt. Coronet", "EF": "Eterna Forest"}
+    stones = {"DA": "Dawn", "DU": "Dusk", "F": "Fire", "T": "Thunder",
+      "L": "Leaf", "M": "Moon", "S": "Sun", "SH": "Shiny", "W": "Water"}
+    trade = {"DD": "Dubious Disc", "DS": "Dragon Scale", "DSS": "DeepSeaScale",
+      "DST": "DeepSeaTooth", "E": "Electirizer", "KR": "King's Rock",
+      "M": "Magmarizer", "MC": "Metal Coat", "P": "Protector",
+      "RC": "ReaperCloth", "UG": "Up-Grade"}
+
     suffix = ""
+    # Sometimes additional information is also encoded.  This information is
+    # added in parentheses as a suffix and split off here.
     pivot = string.find("(")
     if not pivot == -1:
         suffix = string[pivot:]
         string = string[:pivot]
 
     if string.startswith("h"):      # Level while holding...
-        if string[1:] == "OS":
-            string = "Oval Stone"
-        elif string[1:] == "RC":
-            string = "Razor Claw"
-        elif string[1:] == "RF":
-            string = "Razor Fang"
-        string = "Level up holding " + string
+        string = "Level up holding " + holding[string[1:]]
     elif string.startswith("k"):    # Level while knowing...
-        if string[1:] == "AP":
-            string = "AncientPower"
-        elif string[1:] == "DH":
-            string = "DoubleHit"
-        elif string[1:] == "M":
-            string = "Mimic"
-        elif string[1:] == "RO":
-            string = "Rollout"
-        string = "Level up knowing " + string
+        string = "Level up knowing " + knowing[string[1:]]
     elif string.startswith("l"):    # Level at location...
-        if string[1:] == "217":
-            string = "Route 217"
-        elif string[1:] == "C":
-            string = "Mt. Coronet"
-        elif string[1:] == "EF":
-            string = "Eterna Forest"
-        string = "Level up in " + string
+        string = "Level up in " + location[string[1:]]
     elif string.startswith("s"):    # Use evolutionary stone
-        if string[1:] == "DA":
-            string = "Dawn"
-        elif string[1:] == "DU":
-            string = "Dusk"
-        elif string[1:] == "F":
-            string = "Fire"
-        elif string[1:] == "T":
-            string = "Thunder"
-        elif string[1:] == "L":
-            string = "Leaf"
-        elif string[1:] == "M":
-            string = "Moon"
-        elif string[1:] == "S":
-            string = "Sun"
-        elif string[1:] == "SH":
-            string = "Shiny"
-        elif string[1:] == "W":
-            string = "Water"
-        string = string + " Stone"
+        string = stones[string[1:]] + " Stone"
     elif string.startswith("t"):    # Trade (while holding...)
         if not len(string) == 1:
-            if string[1:] == "DD":
-                string = "Dubious Disc"
-            elif string[1:] == "DS":
-                string = "Dragon Scale"
-            elif string[1:] == "DSS":
-                string = "DeepSeaScale"
-            elif string[1:] == "DST":
-                string = "DeepSeaTooth"
-            elif string[1:] == "E":
-                string = "Electirizer"
-            elif string[1:] == "KR":
-                string = "King's Rock"
-            elif string[1:] == "M":
-                string = "Magmarizer"
-            elif string[1:] == "MC":
-                string = "Metal Coat"
-            elif string[1:] == "P":
-                string = "Protector"
-            elif string[1:] == "RC":
-                string = "ReaperCloth"
-            elif string[1:] == "UG":
-                string = "Up-Grade"
-            string = " holding " + string
+            string = " holding " + trade[string[1:]]
         else:
             string = ""
         string = "Trade" + string
@@ -118,6 +76,7 @@ def format(string):
     elif string.startswith("L"):
         string = "Level " + string[1:]
 
+    # Now we can deal with a suffix if one exists.
     if suffix == "(D)":
         suffix = " during the day"
     elif suffix == "(E)":
