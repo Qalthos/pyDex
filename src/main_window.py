@@ -31,7 +31,7 @@ class MainWindow:
           "johto": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
           "hoenn": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
           "sinnoh": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          #"isshu": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "isshu": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
           "evolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str),
           "prevolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str)
         }
@@ -271,8 +271,8 @@ class MainWindow:
                 region = regional_dex.IDS["hoenn"]
             elif  new_page_num == 4:
                 region = regional_dex.IDS["sinnoh"]
-#            elif  new_page_num == 5:
-#                region = regional_dex.IDS["isshu"]
+            elif  new_page_num == 5:
+                region = regional_dex.IDS["isshu"]
             else:
                 status.push(0, "%d pokemon waiting to evolve" %
                                         len(self.models["evolution"]))
