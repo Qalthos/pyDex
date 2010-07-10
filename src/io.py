@@ -24,8 +24,22 @@ def read_dex(filename):
     print "Reading from", filename
     userdex = [0]
     dex_file = open(filename)
-    for num, line in enumerate(dex_file):
-        userdex.user_dex[num] = int(line.strip())
+
+    try:
+        for line in dex_file:
+            line = line.strip()
+            if len(line) == 0:
+                break
+            if len(userdex) > pokedex.MAX_DEX:
+                continue
+            userdex.append(int(line))
+    except StopIteration:
+        print "Error reading file! Only %d read." % len(userdex)
+
+    # Premature stopping or older files may result in short arrays.
+    while len(userdex) <= pokedex.MAX_DEX:
+        userdex.append(1)
+
     dex_file.close()
 
     return userdex
