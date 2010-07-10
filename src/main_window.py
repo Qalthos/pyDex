@@ -193,8 +193,7 @@ class MainWindow:
         chooser.hide()
 
     def show_info(self, tv, *ignored):
-        pokenum = tv.get_model().get_value(
-            tv.get_selection().get_selected()[1], 2)
+        pokenum = tv.get_model().get_value(tv.get_selection().get_selected()[1], 2)
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon.get_number()))
@@ -233,9 +232,7 @@ class MainWindow:
         self.builder.get_object("info_box").hide()
 
     def show_evo(self, tv, *ignored):
-        pokenum = tv.get_model().get_value(
-            tv.get_selection().get_selected()[1], 2)
-        print pokenum
+        pokenum = tv.get_model().get_value(tv.get_selection().get_selected()[1], 2)
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon.get_number()))
@@ -290,10 +287,10 @@ class MainWindow:
                 seen += 1
 
         seen += caught
-        pct_seen = int(seen * 100.0 / len(dex))
-        pct_caught = int(caught * 100.0 / len(dex))
-        status.push(0, "Seen: " + str(seen) + " (" + str(pct_seen) + "%) " +
-                   " Caught: " + str(caught) + " (" + str(pct_caught) + "%)")
+        pct_seen = seen * 100.0 / len(dex)
+        pct_caught = caught * 100.0 / len(dex)
+        status.push(0, "Seen: %d (%d%%)  Caught: %d (%d%%)" %
+                        (seen, pct_seen, caught, pct_caught))
 
     def save_before_quit(self, *ignored):
         if self.changed:
