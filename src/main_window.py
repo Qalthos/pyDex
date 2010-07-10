@@ -86,15 +86,14 @@ class MainWindow:
         list_store.append_column(make_column("name", "text", 4))
 
         # Populate the game dropdown
+        games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
+          "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
+          "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
+          "Black", "White"]
         game_name = self.builder.get_object("game_name")
         game_store = gtk.ListStore(str)
-        game_store.append(["Diamond"])
-        game_store.append(["Pearl"])
-        game_store.append(["Platinum"])
-        game_store.append(["HeartGold"])
-        game_store.append(["SoulSilver"])
-        game_store.append(["Black"])
-        game_store.append(["White"])
+        for game in games:
+            game_store.append([game])
         game_name.set_model(game_store)
         cell = gtk.CellRendererText()
         game_name.pack_start(cell, True)
