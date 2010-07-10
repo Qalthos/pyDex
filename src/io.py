@@ -6,7 +6,7 @@ import os
 
 import pokedex
 
-config_dir = os.path.expanduser("~/.pyDex/")
+config_dir = os.path.expanduser("~/.pyDex2/")
 
 
 def write_dex(userdex):
