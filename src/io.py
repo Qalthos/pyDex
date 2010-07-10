@@ -4,7 +4,6 @@
 
 import os
 
-import config
 import pokedex
 
 config_dir = os.path.expanduser("~/.pyDex/")
@@ -45,12 +44,13 @@ def read_dex(filename):
     return userdex
 
 
-def write_config():
+def write_config(config):
     """Writes the current pyDex configuration to a standard location."""
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
     config_file = open(config_dir + "config", "w")
-    config_file.write(config.get_instance().get_last_file())
+    for key, value in config.items():
+        config_file.write("%s %s" % (key, value))
     config_file.close()
 
 
@@ -61,5 +61,10 @@ def read_config():
     if not os.path.exists(config_dir + "config"):
         return
     config_file = open(config_dir + "config")
-    config.get_instance().set_last_file(config_file.next())
+    config = {}
+    for line in config_file:
+        line = line.split()
+        config[line[0]] = line[1]
     config_file.close()
+
+    return config

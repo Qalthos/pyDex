@@ -11,7 +11,6 @@ import os
 import gtk
 import gtk.glade
 
-import config
 import evolution
 import io
 import pokedex
@@ -42,6 +41,15 @@ class MainWindow:
 
         self.builder = None
 
+        # Read settings and open last open file.
+        self.config = io.read_config()
+        # If we can find the file, load it.
+        if "filename" in self.config:
+            filename = self.config["filename"]
+            if os.path.exists(filename):
+                self.pokedex.set_filename(filename)
+                self.pokedex.user_dex = io.read_dex(filename)
+
     def main(self):
         #Set the Glade file
         self.builder = gtk.Builder()
@@ -62,9 +70,8 @@ class MainWindow:
              "really_quit": self.quit}
         self.builder.connect_signals(dic)
 
-        filename = config.get_instance().get_last_file()
-        if not filename == "":
-            self.builder.get_object("main_window").set_title(filename)
+        if "filename" in self.config:
+            self.builder.get_object("main_window").set_title(self.config["filename"])
 
         # Build the listing of pokemon (national).
         list_store = self.builder.get_object("national_pokemon")
@@ -171,7 +178,7 @@ class MainWindow:
 
     def hide_dialog(self, button):
         chooser = self.builder.get_object("file_chooser")
-        config.get_instance().set_last_file(chooser.get_filename())
+        self.config["filename"] = chooser.get_filename()
         if get_name(button) == "continue":
             if button.get_label() == "Save":
                 self.pokedex.set_filename(chooser.get_filename())
@@ -292,7 +299,7 @@ class MainWindow:
             self.builder.get_object("quit_dialog").show()
             return True
         else:
-            io.write_config()
+            io.write_config(self.config)
             gtk.main_quit()
 
     def quit(self, button):
@@ -301,7 +308,7 @@ class MainWindow:
         self.builder.get_object("quit_dialog").hide()
         if button.get_label() == "Cancel":
             return
-        io.write_config()
+        io.write_config(self.config)
         gtk.main_quit()
 
     # Convenience Methods
