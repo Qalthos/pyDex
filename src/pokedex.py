@@ -11,6 +11,8 @@ MAX_DEX = 493
 class Pokedex:
     dex = []
     user_dex = []
+    unown_code = 0
+    game = "Default"
     filename = ""
 
     def __init__(self):
