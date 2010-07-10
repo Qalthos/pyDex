@@ -16,7 +16,6 @@ import evolution
 import io
 import pokedex
 import regional_dex
-import settings
 
 
 class MainWindow:
@@ -45,7 +44,6 @@ class MainWindow:
 
         self.filter = 0b111
 
-        self.user_settings = settings.Settings()
         self.builder = None
 
     def main(self):
@@ -134,13 +132,13 @@ class MainWindow:
 
         for pokemon in self.pokedex.dex:
             pokenum = pokemon.get_number()
-            if not self.user_settings.valid(pokenum, self.filter):
+            if not self.pokedex.valid(pokenum, self.filter):
                 continue
             pokarray = [gtk.gdk.pixbuf_new_from_file(
                                   self.load_image(pokenum)),
                             pokenum, pokenum, pokemon.get_name(),
                             pokemon.get_type1(), pokemon.get_type2(),
-                            self.user_settings.status(pokenum)]
+                            self.pokedex.status(pokenum)]
             self.national_model.append(pokarray)
             if pokenum in regional_dex.kanto_ids:
                 pokarray[1] = regional_dex.kanto_ids.index(pokenum)
@@ -161,7 +159,7 @@ class MainWindow:
         for pokepair in self.evolutions.evo:
             pokeold = pokepair.old.get_number()
             pokenew = pokepair.new.get_number()
-            if self.user_settings.valid(pokeold, 0b100) and self.user_settings.valid(pokenew, 0b011):
+            if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
                 pokarray = [gtk.gdk.pixbuf_new_from_file(
                                       self.load_image(pokeold)),
                             pokepair.old.get_name(), pokepair.method,
@@ -175,7 +173,8 @@ class MainWindow:
 
     # Reaction Methods
     def new_file(self, *ignored):
-        self.user_settings = settings.Settings()
+        self.pokedex.new_dex()
+        self.builder.get_object("main_window").set_title("New file")
         self.add_pokemon()
 
     def toggle(self, button):
@@ -189,8 +188,8 @@ class MainWindow:
 
     def show_dialog(self, menu_item):
         item_name = get_name(menu_item)
-        if item_name == "save_menu_item" and not self.user_settings.filename == "":
-            io.write_dex(self.user_settings)
+        if item_name == "save_menu_item" and not self.pokedex.get_filename() == "":
+            io.write_dex(self.pokedex)
             self.changed = False
             return
         button = self.builder.get_object("continue")
@@ -202,7 +201,7 @@ class MainWindow:
             button.set_label("Save")
             chooser.set_action(gtk.FILE_CHOOSER_ACTION_SAVE)
 
-        chooser.set_current_folder(io.settings_dir)
+        chooser.set_current_folder(io.config_dir)
         chooser.show()
 
     def hide_dialog(self, button):
@@ -210,10 +209,11 @@ class MainWindow:
         config.get_instance().set_last_file(chooser.get_filename())
         if get_name(button) == "continue":
             if button.get_label() == "Save":
-                self.user_settings.set_filename(chooser.get_filename())
+                self.pokedex.set_filename(chooser.get_filename())
                 io.write_dex(self.pokedex)
             elif button.get_label() == "Open":
-                self.user_settings = io.read_dex(chooser.get_filename())
+                self.pokedex.user_dex = io.read_dex(chooser.get_filename())
+                self.pokedex.set_filename(chooser.get_filename())
                 self.add_pokemon()
             self.changed = False
             self.builder.get_object("main_window").set_title(chooser.get_filename())
@@ -232,7 +232,7 @@ class MainWindow:
         else:
             self.builder.get_object("info_type2").set_label("")
 
-        status = self.user_settings.user_dex[pokemon.get_number()]
+        status = self.pokedex.user_dex[pokemon.get_number()]
         self.builder.get_object("radio_missing").set_active(status & 1)
         self.builder.get_object("radio_seen").set_active(status & 2)
         self.builder.get_object("radio_caught").set_active(status & 4)
@@ -242,21 +242,21 @@ class MainWindow:
     def hide_info(self, button):
         number = int(self.builder.get_object("number").get_label())
         if get_name(button) == "info_okay":
-            last_value = self.user_settings.user_dex[number]
+            last_value = self.pokedex.user_dex[number]
             for radio in self.builder.get_object("radio_caught").get_group():
                 if radio.get_active():
                     label = get_name(radio)
                     if label == "radio_caught":
-                        self.user_settings.user_dex[number] = 4
+                        self.pokedex.user_dex[number] = 4
                     elif label == "radio_seen":
-                        self.user_settings.user_dex[number] = 2
+                        self.pokedex.user_dex[number] = 2
                     elif label == "radio_missing":
-                        self.user_settings.user_dex[number] = 1
-            if not last_value == self.user_settings.user_dex[number]:
+                        self.pokedex.user_dex[number] = 1
+            if not last_value == self.pokedex.user_dex[number]:
                 self.add_pokemon()
                 self.changed = True
             else:
-                print self.user_settings.user_dex[number]
+                print self.pokedex.user_dex[number]
         self.builder.get_object("info_box").hide()
 
     def show_evo(self, tv, *ignored):
@@ -290,7 +290,7 @@ class MainWindow:
         seen = 0
         dex = []
         if new_page_num == 0: # National
-            dex = self.user_settings.user_dex
+            dex = self.pokedex.user_dex
         else:
             region = None
             if  new_page_num == 1:
@@ -309,7 +309,7 @@ class MainWindow:
                 return
             for line in self.pokedex.dex:
                 if line.number in region:
-                    dex.append(self.user_settings.user_dex[line.number])
+                    dex.append(self.pokedex.user_dex[line.number])
         for pokestat in dex:
             if pokestat == 4:
                 caught += 1
@@ -327,16 +327,16 @@ class MainWindow:
             self.builder.get_object("quit_dialog").show()
             return True
         else:
-            io.write_settings()
+            io.write_config()
             gtk.main_quit()
 
     def quit(self, button):
         if button.get_label() == "Save":
-            io.write_dex(self.user_settings)
+            io.write_dex(self.pokedex)
         self.builder.get_object("quit_dialog").hide()
         if button.get_label() == "Cancel":
             return
-        io.write_settings()
+        io.write_config()
         gtk.main_quit()
 
     # Convenience Methods
