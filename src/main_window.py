@@ -92,6 +92,14 @@ class MainWindow:
         list_store.append_column(make_column("icon", "image", 3))
         list_store.append_column(make_column("name", "text", 4))
 
+        list_store = self.builder.get_object("breedable_pokemon")
+        list_store.set_model(self.models["prevolution"])
+        list_store.append_column(make_column("icon", "image", 0))
+        list_store.append_column(make_column("name", "text", 1))
+        list_store.append_column(make_column("method", "text", 2))
+        list_store.append_column(make_column("icon", "image", 3))
+        list_store.append_column(make_column("name", "text", 4))
+
         # Populate the game dropdown
         games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
           "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
@@ -140,6 +148,19 @@ class MainWindow:
                   pokepair["new"].get_name()
                 ]
                 self.models["evolution"].append(pokarray)
+
+        for pokepair in self.evolutions.prevo:
+            pokeold = pokepair["old"].get_number()
+            pokenew = pokepair["new"].get_number()
+            if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
+                pokarray = [
+                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
+                  pokepair["old"].get_name(),
+                  pokepair["method"],
+                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
+                  pokepair["new"].get_name()
+                ]
+                self.models["prevolution"].append(pokarray)
 
         notebook = self.builder.get_object("dex_type")
         self.refresh_status(notebook, None, notebook.get_current_page())
