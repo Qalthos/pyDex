@@ -13,7 +13,7 @@ class Evodex:
         self.prevo = []
         dex = pokedex.get_instance().dex
         
-        data = open("evo.dat")
+        data = open("data/evo.dat")
         for line in data:
             entry = line.split()
             # pokedex unfortunately doesn't have a placeholder at 0
@@ -24,7 +24,7 @@ class Evodex:
             })
         data.close()
         
-        data = open("prevo.dat")
+        data = open("data/prevo.dat")
         for line in data:
             entry = line.split()
             parents = entry[0].split(",")

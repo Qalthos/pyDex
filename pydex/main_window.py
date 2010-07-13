@@ -17,7 +17,7 @@ import regional_dex
 
 class MainWindow:
 
-    image_dir = "../images/"
+    image_dir = "images/"
     changed = False
 
     def __init__(self):

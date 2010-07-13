@@ -7,7 +7,7 @@ import gtk
 import os
 import sys
 
-import main_window
+from pydex import main_window
 
 if __name__ == "__main__":
     # Fix for relative paths

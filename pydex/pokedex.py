@@ -16,7 +16,7 @@ class Pokedex:
     filename = ""
 
     def __init__(self):
-        nat_data = open("ndex.dat")
+        nat_data = open("data/ndex.dat")
         for line in nat_data:
             pokarray = line.split()
             if len(pokarray) == 3:
