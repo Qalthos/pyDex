@@ -78,7 +78,7 @@ class MainWindow:
         list_store.set_model(self.models["national"])
         build_pokemon_columns(list_store, False)
 
-        # Build the listing of pokemon (Kanto).
+        # Build the listing of pokemon for each region.
         for region in regional_dex.IDS:
             list_store = self.builder.get_object("%s_pokemon" % region)
             list_store.set_model(self.models[region])
