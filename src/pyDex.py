@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
 """PyDex is an interactive pokédex reader written in Python and Glade"""
 
 import gtk

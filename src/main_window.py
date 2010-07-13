@@ -1,6 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
 """The main window of the pokedex.  This module handles all the GTK/Glade
 specific functions
 
