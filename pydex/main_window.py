@@ -134,31 +134,19 @@ class MainWindow:
                     pokarray[1] = region.index(pokenum)
                     self.models[region_name].append(pokarray)
 
-        for pokepair in self.evolutions.evo:
-            pokeold = pokepair["old"].get_number()
-            pokenew = pokepair["new"].get_number()
-            if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
-                pokarray = [
-                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
-                  pokepair["old"].get_name(),
-                  pokepair["method"],
-                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
-                  pokepair["new"].get_name()
-                ]
-                self.models["evolution"].append(pokarray)
-
-        for pokepair in self.evolutions.prevo:
-            pokeold = pokepair["old"].get_number()
-            pokenew = pokepair["new"].get_number()
-            if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
-                pokarray = [
-                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
-                  pokepair["old"].get_name(),
-                  pokepair["method"],
-                  gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
-                  pokepair["new"].get_name()
-                ]
-                self.models["prevolution"].append(pokarray)
+        for evotype, evolution in self.evolutions.evo.items():
+            for pokepair in evolution:
+                pokeold = pokepair["old"].get_number()
+                pokenew = pokepair["new"].get_number()
+                if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
+                    pokarray = [
+                      gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
+                      pokepair["old"].get_name(),
+                      pokepair["method"],
+                      gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
+                      pokepair["new"].get_name()
+                    ]
+                    self.models[evotype].append(pokarray)
 
         notebook = self.builder.get_object("dex_type")
         self.refresh_status(notebook, None, notebook.get_current_page())

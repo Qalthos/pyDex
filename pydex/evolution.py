@@ -9,15 +9,14 @@ this = None
 class Evodex:
 
     def __init__(self):
-        self.evo = []
-        self.prevo = []
+        self.evo = {"evolution": [], "prevolution": []}
         dex = pokedex.get_instance().dex
         
         data = open("data/evo.dat")
         for line in data:
             entry = line.split()
             # pokedex unfortunately doesn't have a placeholder at 0
-            self.evo.append({
+            self.evo["evolution"].append({
               "old": dex[int(entry[0]) - 1],
               "method": expand(entry[1]),
               "new": dex[int(entry[2]) - 1]
@@ -29,7 +28,7 @@ class Evodex:
             entry = line.split()
             parents = entry[0].split(",")
             for parent in parents:
-                self.prevo.append({
+                self.evo["prevolution"].append({
                   "old": dex[int(parent) -1],
                   "method": entry[1],
                   "new": dex[int(entry[2]) - 1]
