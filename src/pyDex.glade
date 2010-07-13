@@ -790,9 +790,17 @@ Evolutions</property>
               </packing>
             </child>
             <child>
-              <object class="GtkTreeView" id="breedable_pokemon">
+              <object class="GtkScrolledWindow" id="scroll8">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <child>
+                  <object class="GtkTreeView" id="breedable_pokemon">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="position">8</property>
