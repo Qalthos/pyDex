@@ -21,7 +21,7 @@ def write_dex(userdex):
 def read_dex(filename):
     """Loads the pokedex stored in filename into pyDex."""
     print "Reading from", filename
-    userdex = [0]
+    userdex = []
     dex_file = open(filename)
 
     try:
