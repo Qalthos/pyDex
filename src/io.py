@@ -50,7 +50,8 @@ def write_config(config):
         os.makedirs(config_dir)
     config_file = open(config_dir + "config", "w")
     for key, value in config.items():
-        config_file.write("%s %s" % (key, value))
+    	if key == "filename":
+	        config_file.write("%s" % value)
     config_file.close()
 
 
