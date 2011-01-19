@@ -20,7 +20,7 @@ class Evodex:
             # pokedex unfortunately doesn't have a placeholder at 0
             self.evo.append({
               "old": dex[int(entry[0]) - 1],
-              "method": entry[1],
+              "method": expand(entry[1]),
               "new": dex[int(entry[2]) - 1]
             })
         data.close()
