@@ -50,7 +50,7 @@ class MainWindow:
                 self.pokedex.set_filename(filename)
                 self.pokedex.user_dex = io.read_dex(filename)
 
-    def main(self):
+    def main(self, parent):
         #Set the Glade file
         self.builder = gtk.Builder()
         self.builder.add_from_file("pyDex.glade")
@@ -70,8 +70,12 @@ class MainWindow:
              "really_quit": self.quit}
         self.builder.connect_signals(dic)
 
+        if not parent:
+            parent = self.builder.get_object("main_window")
+    
         if "filename" in self.config:
-            self.builder.get_object("main_window").set_title(self.config["filename"])
+            parent.set_title(self.config["filename"])
+        parent.add(self.builder.get_object("main_pane"))
 
         # Build the listing of pokemon (national).
         list_store = self.builder.get_object("national_pokemon")

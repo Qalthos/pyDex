@@ -16,5 +16,5 @@ if __name__ == "__main__":
 
     mw = main_window.MainWindow()
 
-    mw.main()
+    mw.main(None)
     gtk.main()
