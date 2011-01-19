@@ -314,11 +314,13 @@ class MainWindow:
 
     def load_image(self, image_number, portrait=False):
         if portrait and os.path.exists(
-                "%sportraits/%d.png" % (self.image_dir, image_number)):
-            return "%sportraits/%d.png" % (self.image_dir, image_number)
+                "%sportraits/%s.png" % (self.image_dir, image_number)):
+            return "%sportraits/%s.png" % (self.image_dir, image_number)
         elif os.path.exists(
-                    "%sicons/%d.png" % (self.image_dir, image_number)):
-            return "%sicons/%d.png" % (self.image_dir, image_number)
+                    "%sicons/%s.png" % (self.image_dir, image_number)):
+            return "%sicons/%s.png" % (self.image_dir, image_number)
+        elif os.path.exists("%sicons/0.png" % self.image_dir):
+            return "%sicons/0.png" % self.image_dir
         return "%sblank.png" % self.image_dir
 
 
