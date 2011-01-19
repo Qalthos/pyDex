@@ -119,7 +119,7 @@
 119 Seaking Water
 120 Staryu Water
 121 Starmie Water Psychic
-122 Mr.Mime Psychic
+122 Mr._Mime Psychic
 123 Scyther Bug Flying
 124 Jynx Ice Psychic
 125 Electabuzz Electric
@@ -436,7 +436,7 @@
 436 Bronzor Steel Psychic
 437 Bronzong Steel Psychic
 438 Bonsly Rock
-439 MimeJr. Psychic
+439 Mime_Jr. Psychic
 440 Happiny Normal
 441 Chatot Normal Flying
 442 Spiritomb Ghost Dark
@@ -491,12 +491,159 @@
 491 Darkrai Dark
 492 Shaymin Grass
 493 Arceus Normal
-494 Smugleaf Grass
-495 x Grass
-496 x Grass
-497 Pignite Fire
-498 x Fire
-499 x Fire
-500 Wotter Water
-501 x Water
-502 x Water
+494 Victini Psychic Fire
+495 Snivy Grass
+496 Janovy Grass
+497 Jalorda Grass
+498 Tepig Fire
+499 Chaoboo Fire Fighting
+500 Enbuoh Fire Fighting
+501 Oshawott Water
+502 Futachimaru Water
+503 Daikenki Water
+504 Patrat Normal
+505 Miruhog Normal
+506 Yorterry Normal
+507 Haderia Normal
+508 Murando Normal
+509 Choroneko Dark
+510 Lepardas Dark
+511 Pansage Grass
+512 Yanakkie Grass
+513 Pansear Fire
+514 Baokkie Fire
+515 Panpour Water
+516 Hiyakkie Water
+517 Munna Psychic
+518 Musharna Psychic
+519 Pidove Normal Flying
+520 Hatooboo Normal Flying
+521 Kenhorou Normal Flying
+522 Blitzle Electric
+523 Zeburaika Electric
+524 Dangoro Rock
+525 Gantoru Rock
+526 Gigalith Rock
+527 Woobat Psychic Flying
+528 Kokoromori Psychic Flying
+529 Drilbur Ground
+530 Excadrill Ground Steel
+531 Tabunne Normal
+532 Dokkora Fighting
+533 Dotekkotsu Fighting
+534 Roobushin Fighting
+535 Otamaro Water
+536 Gamagaru Water Ground
+537 Gamageroge Water Ground
+538 Nageki Fighting
+539 Dageki Fighting
+540 Sewaddle Bug Grass
+541 Kurumayu Bug Grass
+542 Hahakomori Bug Grass
+543 Fushide Bug Poison
+544 Hoiiga Bug Poison
+545 Pendra Bug Poison
+546 Monmen Grass
+547 Erufuun Grass
+548 Churine Grass
+549 Doredia Grass
+550 Basslao Water
+551 Sandile Ground Dark
+552 Waruvile Ground Dark
+553 Waruvial Ground Dark
+554 Darumakka Fire
+555 Darmanitan Fire
+556 Marakacchi Grass
+557 Ishizumai Bug Rock
+558 Iwaparesu Bug Rock
+559 Zuruggu Dark Fighting
+560 Zuruzukin Dark Fighting
+561 Shinbora Psychic Flying
+562 Desumasu Ghost
+563 Cofagrigus Ghost
+564 Purotoga Water Rock
+565 Abagoura Water Rock
+566 Aaken Rock Flying
+567 Archeos Rock Flying
+568 Yabukuron Poison
+569 Dasutodasu Poison
+570 Zorua Dark
+571 Zoroark Dark
+572 Minccino Normal
+573 Chillaccino Normal
+574 Gothimu Psychic
+575 Gochimiru Psychic
+576 Gothitelle Psychic
+577 Yuniran Psychic
+578 Daburan Psychic
+579 Reuniclus Psychic
+580 Koaruhie Water Flying
+581 Swanna Water Flying
+582 Vanipeti Ice
+583 Baniricchi Ice
+584 Baibanira Ice
+585 Shikijika Normal Grass
+586 Mebukijika Normal Grass
+587 Emonga Electric Flying
+588 Kaburumo Bug
+589 Shubarugo Bug Steel
+590 Tamagetake Grass Poison
+591 Morobareru Grass Poison
+592 Pururiru Water Ghost
+593 Burungel Water Ghost
+594 Alomomola Water
+595 Bachuru Bug Electric
+596 Denchura Bug Electric
+597 Tesshido Grass Steel
+598 Nattorei Grass Steel
+599 Klink Steel
+600 Gigiaru Steel
+601 Gigigiaru Steel
+602 Shibishirasu Electric
+603 Shibibiru Electric
+604 Shibirudon Electric
+605 Riguree Psychic
+606 Oobemu Psychic
+607 Hitomoshi Ghost Fire
+608 Ranpuraa Ghost Fire
+609 Shandera Ghost Fire
+610 Axew Dragon
+611 Onondo Dragon
+612 Ononokus Dragon
+613 Kumasyun Ice
+614 Tsunbear Ice
+615 Furiijio Ice
+616 Chobomaki Bug
+617 Agirudaa Bug
+618 Maggyo Ground Electric
+619 Kojofu Fighting
+620 Kojondo Fighting
+621 Crimgan Dragon
+622 Gobitto Ground Ghost
+623 Goruggo Ground Ghost
+624 Komatana Dark Steel
+625 Kirikizan Dark Steel
+626 Buffalon Normal
+627 Washibon Normal Flying
+628 Braviary Normal Flying
+629 Baruchai Dark Flying
+630 Barujiina Dark Flying
+631 Kuitaran Fire
+632 Aianto Bug Steel
+633 Monozu Dark Dragon
+634 Jiheddo Dark Dragon
+635 Sazandora Dark Dragon
+636 Meraruba Bug Fire
+637 Ulgamoth Bug Fire
+638 Cobalon Steel Fighting
+639 Terrakion Rock Fighting
+640 Virizion Grass Fighting
+641 Tornelos Flying
+642 Voltolos Electric Flying
+643 Reshiram Dragon Fire
+644 Zekrom Dragon Electric
+645 Landlos Ground Flying
+646 Kyurem Dragon Ice
+647 Keldeo Water Fighting
+648 Meloetta Normal Psychic
+649 Genesect Bug Steel
