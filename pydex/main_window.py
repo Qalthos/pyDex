@@ -122,13 +122,13 @@ class MainWindow:
         self.clear_models()
 
         for pokemon in self.pokedex.dex:
-            pokenum = pokemon.get_number()
+            pokenum = int(pokemon["number"])
             if not self.pokedex.valid(pokenum, self.filter):
                 continue
             pokarray = [gtk.gdk.pixbuf_new_from_file(
                                   self.load_image(pokenum)),
-                            pokenum, pokenum, pokemon.get_name(),
-                            pokemon.get_type1(), pokemon.get_type2(),
+                            pokenum, pokenum, pokemon["name"],
+                            pokemon["type1"], pokemon["type2"],
                             self.pokedex.status(pokenum)]
             self.models["national"].append(pokarray)
             for region_name, region in regional_dex.IDS.items():
@@ -138,15 +138,15 @@ class MainWindow:
 
         for evotype, evolution in self.evolutions.evo.items():
             for pokepair in evolution:
-                pokeold = pokepair["old"].get_number()
-                pokenew = pokepair["new"].get_number()
+                pokeold = pokepair["old"]["number"]
+                pokenew = pokepair["new"]["number"]
                 if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
                     pokarray = [
                       gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
-                      pokepair["old"].get_name(),
+                      pokepair["old"]["name"],
                       pokepair["method"],
                       gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
-                      pokepair["new"].get_name()
+                      pokepair["new"]["name"]
                     ]
                     self.models[evotype].append(pokarray)
 
@@ -205,15 +205,15 @@ class MainWindow:
         pokenum = tv.get_model().get_value(tv.get_selection().get_selected()[1], 2)
         pokemon = self.pokedex.dex[pokenum - 1]
 
-        self.builder.get_object("number").set_label(str(pokemon.get_number()))
-        self.builder.get_object("image").set_from_file(self.load_image(pokemon.get_number(), True))
-        self.builder.get_object("info_type1").set_label(pokemon.get_type1())
-        if not pokemon.get_type2() == "---":
-            self.builder.get_object("info_type2").set_label(pokemon.get_type2())
+        self.builder.get_object("number").set_label(str(pokemon["number"]))
+        self.builder.get_object("image").set_from_file(self.load_image(pokemon["number"], True))
+        self.builder.get_object("info_type1").set_label(pokemon["type1"])
+        if not pokemon["type2"] == "---":
+            self.builder.get_object("info_type2").set_label(pokemon["type2"])
         else:
             self.builder.get_object("info_type2").set_label("")
 
-        status = self.pokedex.user_dex[pokemon.get_number()]
+        status = self.pokedex.user_dex[pokemon["number"]]
         self.builder.get_object("radio_missing").set_active(status & 1)
         self.builder.get_object("radio_seen").set_active(status & 2)
         self.builder.get_object("radio_caught").set_active(status & 4)
@@ -244,11 +244,11 @@ class MainWindow:
         pokenum = tv.get_model().get_value(tv.get_selection().get_selected()[1], 2)
         pokemon = self.pokedex.dex[pokenum - 1]
 
-        self.builder.get_object("number").set_label(str(pokemon.get_number()))
-        self.builder.get_object("image").set_from_file(self.load_image(pokemon.get_number(), True))
-        self.builder.get_object("info_type1").set_label(pokemon.get_type1())
-        if not pokemon.get_type2() == "---":
-            self.builder.get_object("info_type2").set_label(pokemon.get_type2())
+        self.builder.get_object("number").set_label(str(pokemon["number"]))
+        self.builder.get_object("image").set_from_file(self.load_image(pokemon["number"], True))
+        self.builder.get_object("info_type1").set_label(pokemon["type1"])
+        if not pokemon["type2"] == "---":
+            self.builder.get_object("info_type2").set_label(pokemon["type2"])
         else:
             self.builder.get_object("info_type2").set_label("")
 
