@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 """Provides a method of reading and writing to or from pyDex files."""
 
