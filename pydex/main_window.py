@@ -236,8 +236,6 @@ class MainWindow:
             if not last_value == self.pokedex.user_dex[number]:
                 self.add_pokemon()
                 self.changed = True
-            else:
-                print self.pokedex.user_dex[number]
         self.builder.get_object("info_box").hide()
 
     def show_evo(self, tv, *ignored):
