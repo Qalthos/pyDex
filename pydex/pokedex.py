@@ -43,7 +43,7 @@ class Pokedex:
             return False
         temp = int(self.user_dex[pokenum])
         try:
-            if (bitstring % (temp * 2)) / temp == 1:
+            if bitstring & temp > 0:
                 return True
             else:
                 return False
