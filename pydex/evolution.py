@@ -21,6 +21,11 @@ class Evodex:
               "method": expand(entry[1]),
               "new": dex[int(entry[2]) - 1]
             })
+            self.evo["prevolution"].append({
+              "old": dex[int(entry[2]) - 1],
+              "method": "Breed normally",
+              "new": dex[int(entry[0]) - 1]
+            })
         data.close()
         
         data = open("data/prevo.dat")
@@ -28,11 +33,9 @@ class Evodex:
             entry = line.split()
             parents = entry[0].split(",")
             for parent in parents:
-                self.evo["prevolution"].append({
-                  "old": dex[int(parent) -1],
-                  "method": entry[1],
-                  "new": dex[int(entry[2]) - 1]
-                })
+                for prevo in self.evo["prevolution"]:
+                    if prevo["old"] == parent:
+                        prevo["method"] = entry[1]
         data.close()
 
 
