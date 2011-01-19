@@ -5,7 +5,7 @@
 import pokemon
 
 this = None
-MAX_DEX = 493
+MAX_DEX = 649
 
 
 class Pokedex:

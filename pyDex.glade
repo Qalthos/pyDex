@@ -207,7 +207,7 @@
                 <property name="hscrollbar_policy">automatic</property>
                 <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkTreeView" id="kanto_pokemon">
+                  <object class="GtkTreeView" id="Kdex_pokemon">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="rules_hint">True</property>
@@ -236,7 +236,7 @@
                 <property name="hscrollbar_policy">automatic</property>
                 <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkTreeView" id="johto_pokemon">
+                  <object class="GtkTreeView" id="Jdex_pokemon">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="rules_hint">True</property>
@@ -265,7 +265,7 @@
                 <property name="hscrollbar_policy">automatic</property>
                 <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkTreeView" id="hoenn_pokemon">
+                  <object class="GtkTreeView" id="Hdex_pokemon">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="rules_hint">True</property>
@@ -294,7 +294,7 @@
                 <property name="hscrollbar_policy">automatic</property>
                 <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkTreeView" id="sinnoh_pokemon">
+                  <object class="GtkTreeView" id="Sdex_pokemon">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="rules_hint">True</property>
@@ -323,10 +323,11 @@
                 <property name="hscrollbar_policy">automatic</property>
                 <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkTreeView" id="isshu_pokemon">
+                  <object class="GtkTreeView" id="Udex_pokemon">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="rules_hint">True</property>
+                    <signal name="row_activated" handler="gtk_info_show"/>
                   </object>
                 </child>
               </object>
@@ -335,8 +336,8 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="isshu">
-                <property name="label" translatable="yes">Isshu</property>
+              <object class="GtkLabel" id="unova">
+                <property name="label" translatable="yes">Unova</property>
               </object>
               <packing>
                 <property name="position">5</property>
@@ -905,16 +906,19 @@ Pokemon</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkVBox" id="vbox2">
             <property name="visible">True</property>
+            <property name="orientation">vertical</property>
             <child>
               <object class="GtkHBox" id="hbox1">
                 <property name="visible">True</property>
                 <child>
                   <object class="GtkVBox" id="vbox3">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="number">
                         <property name="visible">True</property>
@@ -942,6 +946,7 @@ Pokemon</property>
                 <child>
                   <object class="GtkVBox" id="vbox4">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="info_type1">
                         <property name="visible">True</property>
@@ -968,6 +973,7 @@ Pokemon</property>
                 <child>
                   <object class="GtkVButtonBox" id="vbuttonbox1">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkRadioButton" id="radio_caught">

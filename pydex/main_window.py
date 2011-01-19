@@ -20,16 +20,18 @@ class MainWindow:
     image_dir = "images/"
     changed = False
 
+    dexes = ("national", "Kdex", "Jdex", "Hdex", "Sdex", "Udex")
+
     def __init__(self):
         self.pokedex = pokedex.get_instance()
         self.evolutions = evolution.get_instance()
         self.models = {
           "national": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "kanto": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "johto": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "hoenn": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "sinnoh": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "isshu": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "Kdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "Jdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "Hdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "Sdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
+          "Udex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
           "evolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str),
           "prevolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str)
         }
@@ -266,38 +268,29 @@ class MainWindow:
         caught = 0
         seen = 0
         dex = []
-        if new_page_num == 0: # National
-            dex = self.pokedex.user_dex
-        else:
-            region = None
-            if  new_page_num == 1:
-                region = regional_dex.IDS["kanto"]
-            elif  new_page_num == 2:
-                region = regional_dex.IDS["johto"]
-            elif  new_page_num == 3:
-                region = regional_dex.IDS["hoenn"]
-            elif  new_page_num == 4:
-                region = regional_dex.IDS["sinnoh"]
-            elif  new_page_num == 5:
-                region = regional_dex.IDS["isshu"]
+        if new_page_num < len(self.dexes):
+            if new_page_num == 0: # National
+                dex = self.pokedex.user_dex
             else:
-                status.push(0, "%d pokemon waiting to evolve" %
-                                        len(self.models["evolution"]))
-                return
-            for line in self.pokedex.dex:
-                if line.number in region:
-                    dex.append(self.pokedex.user_dex[line.number])
-        for pokestat in dex:
-            if pokestat == 4:
-                caught += 1
-            elif pokestat == 2:
-                seen += 1
+                region = regional_dex.IDS[self.dexes[new_page_num]]
+                for entry in self.pokedex.dex:
+                    if entry["number"] in region:
+                        dex.append(self.pokedex.user_dex[entry["number"]])
+                    
+            for pokestat in dex:
+                if pokestat == 4:
+                    caught += 1
+                elif pokestat == 2:
+                    seen += 1
 
-        seen += caught
-        pct_seen = seen * 100.0 / len(dex)
-        pct_caught = caught * 100.0 / len(dex)
-        status.push(0, "Seen: %d (%d%%)  Caught: %d (%d%%)" %
-                        (seen, pct_seen, caught, pct_caught))
+            seen += caught
+            pct_seen = seen * 100.0 / len(dex)
+            pct_caught = caught * 100.0 / len(dex)
+            status.push(0, "Seen: %d (%d%%)  Caught: %d (%d%%)" %
+                            (seen, pct_seen, caught, pct_caught))
+        else:
+            status.push(0, "%d pokemon waiting to evolve" %
+                                    len(self.models["evolution"]))
 
     def save_before_quit(self, *ignored):
         if self.changed:
