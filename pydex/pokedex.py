@@ -17,6 +17,7 @@ class Pokedex:
         for line in nat_data:
             pokarray = line.split()
             if len(pokarray) == 3:
+                # This pokemon does not have a second type.
                 pokarray.append("---")
             self.dex.append({"number": int(pokarray[0]), "name": pokarray[1],
               "type1": pokarray[2], "type2": pokarray[3]})
