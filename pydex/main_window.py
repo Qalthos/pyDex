@@ -21,6 +21,10 @@ class MainWindow:
     changed = False
 
     dexes = ("national", "Kdex", "Jdex", "Hdex", "Sdex", "Udex")
+    games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
+             "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
+             "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
+             "Black", "White"]
 
     def __init__(self):
         self.pokedex = pokedex.get_instance()
@@ -66,6 +70,8 @@ class MainWindow:
          "on_info_clicked": self.hide_info,
           "on_evo_clicked": self.hide_evo,
              "on_tab_flip": self.refresh_status,
+          "on_game_change": self.game_change,
+          "on_chk_toggled": self.unown_toggle,
                     "quit": self.save_before_quit,
              "really_quit": self.quit}
         self.builder.connect_signals(dic)
@@ -101,13 +107,9 @@ class MainWindow:
         list_store.append_column(make_column("name", "text", 4))
 
         # Populate the game dropdown
-        games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
-          "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
-          "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-          "Black", "White"]
         game_name = self.builder.get_object("game_name")
         game_store = gtk.ListStore(str)
-        for game in games:
+        for game in self.games:
             game_store.append([game])
         game_name.set_model(game_store)
         cell = gtk.CellRendererText()
@@ -289,6 +291,20 @@ class MainWindow:
         else:
             status.push(0, "%d pokemon waiting to evolve" %
                                     len(self.models["evolution"]))
+
+    def game_change(self, combobox):
+        pokedex.get_instance().game = combobox.get_active_text()
+        self.refresh_pages()
+
+    def unown_toggle(self, checkbox):
+        index = int(get_name(checkbox)[4:]) - 1
+        if checkbox.get_active():
+            self.pokedex.unown_code |= 2**index
+        else:
+            self.pokedex.unown_code &= ~(2**index)
+        
+        print self.pokedex.unown_code
+        self.changed = True
 
     def save_before_quit(self, *ignored):
         if self.changed:

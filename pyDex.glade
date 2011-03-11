@@ -110,6 +110,7 @@
               <object class="GtkComboBox" id="game_name">
                 <property name="visible">True</property>
                 <property name="active">0</property>
+                <signal name="changed" handler="on_game_change"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -356,6 +357,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                 </child>
                 <child>
@@ -365,6 +367,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -378,6 +381,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -391,6 +395,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -404,6 +409,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="top_attach">1</property>
@@ -417,6 +423,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -433,6 +440,7 @@
                     <property name="receives_default">False</property>
                     <property name="xalign">0.36000001430511475</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -449,6 +457,7 @@
                     <property name="receives_default">False</property>
                     <property name="xalign">0.36000001430511475</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -464,6 +473,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="top_attach">2</property>
@@ -477,6 +487,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -492,6 +503,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -507,6 +519,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -522,6 +535,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="top_attach">3</property>
@@ -535,6 +549,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -550,6 +565,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -565,6 +581,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -580,6 +597,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="top_attach">4</property>
@@ -593,6 +611,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -608,6 +627,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -623,6 +643,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -638,6 +659,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="top_attach">5</property>
@@ -651,6 +673,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -666,6 +689,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -681,6 +705,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -696,6 +721,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="top_attach">6</property>
@@ -709,6 +735,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -724,6 +751,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -739,6 +767,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chk_toggled"/>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
