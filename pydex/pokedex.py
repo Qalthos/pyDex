@@ -2,10 +2,32 @@
 """The national pokédex."""
 
 this = None
-MAX_DEX = 649
+MAX_DEXEN = [0, 151, 251, 386, 496, 649]
+GAME_DATA = {"Red": {"gen": 1, "region": 1},
+             "Blue": {"gen": 1, "region": 1},
+             "Yellow": {"gen": 1, "region": 1},
+             "Gold": {"gen": 2, "region": 2},
+             "Silver": {"gen": 2, "region": 2},
+             "Crystal": {"gen": 2, "region": 2},
+             "Ruby": {"gen": 3, "region": 3},
+             "Sapphire": {"gen": 3, "region": 3},
+             "Emerald": {"gen": 3, "region": 3},
+             "FireRed": {"gen": 3, "region": 1},
+             "LeafGreen": {"gen": 3, "region": 1},
+             "Diamond": {"gen": 4, "region": 4},
+             "Pearl": {"gen": 4, "region": 4},
+             "Platinum": {"gen": 4, "region": 4},
+             "HeartGold": {"gen": 4, "region": 2},
+             "SoulSilver": {"gen": 4, "region": 2},
+             "Black": {"gen": 5, "region": 5},
+             "White": {"gen": 5, "region": 5}
+            }
 
 
 class Pokedex:
+    max_dex = MAX_DEXEN[len(MAX_DEXEN)-1]
+    gen = 0
+    region = 0
     dex = []
     user_dex = []
     unown_code = 0
@@ -40,7 +62,7 @@ class Pokedex:
             return "unknown"
 
     def valid(self, pokenum, bitstring):
-        if pokenum > MAX_DEX:
+        if pokenum > self.max_dex:
             return False
         temp = int(self.user_dex[pokenum])
         try:
@@ -61,7 +83,7 @@ class Pokedex:
         self.filename = filename
 
     def new_dex(self):
-        self.user_dex = [1] * (MAX_DEX + 1)
+        self.user_dex = [1] * (self.max_dex + 1)
 
 
 def get_instance():
