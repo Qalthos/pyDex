@@ -324,6 +324,27 @@ class MainWindow:
         gtk.main_quit()
 
     # Convenience Methods
+    def open_file(self, filename):
+        self.pokedex.user_dex = io.read_dex(filename)
+        if self.pokedex.game in self.games:
+            self.builder.get_object("game_name").set_active(self.games.index(self.pokedex.game))
+            self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
+
+        for i in range(26):
+            test = (self.pokedex.unown_code & 2**i)
+            self.builder.get_object("chk_%d" % (i+1)).set_active(test > 0)
+        self.pokedex.filename = filename
+        self.refresh_pages()
+        self.add_pokemon()
+
+    def refresh_pages(self):
+        for i, region in enumerate(self.dexes):
+            page = self.builder.get_object("dex_type").get_nth_page(i)
+            if i > self.pokedex.gen:
+                page.set_visible(False)
+            else:
+                page.set_visible(True)
+
     def clear_models(self):
         for model in self.models.values():
             model.clear()
