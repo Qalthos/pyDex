@@ -26,24 +26,30 @@ def read_dex(filename):
     print "Reading from", filename
     userdex = [0]
     dex_file = open(filename)
+    dex = pokedex.get_instance()
 
     try:
         # Read the game version
-        game = dex_file.next()
+        game = dex_file.next().strip()
+        if game in pokedex.GAME_DATA:
+            dex.max_dex = pokedex.MAX_DEXEN[pokedex.GAME_DATA[game]["gen"]]
+            dex.game = game
+            dex.gen = pokedex.GAME_DATA[game]["gen"]
+            dex.region = pokedex.GAME_DATA[game]["region"]
         for line in dex_file:
             line = line.strip()
             if len(line) == 0:
                 break
-            if len(userdex) > pokedex.MAX_DEX:
+            if len(userdex) > dex.max_dex:
                 continue
             userdex.append(int(line))
         # Read the Unown code
-        unown = dex_file.next()
+        dex.unown_code = int(dex_file.next())
     except StopIteration:
         print "Error reading file! Only %d read." % len(userdex)
 
     # Premature stopping or older files may result in short arrays.
-    while len(userdex) <= pokedex.MAX_DEX:
+    while len(userdex) <= dex.max_dex:
         userdex.append(1)
 
     dex_file.close()
