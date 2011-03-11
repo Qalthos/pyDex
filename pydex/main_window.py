@@ -51,8 +51,7 @@ class MainWindow:
         if "filename" in self.config:
             filename = self.config["filename"]
             if os.path.exists(filename):
-                self.pokedex.set_filename(filename)
-                self.pokedex.user_dex = io.read_dex(filename)
+                self.pokedex.filename = filename
 
     def main(self):
         #Set the Glade file
@@ -118,7 +117,10 @@ class MainWindow:
 
         self.builder.get_object("config_filter").add_pattern("*.cfg")
 
-        self.add_pokemon()
+        if self.pokedex.filename != "":
+            self.open_file(self.pokedex.filename)
+        else:
+            self.add_pokemon()
 
     def add_pokemon(self):
         self.clear_models()
@@ -196,9 +198,7 @@ class MainWindow:
                 self.pokedex.set_filename(chooser.get_filename())
                 io.write_dex(self.pokedex)
             elif button.get_label() == "Open":
-                self.pokedex.user_dex = io.read_dex(chooser.get_filename())
-                self.pokedex.set_filename(chooser.get_filename())
-                self.add_pokemon()
+                self.open_file(chooser.get_filename())
             self.changed = False
             self.builder.get_object("main_window").set_title(chooser.get_filename())
         chooser.hide()
