@@ -71,10 +71,11 @@ def read_config():
     """Reads saved pyDex configuration from a standard location."""
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
-    if not os.path.exists(config_dir + "config"):
-        return
-    config_file = open(config_dir + "config")
+
     config = {}
+    if not os.path.exists(config_dir + "config"):
+        return config
+    config_file = open(config_dir + "config")
     for line in config_file:
         line = line.split()
         config[line[0]] = line[1]
