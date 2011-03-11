@@ -174,7 +174,7 @@ class MainWindow:
 
     def show_dialog(self, menu_item):
         item_name = get_name(menu_item)
-        if item_name == "save_menu_item" and not self.pokedex.get_filename() == "":
+        if item_name == "save_menu_item" and not self.pokedex.filename == "":
             io.write_dex(self.pokedex)
             self.changed = False
             return

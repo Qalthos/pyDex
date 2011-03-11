@@ -73,15 +73,6 @@ class Pokedex:
         except ZeroDivisionError:
             return False
 
-    def get_filename(self):
-        return self.filename
-
-    def get_game(self):
-        return self.game
-
-    def set_filename(self, filename):
-        self.filename = filename
-
     def new_dex(self):
         self.user_dex = [1] * (self.max_dex + 1)
 
