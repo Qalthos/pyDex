@@ -330,7 +330,7 @@ class MainWindow:
             self.builder.get_object("game_name").set_active(self.games.index(self.pokedex.game))
             self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
 
-        for i in range(26):
+        for i in range(28):
             test = (self.pokedex.unown_code & 2**i)
             self.builder.get_object("chk_%d" % (i+1)).set_active(test > 0)
         self.pokedex.filename = filename
