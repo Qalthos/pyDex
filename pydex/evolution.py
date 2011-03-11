@@ -45,16 +45,17 @@ def expand(string):
 
     """
 
-    holding = {"OS": "Oval Stone", "RC": "Razor Claw", "RF": "Razor Fang"}
-    knowing = {"AP": "AncientPower", "DH": "DoubleHit", "M": "Mimic",
-      "RO": "Rollout"}
-    location = {"217": "Route 217", "C": "Mt. Coronet", "EF": "Eterna Forest"}
-    stones = {"DA": "Dawn", "DU": "Dusk", "F": "Fire", "T": "Thunder",
-      "L": "Leaf", "M": "Moon", "S": "Sun", "SH": "Shiny", "W": "Water"}
-    trade = {"DD": "Dubious Disc", "DS": "Dragon Scale", "DSS": "DeepSeaScale",
+    holding = {"OS": "Oval Stone", "RaC": "Razor Claw", "RF": "Razor Fang",
+      "DD": "Dubious Disc", "DS": "Dragon Scale", "DSS": "DeepSeaScale",
       "DST": "DeepSeaTooth", "E": "Electirizer", "KR": "King's Rock",
       "M": "Magmarizer", "MC": "Metal Coat", "P": "Protector",
-      "RC": "ReaperCloth", "UG": "Up-Grade"}
+      "RC": "Reaper Cloth", "UG": "Up-Grade"}
+    knowing = {"AP": "AncientPower", "DH": "Double Hit", "M": "Mimic",
+      "RO": "Rollout"}
+    location = {"217": "Route 217", "C": "Mt. Coronet", "EF": "Eterna Forest"}
+    stones = {"Da": "Dawn", "Du": "Dusk", "Fi": "Fire", "Th": "Thunder",
+      "Le": "Leaf", "Mo": "Moon", "Su": "Sun", "Sh": "Shiny", "Wa": "Water"}
+    trade = {"Sh": "Shelmet", "Ka": "Karrablast"}
     other = {"B": "Level up with maximum Beauty", "H": "Happiness",
       "R": "Level up with Remoraid in party"}
 
@@ -66,35 +67,36 @@ def expand(string):
         suffix = string[pivot:]
         string = string[:pivot]
 
-    if string.startswith("h"):      # Level while holding...
-        string = "Level up holding " + holding[string[1:]]
-    elif string.startswith("k"):    # Level while knowing...
-        string = "Level up knowing " + knowing[string[1:]]
-    elif string.startswith("l"):    # Level at location...
-        string = "Level up in " + location[string[1:]]
-    elif string.startswith("s"):    # Use evolutionary stone
-        string = stones[string[1:]] + " Stone"
-    elif string.startswith("t"):    # Trade (while holding...)
-        if not len(string) == 1:
-            string = " holding " + trade[string[1:]]
-        else:
-            string = ""
-        string = "Trade" + string
-    elif string.startswith("L"):
-        string = "Level " + string[1:]
+    end =  string[1:]
+    if string[0] == "L":
+        if end in holding:      # Level up holding [item]
+            end = "up holding %s" % holding[end]
+        elif end in knowing:    # Level up knowing [move]
+            end = "up knowing %s" % knowing[end]
+        elif end in location:    # Level up at [location]
+            end = "up in %s" % location[end]
+        string = "Level %s" % (end)
+    elif string[0] == "s":    # Use evolutionary stone
+        string = "%s Stone" % stones[end]
+    elif string[0] == "t":
+        if end in holding:    # Trade holding [item]
+            end = " holding %s" % holding[end]
+        elif end in trade:    # Trade for [pokemon]
+            end = " for %s" % trade[end]
+        string = "Trade%s" % end
     else:
         string = other[string]
 
     # Now we can deal with a suffix if one exists.
     if suffix == "(D)":
-        suffix = " during the day"
+        suffix = " (day)"
     elif suffix == "(E)":
         suffix = " with a free spot"
     elif suffix == "(N)":
-        suffix = " at night"
-    elif suffix == "(♀)":
+        suffix = " (night)"
+    elif suffix == "(F)":
         suffix = " (female)"
-    elif suffix == "(♂)":
+    elif suffix == "(M)":
         suffix = " (male)"
     elif suffix.startswith("(A") and suffix.endswith("D)"):
         suffix = " (Attack " + suffix[2] + " Defense)"
