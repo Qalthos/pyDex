@@ -74,7 +74,12 @@ class Pokedex:
             return False
 
     def new_dex(self):
-        self.user_dex = [1] * (self.max_dex + 1)
+        self.user_dex = [1] * (len(MAX_DEXEN) + 1)
+        self.gen = 0
+        self.region = 0
+        self.unown_code = 0
+        self.game = "Default"
+        self.filename = ""
 
 
 def get_instance():
