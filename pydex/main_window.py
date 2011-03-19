@@ -161,6 +161,7 @@ class MainWindow:
     def new_file(self, *ignored):
         self.pokedex.new_dex()
         self.builder.get_object("main_window").set_title("New file")
+        self.builder.get_object("game_name").set_active(0)
         self.add_pokemon()
 
     def toggle(self, button):
