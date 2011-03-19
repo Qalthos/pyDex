@@ -278,6 +278,8 @@ class MainWindow:
                 region = regional_dex.IDS[self.dexes[new_page_num]]
                 for entry in self.pokedex.dex:
                     if entry["number"] in region:
+                        if entry["number"] >= len(self.pokedex.user_dex):
+                            continue
                         dex.append(self.pokedex.user_dex[entry["number"]])
                     
             for pokestat in dex:
