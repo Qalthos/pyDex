@@ -261,7 +261,9 @@ class MainWindow:
         self.builder.get_object("evolution_dialog").hide()
 
     def show_about(self, *ignored):
-        self.builder.get_object("about").show()
+        response = self.builder.get_object("about").run()
+        if response == gtk.RESPONSE_DELETE_EVENT or response == gtk.RESPONSE_CANCEL:
+            self.builder.get_object("about").hide()
 
     def hide_about(self, *ignored):
         self.builder.get_object("about").hide()
