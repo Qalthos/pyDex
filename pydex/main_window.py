@@ -180,14 +180,16 @@ class MainWindow:
             return
         button = self.builder.get_object("continue")
         chooser = self.builder.get_object("file_chooser")
+        chooser.set_current_folder(io.config_dir)
+        
         if item_name == "open_menu_item":
             button.set_label("Open")
             chooser.set_action(gtk.FILE_CHOOSER_ACTION_OPEN)
         else:
             button.set_label("Save")
             chooser.set_action(gtk.FILE_CHOOSER_ACTION_SAVE)
+            chooser.set_current_name("%s.cfg" % self.pokedex.game)
 
-        chooser.set_current_folder(io.config_dir)
         chooser.show()
 
     def hide_dialog(self, button):
