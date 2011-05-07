@@ -204,7 +204,7 @@ class MainWindow:
         self.config["filename"] = chooser.get_filename()
         if get_name(button) == "continue":
             if button.get_label() == "Save":
-                self.pokedex.set_filename(chooser.get_filename())
+                self.pokedex.filename = chooser.get_filename()
                 io.write_dex(self.pokedex)
             elif button.get_label() == "Open":
                 self.open_file(chooser.get_filename())
