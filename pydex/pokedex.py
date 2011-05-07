@@ -62,6 +62,7 @@ class Pokedex:
             return "unknown"
 
     def valid(self, pokenum, bitstring):
+        # Make sure pokemon outside the current generation don't show up.
         if pokenum > self.max_dex:
             return False
         temp = int(self.user_dex[pokenum])
