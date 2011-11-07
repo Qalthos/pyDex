@@ -53,7 +53,7 @@ class MainWindow:
             if os.path.exists(filename):
                 self.pokedex.filename = filename
 
-    def main(self):
+    def main(self, parent):
         #Set the Glade file
         self.builder = gtk.Builder()
         self.builder.add_from_file("pyDex.glade")
@@ -75,8 +75,12 @@ class MainWindow:
              "really_quit": self.quit}
         self.builder.connect_signals(dic)
 
+        if not parent:
+            parent = self.builder.get_object("main_window")
+    
         if "filename" in self.config:
-            self.builder.get_object("main_window").set_title(self.config["filename"])
+            parent.set_title(self.config["filename"])
+        parent.add(self.builder.get_object("main_pane"))
 
         # Build the listing of pokemon (national).
         list_store = self.builder.get_object("national_pokemon")
@@ -115,10 +119,13 @@ class MainWindow:
         game_name.pack_start(cell, True)
         game_name.add_attribute(cell, 'text', 0)
 
+        # Set the filter for filenames to .cfg
         self.builder.get_object("config_filter").add_pattern("*.cfg")
 
+        # If the config contains a filename, try to load it.
         if self.pokedex.filename != "":
             self.open_file(self.pokedex.filename)
+        # Otherwise, just fill the models (open_file calls this already)
         else:
             self.add_pokemon()
 
@@ -127,6 +134,7 @@ class MainWindow:
 
         for pokemon in self.pokedex.dex:
             pokenum = int(pokemon["number"])
+            # This hides pokemon which do not match the current filter.
             if not self.pokedex.valid(pokenum, self.filter):
                 continue
             pokarray = [gtk.gdk.pixbuf_new_from_file(
@@ -165,12 +173,14 @@ class MainWindow:
         self.add_pokemon()
 
     def toggle(self, button):
+        """Changes the filter depending on which button was pressed."""
         if button.get_label() == "Missing":
             self.filter ^= 0b001
         elif button.get_label() == "Seen":
             self.filter ^= 0b010
         elif button.get_label() == "Caught":
             self.filter ^= 0b100
+        # Update the lists.
         self.add_pokemon()
 
     def show_dialog(self, menu_item):
@@ -198,7 +208,7 @@ class MainWindow:
         self.config["filename"] = chooser.get_filename()
         if get_name(button) == "continue":
             if button.get_label() == "Save":
-                self.pokedex.set_filename(chooser.get_filename())
+                self.pokedex.filename = chooser.get_filename()
                 io.write_dex(self.pokedex)
             elif button.get_label() == "Open":
                 self.open_file(chooser.get_filename())
@@ -219,6 +229,7 @@ class MainWindow:
             self.builder.get_object("info_type2").set_label("")
 
         status = self.pokedex.user_dex[pokemon["number"]]
+        # Prefill the status radio group
         self.builder.get_object("radio_missing").set_active(status & 1)
         self.builder.get_object("radio_seen").set_active(status & 2)
         self.builder.get_object("radio_caught").set_active(status & 4)
@@ -261,7 +272,9 @@ class MainWindow:
         self.builder.get_object("evolution_dialog").hide()
 
     def show_about(self, *ignored):
-        self.builder.get_object("about").show()
+        response = self.builder.get_object("about").run()
+        if response == gtk.RESPONSE_DELETE_EVENT or response == gtk.RESPONSE_CANCEL:
+            self.builder.get_object("about").hide()
 
     def hide_about(self, *ignored):
         self.builder.get_object("about").hide()

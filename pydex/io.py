@@ -5,7 +5,7 @@ import os
 
 import pokedex
 
-config_dir = os.path.expanduser("~/.pyDex2/")
+config_dir = os.path.expanduser("~/.pyDex/")
 
 
 def write_dex(userdex):
@@ -63,7 +63,8 @@ def write_config(config):
         os.makedirs(config_dir)
     config_file = open(config_dir + "config", "w")
     for key, value in config.items():
-        config_file.write("%s %s" % (key, value))
+    	if key == "filename":
+	        config_file.write("%s" % value)
     config_file.close()
 
 
@@ -78,7 +79,10 @@ def read_config():
     config_file = open(config_dir + "config")
     for line in config_file:
         line = line.split()
-        config[line[0]] = line[1]
+        try:
+            config[line[0]] = line[1]
+        except IndexError:
+            config["filename"] = line[0]
         break
     config_file.close()
 
