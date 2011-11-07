@@ -11,7 +11,7 @@ class Evodex:
     def __init__(self):
         self.evo = {"evolution": [], "prevolution": []}
         dex = pokedex.get_instance().dex
-        
+
         data = open("data/evo.dat")
         for line in data:
             entry = line.split()
@@ -27,7 +27,7 @@ class Evodex:
               "new": dex[int(entry[0]) - 1]
             })
         data.close()
-        
+
         data = open("data/prevo.dat")
         for line in data:
             entry = line.split()
@@ -49,15 +49,15 @@ def expand(string):
       "DD": "Dubious Disc", "DS": "Dragon Scale", "DSS": "DeepSeaScale",
       "DST": "DeepSeaTooth", "E": "Electirizer", "KR": "King's Rock",
       "M": "Magmarizer", "MC": "Metal Coat", "P": "Protector",
-      "RC": "Reaper Cloth", "UG": "Up-Grade"}
+      "ReC": "Reaper Cloth", "UG": "Up-Grade"}
     knowing = {"AP": "AncientPower", "DH": "Double Hit", "M": "Mimic",
       "RO": "Rollout"}
     location = {"217": "Route 217", "C": "Mt. Coronet", "EF": "Eterna Forest"}
     stones = {"Da": "Dawn", "Du": "Dusk", "Fi": "Fire", "Th": "Thunder",
       "Le": "Leaf", "Mo": "Moon", "Su": "Sun", "Sh": "Shiny", "Wa": "Water"}
     trade = {"Sh": "Shelmet", "Ka": "Karrablast"}
-    other = {"B": "Level up with maximum Beauty", "H": "Happiness",
-      "R": "Level up with Remoraid in party"}
+    with_ = {"B": "maximum Beauty", "R": "Remoraid in party"}
+    other = {"H": "Happiness"}
 
     suffix = ""
     # Sometimes additional information is also encoded.  This information is
@@ -75,6 +75,8 @@ def expand(string):
             end = "up knowing %s" % knowing[end]
         elif end in location:    # Level up at [location]
             end = "up in %s" % location[end]
+        elif end in location:    # Level up with [condition]
+            end = "up with %s" % with_[end]
         string = "Level %s" % (end)
     elif string[0] == "s":    # Use evolutionary stone
         string = "%s Stone" % stones[end]
