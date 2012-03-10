@@ -6,8 +6,7 @@ specific functions
 
 import os
 
-import gtk
-import gtk.glade
+from gi.repository import Gtk, GdkPixbuf
 
 from pydex import evolution, io, pokedex, regional_dex
 
@@ -27,14 +26,14 @@ class MainWindow:
         self.pokedex = pokedex.get_instance()
         self.evolutions = evolution.get_instance()
         self.models = {
-          "national": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "Kdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "Jdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "Hdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "Sdex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "Udex": gtk.ListStore(gtk.gdk.Pixbuf, int, int, str, str, str, str),
-          "evolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str),
-          "prevolution": gtk.ListStore(gtk.gdk.Pixbuf, str, str, gtk.gdk.Pixbuf, str)
+          "national": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "Kdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "Jdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "Hdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "Sdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "Udex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "evolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str),
+          "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
         }
         self.models["evolution"].set_sort_func(2, sort)
 
@@ -52,7 +51,7 @@ class MainWindow:
 
     def main(self, parent):
         #Set the Glade file
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file("pyDex.glade")
 
         #Create our dictionay of actions and connect it
@@ -74,7 +73,7 @@ class MainWindow:
 
         if not parent:
             parent = self.builder.get_object("main_window")
-    
+
         if "filename" in self.config:
             parent.set_title(self.config["filename"])
         parent.add(self.builder.get_object("main_pane"))
@@ -108,11 +107,11 @@ class MainWindow:
 
         # Populate the game dropdown
         game_name = self.builder.get_object("game_name")
-        game_store = gtk.ListStore(str)
+        game_store = Gtk.ListStore(str)
         for game in self.games:
             game_store.append([game])
         game_name.set_model(game_store)
-        cell = gtk.CellRendererText()
+        cell = Gtk.CellRendererText()
         game_name.pack_start(cell, True)
         game_name.add_attribute(cell, 'text', 0)
 
@@ -134,7 +133,7 @@ class MainWindow:
             # This hides pokemon which do not match the current filter.
             if not self.pokedex.valid(pokenum, self.filter):
                 continue
-            pokarray = [gtk.gdk.pixbuf_new_from_file(
+            pokarray = [GdkPixbuf.Pixbuf.new_from_file(
                                   self.load_image(pokenum)),
                             pokenum, pokenum, pokemon["name"],
                             pokemon["type1"], pokemon["type2"],
@@ -151,10 +150,10 @@ class MainWindow:
                 pokenew = pokepair["new"]["number"]
                 if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
                     pokarray = [
-                      gtk.gdk.pixbuf_new_from_file(self.load_image(pokeold)),
+                      GdkPixbuf.Pixbuf.new_from_file(self.load_image(pokeold)),
                       pokepair["old"]["name"],
                       pokepair["method"],
-                      gtk.gdk.pixbuf_new_from_file(self.load_image(pokenew)),
+                      GdkPixbuf.Pixbuf.new_from_file(self.load_image(pokenew)),
                       pokepair["new"]["name"]
                     ]
                     self.models[evotype].append(pokarray)
@@ -189,13 +188,13 @@ class MainWindow:
         button = self.builder.get_object("continue")
         chooser = self.builder.get_object("file_chooser")
         chooser.set_current_folder(io.config_dir)
-        
+
         if item_name == "open_menu_item":
             button.set_label("Open")
-            chooser.set_action(gtk.FILE_CHOOSER_ACTION_OPEN)
+            chooser.set_action(Gtk.FILE_CHOOSER_ACTION_OPEN)
         else:
             button.set_label("Save")
-            chooser.set_action(gtk.FILE_CHOOSER_ACTION_SAVE)
+            chooser.set_action(Gtk.FILE_CHOOSER_ACTION_SAVE)
             chooser.set_current_name("%s.cfg" % self.pokedex.game)
 
         chooser.show()
@@ -270,7 +269,7 @@ class MainWindow:
 
     def show_about(self, *ignored):
         response = self.builder.get_object("about").run()
-        if response == gtk.RESPONSE_DELETE_EVENT or response == gtk.RESPONSE_CANCEL:
+        if response == Gtk.ResponseType.DELETE_EVENT or response == Gtk.ResponseType.CANCEL:
             self.builder.get_object("about").hide()
 
     def hide_about(self, *ignored):
@@ -291,7 +290,7 @@ class MainWindow:
                         if entry["number"] >= len(self.pokedex.user_dex):
                             continue
                         dex.append(self.pokedex.user_dex[entry["number"]])
-                    
+
             for pokestat in dex:
                 if pokestat == 4:
                     caught += 1
@@ -327,7 +326,7 @@ class MainWindow:
             return True
         else:
             io.write_config(self.config)
-            gtk.main_quit()
+            Gtk.main_quit()
 
     def quit(self, button):
         if button.get_label() == "Save":
@@ -336,7 +335,7 @@ class MainWindow:
         if button.get_label() == "Cancel":
             return
         io.write_config(self.config)
-        gtk.main_quit()
+        Gtk.main_quit()
 
     # Convenience Methods
     def open_file(self, filename):
@@ -377,16 +376,16 @@ class MainWindow:
 
 
 def get_name(buildable):
-    """Returns the gtk.Buildable.get_name() for the specified widget, rather
-    than the gtk.Widget.get_name() which gets called by default in newer GTK
+    """Returns the Gtk.Buildable.get_name() for the specified widget, rather
+    than the Gtk.Widget.get_name() which gets called by default in newer GTK
     versions.
 
     """
 
-    if gtk.gtk_version[1] < 17:
+    if Gtk.gtk_version[1] < 17:
         return buildable.get_name()
     else: # Grrrr, broken get_name()
-        return gtk.Buildable.get_name(buildable)
+        return Gtk.Buildable.get_name(buildable)
 
 
 def build_pokemon_columns(list_store, regional=True):
@@ -398,7 +397,7 @@ def build_pokemon_columns(list_store, regional=True):
     list_store.append_column(make_column("type 1", "text", 4))
     list_store.append_column(make_column("type 2", "text", 5))
     list_store.append_column(make_column("status", "text", 6))
-    list_store.set_search_equal_func(search)
+    list_store.set_search_equal_func(search, None)
 
 
 def search(model, column, key, iterator, data=None):
@@ -448,9 +447,9 @@ def normal_sort(method1, method2):
 
 
 def make_column(title, column_type, column_id):
-    column = gtk.TreeViewColumn(title, gtk.CellRendererText(), text=column_id)
+    column = Gtk.TreeViewColumn(title, Gtk.CellRendererText(), text=column_id)
     if column_type == "image":
-        column = gtk.TreeViewColumn(title, gtk.CellRendererPixbuf(), pixbuf=column_id)
+        column = Gtk.TreeViewColumn(title, Gtk.CellRendererPixbuf(), pixbuf=column_id)
     column.set_resizable(True)
     column.set_sort_column_id(column_id)
 
