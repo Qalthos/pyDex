@@ -317,8 +317,8 @@ class MainWindow:
             self.pokedex.unown_code |= 2**index
         else:
             self.pokedex.unown_code &= ~(2**index)
-        
-        print self.pokedex.unown_code
+
+        print(self.pokedex.unown_code)
         self.changed = True
 
     def save_before_quit(self, *ignored):

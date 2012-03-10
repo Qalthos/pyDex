@@ -3,14 +3,14 @@
 
 import os
 
-import pokedex
+from pydex import pokedex
 
 config_dir = os.path.expanduser("~/.pyDex/")
 
 
 def write_dex(userdex):
     """Writes the current pokedex to a file."""
-    print "Writing to %s" % userdex.filename
+    print("Writing to %s" % userdex.filename)
     dex_file = open(userdex.filename, "w")
     dex_file.write("%s\n" % userdex.game)
     # user_dex index 0 is junk to keep index to dexnum translation straight
@@ -23,7 +23,7 @@ def write_dex(userdex):
 
 def read_dex(filename):
     """Loads the pokedex stored in filename into pyDex."""
-    print "Reading from", filename
+    print("Reading from", filename)
     userdex = [0]
     dex_file = open(filename)
     dex = pokedex.get_instance()
@@ -46,7 +46,7 @@ def read_dex(filename):
         # Read the Unown code
         dex.unown_code = int(dex_file.next())
     except StopIteration:
-        print "Error reading file! Only %d read." % len(userdex)
+        print("Error reading file! Only %d read." % len(userdex))
 
     # Premature stopping or older files may result in short arrays.
     while len(userdex) <= dex.max_dex:

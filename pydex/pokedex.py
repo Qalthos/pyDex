@@ -50,7 +50,7 @@ class Pokedex:
         try:
             temp = self.user_dex[pokenum]
         except IndexError:
-            print "%d is out of user_dex" % pokenum
+            print("%d is out of user_dex" % pokenum)
             return "unknown"
         if temp == 1:
             return "missing"
@@ -67,7 +67,7 @@ class Pokedex:
             return False
         # But also make sure all the current pokemon do.
         elif pokenum >= len(self.user_dex):
-            print "%d not initialized" % pokenum
+            print("%d not initialized" % pokenum)
             return True
         temp = int(self.user_dex[pokenum])
         try:
