@@ -191,10 +191,10 @@ class MainWindow:
 
         if item_name == "open_menu_item":
             button.set_label("Open")
-            chooser.set_action(Gtk.FILE_CHOOSER_ACTION_OPEN)
+            chooser.set_action(Gtk.FileChooserAction.OPEN)
         else:
             button.set_label("Save")
-            chooser.set_action(Gtk.FILE_CHOOSER_ACTION_SAVE)
+            chooser.set_action(Gtk.FileChooserAction.SAVE)
             chooser.set_current_name("%s.cfg" % self.pokedex.game)
 
         chooser.show()
