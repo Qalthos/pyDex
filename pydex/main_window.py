@@ -180,7 +180,7 @@ class MainWindow:
         self.add_pokemon()
 
     def show_dialog(self, menu_item):
-        item_name = get_name(menu_item)
+        item_name = Gtk.Buildable.get_name(menu_item)
         if item_name == "save_menu_item" and not self.pokedex.filename == "":
             io.write_dex(self.pokedex)
             self.changed = False
@@ -202,7 +202,7 @@ class MainWindow:
     def hide_dialog(self, button):
         chooser = self.builder.get_object("file_chooser")
         self.config["filename"] = chooser.get_filename()
-        if get_name(button) == "continue":
+        if Gtk.Buildable.get_name(button) == "continue":
             if button.get_label() == "Save":
                 self.pokedex.filename = chooser.get_filename()
                 io.write_dex(self.pokedex)
@@ -234,11 +234,11 @@ class MainWindow:
 
     def hide_info(self, button):
         number = int(self.builder.get_object("number").get_label())
-        if get_name(button) == "info_okay":
+        if Gtk.Buildable.get_name(button) == "info_okay":
             last_value = self.pokedex.user_dex[number]
             for radio in self.builder.get_object("radio_caught").get_group():
                 if radio.get_active():
-                    label = get_name(radio)
+                    label = Gtk.Buildable.get_name(radio)
                     if label == "radio_caught":
                         self.pokedex.user_dex[number] = 4
                     elif label == "radio_seen":
@@ -373,19 +373,6 @@ class MainWindow:
         elif os.path.exists("%sicons/0.png" % self.image_dir):
             return "%sicons/0.png" % self.image_dir
         return "%sblank.png" % self.image_dir
-
-
-def get_name(buildable):
-    """Returns the Gtk.Buildable.get_name() for the specified widget, rather
-    than the Gtk.Widget.get_name() which gets called by default in newer GTK
-    versions.
-
-    """
-
-    if Gtk.gtk_version[1] < 17:
-        return buildable.get_name()
-    else: # Grrrr, broken get_name()
-        return Gtk.Buildable.get_name(buildable)
 
 
 def build_pokemon_columns(list_store, regional=True):
