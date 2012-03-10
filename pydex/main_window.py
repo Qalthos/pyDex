@@ -9,10 +9,7 @@ import os
 import gtk
 import gtk.glade
 
-import evolution
-import io
-import pokedex
-import regional_dex
+from pydex import evolution, io, pokedex, regional_dex
 
 
 class MainWindow:

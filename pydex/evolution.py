@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 """This class provides a way of querying evolutionary methods of pokemon."""
 
-import pokedex
+from pydex import pokedex
 
 this = None
 
