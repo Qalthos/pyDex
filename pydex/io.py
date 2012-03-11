@@ -22,7 +22,7 @@ def write_dex(userdex):
 
 def read_dex(filename):
     """Loads the pokedex stored in filename into pyDex."""
-    print("Reading from", filename)
+    print("Reading from %s" % filename)
     userdex = [0]
     dex = pokedex.get_instance()
 
