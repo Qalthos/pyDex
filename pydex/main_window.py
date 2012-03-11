@@ -108,13 +108,11 @@ class MainWindow:
 
         # Populate the game dropdown
         game_name = self.builder.get_object("game_name")
-        game_store = Gtk.ListStore(str)
         for game in self.games:
-            game_store.append([game])
-        game_name.set_model(game_store)
+            game_name.append_text(game)
         cell = Gtk.CellRendererText()
         game_name.pack_start(cell, True)
-        game_name.add_attribute(cell, 'text', 0)
+        game_name.set_active(0)
 
         # Set the filter for filenames to .cfg
         self.builder.get_object("config_filter").add_pattern("*.cfg")
