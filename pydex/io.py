@@ -35,8 +35,8 @@ def read_dex(filename):
                 dex.game = game
                 dex.gen = pokedex.GAME_DATA[game]["gen"]
                 dex.region = pokedex.GAME_DATA[game]["region"]
-            for line in dex_file:
-                line = line.strip()
+            while True:
+                line = dex_file.readline().strip()
                 if len(line) == 0:
                     break
                 if len(userdex) > dex.max_dex:
