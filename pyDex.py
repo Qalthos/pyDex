@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 """PyDex is an interactive pokédex reader written in Python and Glade"""
 
