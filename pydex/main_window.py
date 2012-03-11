@@ -56,19 +56,20 @@ class MainWindow:
 
         #Create our dictionay of actions and connect it
         dic = {"on_toggle": self.toggle,
-                "new_file": self.new_file,
-         "gtk_dialog_show": self.show_dialog,
-              "show_about": self.show_about,
-              "hide_about": self.hide_about,
-           "gtk_info_show": self.show_info,
-       "on_dialog_clicked": self.hide_dialog,
-         "on_info_clicked": self.hide_info,
-          "on_evo_clicked": self.hide_evo,
-             "on_tab_flip": self.refresh_status,
-          "on_game_change": self.game_change,
-          "on_chk_toggled": self.unown_toggle,
-                    "quit": self.save_before_quit,
-             "really_quit": self.quit}
+               "new_file": self.new_file,
+               "gtk_dialog_show": self.show_dialog,
+               "show_about": self.show_about,
+               "hide_about": self.hide_about,
+               "gtk_info_show": self.show_info,
+               "on_dialog_clicked": self.hide_dialog,
+               "on_info_clicked": self.hide_info,
+               "on_evo_clicked": self.hide_evo,
+               "on_tab_flip": self.refresh_status,
+               "on_game_change": self.game_change,
+               "on_chk_toggled": self.unown_toggle,
+               "quit": self.save_before_quit,
+               "really_quit": self.quit
+        }
         self.builder.connect_signals(dic)
 
         if not parent:
