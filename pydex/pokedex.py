@@ -25,7 +25,7 @@ GAME_DATA = {"Red": {"gen": 1, "region": 1},
 
 
 class Pokedex:
-    max_dex = MAX_DEXEN[len(MAX_DEXEN)-1]
+    max_dex = MAX_DEXEN[-1]
     gen = 0
     region = 0
     dex = []
@@ -79,7 +79,7 @@ class Pokedex:
             return False
 
     def new_dex(self):
-        self.user_dex = [1] * (len(MAX_DEXEN) + 1)
+        self.user_dex = [1] * (self.max_dex + 1)
         self.gen = 0
         self.region = 0
         self.unown_code = 0
