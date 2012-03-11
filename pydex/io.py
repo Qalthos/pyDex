@@ -11,14 +11,13 @@ config_dir = os.path.expanduser("~/.pyDex/")
 def write_dex(userdex):
     """Writes the current pokedex to a file."""
     print("Writing to %s" % userdex.filename)
-    dex_file = open(userdex.filename, "w")
-    dex_file.write("%s\n" % userdex.game)
-    # user_dex index 0 is junk to keep index to dexnum translation straight
-    # Skip it.
-    for pokemon in userdex.user_dex[1:]:
-        dex_file.write("%s\n" % pokemon)
-    dex_file.write("\n%s\n" % userdex.unown_code)
-    dex_file.close()
+    with open(userdex.filename, "w") dex_file:
+        dex_file.write("%s\n" % userdex.game)
+        # user_dex index 0 is junk to keep index to dexnum translation straight
+        # Skip it.
+        for pokemon in userdex.user_dex[1:]:
+            dex_file.write("%s\n" % pokemon)
+        dex_file.write("\n%s\n" % userdex.unown_code)
 
 
 def read_dex(filename):
@@ -59,11 +58,9 @@ def write_config(config):
     """Writes the current pyDex configuration to a standard location."""
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
-    config_file = open(config_dir + "config", "w")
-    for key, value in config.items():
-    	if key == "filename":
-	        config_file.write("%s" % value)
-    config_file.close()
+    with open(config_dir + "config", "w") as config_file:
+        for key, value in config.items():
+            config_file.write("%s %s\n" % (key, value))
 
 
 def read_config():
@@ -74,14 +71,13 @@ def read_config():
     config = {}
     if not os.path.exists(config_dir + "config"):
         return config
-    config_file = open(config_dir + "config")
-    for line in config_file:
-        line = line.split()
-        try:
-            config[line[0]] = line[1]
-        except IndexError:
-            config["filename"] = line[0]
-        break
-    config_file.close()
+    with open(config_dir + "config") as config_file:
+        for line in config_file:
+            line = line.split()
+            try:
+                config[line[0]] = line[1]
+            except IndexError:
+                config["filename"] = line[0]
+            break
 
     return config
