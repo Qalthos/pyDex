@@ -11,7 +11,7 @@ config_dir = os.path.expanduser("~/.pyDex/")
 def write_dex(userdex):
     """Writes the current pokedex to a file."""
     print("Writing to %s" % userdex.filename)
-    with open(userdex.filename, "w") dex_file:
+    with open(userdex.filename, "w") as dex_file:
         dex_file.write("%s\n" % userdex.game)
         # user_dex index 0 is junk to keep index to dexnum translation straight
         # Skip it.
