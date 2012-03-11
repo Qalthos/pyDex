@@ -37,8 +37,6 @@ class MainWindow:
         }
         self.models["evolution"].set_sort_func(2, sort)
 
-        self.filter = 0b111
-
         self.builder = None
 
         # Read settings and open last open file.
@@ -48,6 +46,8 @@ class MainWindow:
             filename = self.config["filename"]
             if os.path.exists(filename):
                 self.pokedex.filename = filename
+
+        self.filter = int(self.config.get("filter", 0b111))
 
     def main(self, parent):
         #Set the Glade file
@@ -175,6 +175,7 @@ class MainWindow:
             self.filter ^= 0b010
         elif button.get_label() == "Caught":
             self.filter ^= 0b100
+        self.config["filter"] = self.filter
         # Update the lists.
         self.add_pokemon()
 
