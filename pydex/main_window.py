@@ -315,14 +315,16 @@ class MainWindow:
 
     def unown_toggle(self, checkbox):
         index = int(Gtk.Buildable.get_name(checkbox)[4:]) - 1
+        old_code = self.pokedex.unown_code
 
         if checkbox.get_active():
             self.pokedex.unown_code |= 2**index
         else:
             self.pokedex.unown_code &= ~(2**index)
 
-        print(self.pokedex.unown_code)
-        self.changed = True
+        # Don't save if the code hasn't changed.
+        if old_code != self.pokedex.unown_code:
+            self.changed = True
 
     def save_before_quit(self, *ignored):
         if self.changed:
