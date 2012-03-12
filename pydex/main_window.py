@@ -57,24 +57,6 @@ class MainWindow:
         for power, toggle in enumerate(['missing', 'seen', 'caught']):
             self.builder.get_object(toggle).set_active(self.filter & (2 ** power))
 
-        #Create our dictionay of actions and connect it
-        dic = {"on_toggle": self.toggle,
-               "new_file": self.new_file,
-               "gtk_dialog_show": self.show_dialog,
-               "show_about": self.show_about,
-               "hide_about": self.hide_about,
-               "gtk_info_show": self.show_info,
-               "on_dialog_clicked": self.hide_dialog,
-               "on_info_clicked": self.hide_info,
-               "on_evo_clicked": self.hide_evo,
-               "on_tab_flip": self.refresh_status,
-               "on_game_change": self.game_change,
-               "on_chk_toggled": self.unown_toggle,
-               "quit": self.save_before_quit,
-               "really_quit": self.quit
-        }
-        self.builder.connect_signals(dic)
-
         if not parent:
             parent = self.builder.get_object("main_window")
 
@@ -117,6 +99,25 @@ class MainWindow:
         game_name.pack_start(cell, True)
         game_name.set_entry_text_column(0)
         game_name.set_active(0)
+
+        # Create our dictionary of actions and connect it
+        # Do this late to keep setup from activating them
+        dic = {"on_toggle": self.toggle,
+               "new_file": self.new_file,
+               "gtk_dialog_show": self.show_dialog,
+               "show_about": self.show_about,
+               "hide_about": self.hide_about,
+               "gtk_info_show": self.show_info,
+               "on_dialog_clicked": self.hide_dialog,
+               "on_info_clicked": self.hide_info,
+               "on_evo_clicked": self.hide_evo,
+               "on_tab_flip": self.refresh_status,
+               "on_game_change": self.game_change,
+               "on_chk_toggled": self.unown_toggle,
+               "quit": self.save_before_quit,
+               "really_quit": self.quit
+        }
+        self.builder.connect_signals(dic)
 
         # Set the filter for filenames to .cfg
         self.builder.get_object("config_filter").add_pattern("*.cfg")
