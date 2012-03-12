@@ -86,6 +86,12 @@ class Pokedex:
         self.game = "Default"
         self.filename = ""
 
+    def change_game(self, game):
+        """Change the set game of the pokedex."""
+        self.gen = GAME_DATA[game]['gen']
+        self.region = GAME_DATA[game]['region']
+        self.game = game
+
 
 def get_instance():
     global this

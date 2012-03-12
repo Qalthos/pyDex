@@ -311,8 +311,14 @@ class MainWindow:
                                     len(self.models["evolution"]))
 
     def game_change(self, combobox):
-        pokedex.get_instance().game = combobox.get_active_text()
+        old_game = self.pokedex.game
+
+        self.pokedex.change_game(combobox.get_active_text())
         self.refresh_pages()
+
+        # Don't save if the game hasn't changed
+        if old_game != self.pokedex.game:
+            self.changed = True
 
     def unown_toggle(self, checkbox):
         index = int(Gtk.Buildable.get_name(checkbox)[4:]) - 1
