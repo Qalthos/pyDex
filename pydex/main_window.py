@@ -54,6 +54,9 @@ class MainWindow:
         self.builder = Gtk.Builder()
         self.builder.add_from_file("pyDex.glade")
 
+        for power, toggle in enumerate(['missing', 'seen', 'caught']):
+            self.builder.get_object(toggle).set_active(self.filter & (2 ** power))
+
         #Create our dictionay of actions and connect it
         dic = {"on_toggle": self.toggle,
                "new_file": self.new_file,
