@@ -314,7 +314,8 @@ class MainWindow:
         self.refresh_pages()
 
     def unown_toggle(self, checkbox):
-        index = int(get_name(checkbox)[4:]) - 1
+        index = int(Gtk.Buildable.get_name(checkbox)[4:]) - 1
+
         if checkbox.get_active():
             self.pokedex.unown_code |= 2**index
         else:
