@@ -78,6 +78,6 @@ def read_config():
                 config[line[0]] = line[1]
             except IndexError:
                 config["filename"] = line[0]
-            break
+                break
 
     return config
