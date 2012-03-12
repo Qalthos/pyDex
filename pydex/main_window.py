@@ -115,6 +115,7 @@ class MainWindow:
             game_name.append_text(game)
         cell = Gtk.CellRendererText()
         game_name.pack_start(cell, True)
+        game_name.set_entry_text_column(0)
         game_name.set_active(0)
 
         # Set the filter for filenames to .cfg
