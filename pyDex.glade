@@ -61,6 +61,7 @@
             <child>
               <object class="GtkButton" id="evo_yes">
                 <property name="label" translatable="yes">Yes</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -76,6 +77,7 @@
             <child>
               <object class="GtkButton" id="evo_no">
                 <property name="label" translatable="yes">No</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -194,6 +196,7 @@
             <child>
               <object class="GtkButton" id="continue">
                 <property name="label" translatable="yes">button</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -209,6 +212,7 @@
             <child>
               <object class="GtkButton" id="file_cancel">
                 <property name="label" translatable="yes">Cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -260,6 +264,7 @@
             <child>
               <object class="GtkButton" id="info_okay">
                 <property name="label" translatable="yes">OK</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -275,6 +280,7 @@
             <child>
               <object class="GtkButton" id="info_cancel">
                 <property name="label" translatable="yes">Cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -393,6 +399,7 @@
                     <child>
                       <object class="GtkRadioButton" id="radio_caught">
                         <property name="label" translatable="yes">Caught</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -408,6 +415,7 @@
                     <child>
                       <object class="GtkRadioButton" id="radio_seen">
                         <property name="label" translatable="yes">Seen</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -424,6 +432,7 @@
                     <child>
                       <object class="GtkRadioButton" id="radio_missing">
                         <property name="label" translatable="yes">Missing</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -490,9 +499,9 @@
         <property name="can_focus">False</property>
         <child>
           <object class="GtkMenuItem" id="file_menu">
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="use_action_appearance">False</property>
             <property name="label" translatable="yes">File</property>
             <child type="submenu">
               <object class="GtkMenu" id="menu1">
@@ -501,9 +510,9 @@
                 <child>
                   <object class="GtkImageMenuItem" id="new_menu_item">
                     <property name="label">gtk-new</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
                     <signal name="activate" handler="new_file" swapped="no"/>
@@ -512,9 +521,9 @@
                 <child>
                   <object class="GtkImageMenuItem" id="open_menu_item">
                     <property name="label">gtk-open</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
                     <signal name="activate" handler="gtk_dialog_show" swapped="no"/>
@@ -523,9 +532,9 @@
                 <child>
                   <object class="GtkImageMenuItem" id="save_menu_item">
                     <property name="label">gtk-save</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
                     <signal name="activate" handler="gtk_dialog_show" swapped="no"/>
@@ -534,9 +543,9 @@
                 <child>
                   <object class="GtkImageMenuItem" id="save_as_menu_item">
                     <property name="label">gtk-save-as</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
                     <signal name="activate" handler="gtk_dialog_show" swapped="no"/>
@@ -551,9 +560,9 @@
                 <child>
                   <object class="GtkImageMenuItem" id="quit_menu_item">
                     <property name="label">gtk-quit</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
                     <signal name="activate" handler="quit" swapped="no"/>
@@ -565,9 +574,9 @@
         </child>
         <child>
           <object class="GtkMenuItem" id="help_menu">
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="use_action_appearance">False</property>
             <property name="right_justified">True</property>
             <property name="label" translatable="yes">Help</property>
             <child type="submenu">
@@ -577,9 +586,9 @@
                 <child>
                   <object class="GtkImageMenuItem" id="about_menu_item">
                     <property name="label">gtk-about</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
                     <signal name="activate" handler="show_about" swapped="no"/>
@@ -616,6 +625,7 @@
         <child>
           <object class="GtkToggleButton" id="caught">
             <property name="label" translatable="yes">Caught</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -632,6 +642,7 @@
         <child>
           <object class="GtkToggleButton" id="seen">
             <property name="label" translatable="yes">Seen</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -649,6 +660,7 @@
         <child>
           <object class="GtkToggleButton" id="missing">
             <property name="label" translatable="yes">Missing</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -865,6 +877,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_1">
                 <property name="label" translatable="yes">A</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -877,6 +890,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_2">
                 <property name="label" translatable="yes">B</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -893,6 +907,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_3">
                 <property name="label" translatable="yes">C</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -909,6 +924,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_4">
                 <property name="label" translatable="yes">D</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -925,6 +941,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_5">
                 <property name="label" translatable="yes">E</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -941,6 +958,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_6">
                 <property name="label" translatable="yes">F</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -959,6 +977,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_7">
                 <property name="label" translatable="yes">G</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -977,6 +996,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_8">
                 <property name="label" translatable="yes">H</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -995,6 +1015,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_9">
                 <property name="label" translatable="yes">I</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1011,6 +1032,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_10">
                 <property name="label" translatable="yes">J</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1029,6 +1051,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_11">
                 <property name="label" translatable="yes">K</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1047,6 +1070,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_12">
                 <property name="label" translatable="yes">L</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1065,6 +1089,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_13">
                 <property name="label" translatable="yes">M</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1081,6 +1106,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_14">
                 <property name="label" translatable="yes">N</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1099,6 +1125,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_15">
                 <property name="label" translatable="yes">O</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1117,6 +1144,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_16">
                 <property name="label" translatable="yes">P</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1135,6 +1163,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_17">
                 <property name="label" translatable="yes">Q</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1151,6 +1180,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_18">
                 <property name="label" translatable="yes">R</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1169,6 +1199,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_19">
                 <property name="label" translatable="yes">S</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1187,6 +1218,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_20">
                 <property name="label" translatable="yes">T</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1205,6 +1237,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_21">
                 <property name="label" translatable="yes">U</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1221,6 +1254,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_22">
                 <property name="label" translatable="yes">V</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1239,6 +1273,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_23">
                 <property name="label" translatable="yes">W</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1257,6 +1292,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_24">
                 <property name="label" translatable="yes">X</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1275,6 +1311,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_25">
                 <property name="label" translatable="yes">Y</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1291,6 +1328,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_26">
                 <property name="label" translatable="yes">Z</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1309,6 +1347,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_27">
                 <property name="label" translatable="yes">!</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1327,6 +1366,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_28">
                 <property name="label" translatable="yes">?</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1473,6 +1513,7 @@ Pokemon</property>
             <child>
               <object class="GtkButton" id="save">
                 <property name="label" translatable="yes">Save</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1488,6 +1529,7 @@ Pokemon</property>
             <child>
               <object class="GtkButton" id="discard">
                 <property name="label" translatable="yes">Discard</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1503,6 +1545,7 @@ Pokemon</property>
             <child>
               <object class="GtkButton" id="cancel">
                 <property name="label" translatable="yes">Cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
