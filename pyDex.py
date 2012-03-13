@@ -1,8 +1,8 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 """PyDex is an interactive pokédex reader written in Python and Glade"""
 
-import gtk
+from gi.repository import Gtk
 
 import os
 import sys
@@ -16,4 +16,4 @@ if __name__ == "__main__":
     mw = main_window.MainWindow()
 
     mw.main(None)
-    gtk.main()
+    Gtk.main()
