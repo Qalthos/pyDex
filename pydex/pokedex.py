@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 """The national pokédex."""
 
+import re
+
 this = None
 MAX_DEXEN = [0, 151, 251, 386, 496, 649]
 GAME_DATA = {"Red": {"gen": 1, "region": 1},
@@ -41,8 +43,11 @@ class Pokedex:
             if len(pokarray) == 3:
                 # This pokemon does not have a second type.
                 pokarray.append("---")
-            self.dex.append({"number": int(pokarray[0]), "name": pokarray[1],
-              "type1": pokarray[2], "type2": pokarray[3]})
+            self.dex.append({"number": int(pokarray[0]),
+                             "name": re.sub('_', ' ', pokarray[1]),
+                             "type1": pokarray[2],
+                             "type2": pokarray[3]
+                            })
         nat_data.close()
         self.new_dex()
 
