@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 """The national pokédex."""
 
+import re
+
 this = None
 MAX_DEXEN = [0, 151, 251, 386, 496, 649]
 GAME_DATA = {"Red": {"gen": 1, "region": 1},
@@ -25,7 +27,7 @@ GAME_DATA = {"Red": {"gen": 1, "region": 1},
 
 
 class Pokedex:
-    max_dex = MAX_DEXEN[len(MAX_DEXEN)-1]
+    max_dex = MAX_DEXEN[-1]
     gen = 0
     region = 0
     dex = []
@@ -41,8 +43,11 @@ class Pokedex:
             if len(pokarray) == 3:
                 # This pokemon does not have a second type.
                 pokarray.append("---")
-            self.dex.append({"number": int(pokarray[0]), "name": pokarray[1],
-              "type1": pokarray[2], "type2": pokarray[3]})
+            self.dex.append({"number": int(pokarray[0]),
+                             "name": re.sub('_', ' ', pokarray[1]),
+                             "type1": pokarray[2],
+                             "type2": pokarray[3]
+                            })
         nat_data.close()
         self.new_dex()
 
@@ -50,7 +55,7 @@ class Pokedex:
         try:
             temp = self.user_dex[pokenum]
         except IndexError:
-            print "%d is out of user_dex" % pokenum
+            print("%d is out of user_dex" % pokenum)
             return "unknown"
         if temp == 1:
             return "missing"
@@ -67,7 +72,7 @@ class Pokedex:
             return False
         # But also make sure all the current pokemon do.
         elif pokenum >= len(self.user_dex):
-            print "%d not initialized" % pokenum
+            print("%d not initialized" % pokenum)
             return True
         temp = int(self.user_dex[pokenum])
         try:
@@ -79,12 +84,18 @@ class Pokedex:
             return False
 
     def new_dex(self):
-        self.user_dex = [1] * (len(MAX_DEXEN) + 1)
+        self.user_dex = [1] * (self.max_dex + 1)
         self.gen = 0
         self.region = 0
         self.unown_code = 0
         self.game = "Default"
         self.filename = ""
+
+    def change_game(self, game):
+        """Change the set game of the pokedex."""
+        self.gen = GAME_DATA[game]['gen']
+        self.region = GAME_DATA[game]['region']
+        self.game = game
 
 
 def get_instance():
