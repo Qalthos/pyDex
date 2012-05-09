@@ -18,11 +18,13 @@ GAME_DATA = {"Red": {"gen": 1, "region": 1},
              "LeafGreen": {"gen": 3, "region": 1},
              "Diamond": {"gen": 4, "region": 4},
              "Pearl": {"gen": 4, "region": 4},
-             "Platinum": {"gen": 4, "region": 4},
+             "Platinum": {"gen": 4, "region": 4.1},
              "HeartGold": {"gen": 4, "region": 2},
              "SoulSilver": {"gen": 4, "region": 2},
              "Black": {"gen": 5, "region": 5},
-             "White": {"gen": 5, "region": 5}
+             "White": {"gen": 5, "region": 5},
+             "Black 2": {"gen": 5, "region": 5.1},
+             "White 2": {"gen": 5, "region": 5.1},
             }
 
 
@@ -96,6 +98,17 @@ class Pokedex:
         self.gen = GAME_DATA[game]['gen']
         self.region = GAME_DATA[game]['region']
         self.game = game
+
+    def __repr__(self):
+        """Dump the most useful vasriables from a loaded pokedex."""
+        output = "Pokedex size:    %d\n" % self.max_dex
+        output += "Game generation: %d\n" % self.gen
+        output += "Game region:     %d\n" % self.region
+        output += "Unown code:      %d\n" % self.unown_code
+        output += "Game name:       %s\n" % self.game
+        output += "Config filename: %s\n" % self.filename
+
+        return output
 
 
 def get_instance():
