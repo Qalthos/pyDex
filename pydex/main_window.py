@@ -71,8 +71,8 @@ class MainWindow:
 
         # Build the listing of pokemon for each region.
         for region in regional_dex.IDS:
-            list_store = self.builder.get_object("%s_pokemon" % region)
-            list_store.set_model(self.models[region])
+            list_store = self.builder.get_object("%s_pokemon" % region['name'])
+            list_store.set_model(self.models[region['name']])
             build_pokemon_columns(list_store)
 
         list_store = self.builder.get_object("evolvable_pokemon")
@@ -144,10 +144,11 @@ class MainWindow:
                             self.pokedex.status(pokenum)]
             self.models["national"].append(pokarray)
 
-            for region_name, region in regional_dex.IDS.items():
+            for i, region_dict in enumerate(regional_dex.IDS):
+                region = region_dict['pokemon']
                 if pokenum in region:
                     pokarray[1] = region.index(pokenum)
-                    self.models[region_name].append(pokarray)
+                    self.models[region_dict['name']].append(pokarray)
 
         for evotype, evolution in self.evolutions.evo.items():
             for pokepair in evolution:
@@ -290,7 +291,7 @@ class MainWindow:
             if new_page_num == 0: # National
                 dex = self.pokedex.user_dex
             else:
-                region = regional_dex.IDS[self.dexes[new_page_num]]
+                region = regional_dex.IDS[new_page_num - 1]['pokemon']
                 for entry in self.pokedex.dex:
                     if entry["number"] in region:
                         if entry["number"] >= len(self.pokedex.user_dex):
