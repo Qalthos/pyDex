@@ -97,6 +97,17 @@ class Pokedex:
         self.region = GAME_DATA[game]['region']
         self.game = game
 
+    def __repr__(self):
+        """Dump the most useful vasriables from a loaded pokedex."""
+        output = "Pokedex size:    %d\n" % self.max_dex
+        output += "Game generation: %d\n" % self.gen
+        output += "Game region:     %d\n" % self.region
+        output += "Unown code:      %d\n" % self.unown_code
+        output += "Game name:       %s\n" % self.game
+        output += "Config filename: %s\n" % self.filename
+
+        return output
+
 
 def get_instance():
     global this
