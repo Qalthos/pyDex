@@ -16,7 +16,6 @@ class MainWindow:
     image_dir = "images/"
     changed = False
 
-    dexes = ("national", "Kdex", "Jdex", "Hdex", "Sdex", "Udex")
     games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
              "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
              "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
@@ -289,7 +288,7 @@ class MainWindow:
         caught = 0
         seen = 0
         dex = []
-        if new_page_num < len(self.dexes):
+        if new_page_num < len(regional_dex.IDS):
             if new_page_num == 0: # National
                 dex = self.pokedex.user_dex
             else:
@@ -371,7 +370,7 @@ class MainWindow:
 
     def refresh_pages(self):
         """Determine visible pages based on current game."""
-        for i in range(len(self.dexes)):
+        for i in range(len(regional_dex.IDS)):
             page = self.builder.get_object("dex_type").get_nth_page(i)
             page.set_visible(i <= self.pokedex.gen)
 
