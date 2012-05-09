@@ -70,7 +70,7 @@ class MainWindow:
         build_pokemon_columns(list_store, False)
 
         # Build the listing of pokemon for each region.
-        for region in regional_dex.IDS:
+        for region in regional_dex.IDS[1:]:
             list_store = self.builder.get_object("%s_pokemon" % region['name'])
             list_store.set_model(self.models[region['name']])
             build_pokemon_columns(list_store)
@@ -145,6 +145,8 @@ class MainWindow:
             self.models["national"].append(pokarray)
 
             for i, region_dict in enumerate(regional_dex.IDS):
+                if i == 0:
+                    continue
                 region = region_dict['pokemon']
                 if pokenum in region:
                     pokarray[1] = region.index(pokenum)
@@ -291,7 +293,7 @@ class MainWindow:
             if new_page_num == 0: # National
                 dex = self.pokedex.user_dex
             else:
-                region = regional_dex.IDS[new_page_num - 1]['pokemon']
+                region = regional_dex.IDS[new_page_num]['pokemon']
                 for entry in self.pokedex.dex:
                     if entry["number"] in region:
                         if entry["number"] >= len(self.pokedex.user_dex):
