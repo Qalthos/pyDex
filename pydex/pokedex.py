@@ -18,11 +18,13 @@ GAME_DATA = {"Red": {"gen": 1, "region": 1},
              "LeafGreen": {"gen": 3, "region": 1},
              "Diamond": {"gen": 4, "region": 4},
              "Pearl": {"gen": 4, "region": 4},
-             "Platinum": {"gen": 4, "region": 4},
+             "Platinum": {"gen": 4, "region": 4.1},
              "HeartGold": {"gen": 4, "region": 2},
              "SoulSilver": {"gen": 4, "region": 2},
              "Black": {"gen": 5, "region": 5},
-             "White": {"gen": 5, "region": 5}
+             "White": {"gen": 5, "region": 5},
+             "Black 2": {"gen": 5, "region": 5.1},
+             "White 2": {"gen": 5, "region": 5.1},
             }
 
 
