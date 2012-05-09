@@ -147,6 +147,9 @@ class MainWindow:
                 if i == 0:
                     continue
                 region = region_dict['pokemon']
+                if self.pokedex.region in region_dict.get('versions', {}):
+                    length = region_dict['versions'][self.pokedex.region]
+                    region = region[:length]
                 if pokenum in region:
                     pokarray[1] = region.index(pokenum)
                     self.models[region_dict['name']].append(pokarray)
