@@ -368,12 +368,9 @@ class MainWindow:
 
     def refresh_pages(self):
         """Determine visible pages based on current game."""
-        for i, region in enumerate(self.dexes):
+        for i in range(len(self.dexes)):
             page = self.builder.get_object("dex_type").get_nth_page(i)
-            if i > self.pokedex.gen:
-                page.set_visible(False)
-            else:
-                page.set_visible(True)
+            page.set_visible(i <= self.pokedex.gen)
 
         # Hide functions not present in Gen I
         for tab in ['national', 'unown', 'baby']:
