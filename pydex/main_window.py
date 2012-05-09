@@ -366,12 +366,17 @@ class MainWindow:
         self.add_pokemon()
 
     def refresh_pages(self):
+        """Determine visible pages based on current game."""
         for i, region in enumerate(self.dexes):
             page = self.builder.get_object("dex_type").get_nth_page(i)
             if i > self.pokedex.gen:
                 page.set_visible(False)
             else:
                 page.set_visible(True)
+
+        # Hide functions not present in Gen I
+        for tab in ['national', 'unown', 'baby']:
+            self.builder.get_object("%s_tab" % tab).set_visible(self.pokedex.gen != 1)
 
     def clear_models(self):
         for model in self.models.values():
