@@ -573,6 +573,39 @@
           </object>
         </child>
         <child>
+          <object class="GtkMenuItem" id="show_menu">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Show</property>
+            <child type="submenu">
+              <object class="GtkMenu" id="menu2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkCheckMenuItem" id="evo_menu_item">
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Show Evolved Pokemon</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckMenuItem" id="unob_menu_item">
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Show Unobtainable Pokemon</property>
+                    <property name="use_underline">True</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
           <object class="GtkMenuItem" id="help_menu">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
