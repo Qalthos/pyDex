@@ -11,7 +11,7 @@
     <property name="type_hint">normal</property>
     <property name="deletable">False</property>
     <property name="program_name">pyDex</property>
-    <property name="version">1.1</property>
+    <property name="version">1.2</property>
     <property name="copyright" translatable="yes">All images courtesy Bulbapedia.com</property>
     <property name="website">http://www.gitorious.org/pydex/</property>
     <property name="license" translatable="yes">This program is licensed under the terms of the Don't Be A Dick License http://dbad-license.org</property>
