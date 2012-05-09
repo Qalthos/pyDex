@@ -143,6 +143,7 @@ class MainWindow:
                             pokemon["type1"], pokemon["type2"],
                             self.pokedex.status(pokenum)]
             self.models["national"].append(pokarray)
+
             for region_name, region in regional_dex.IDS.items():
                 if pokenum in region:
                     pokarray[1] = region.index(pokenum)
