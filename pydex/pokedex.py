@@ -83,6 +83,11 @@ class Pokedex:
         except ZeroDivisionError:
             return False
 
+        if bitstring & 0b1000:
+            from pydex import evolution
+            if pokenum in evolution.get_instance().evolved:
+                return False
+
         return True
 
     def new_dex(self):
