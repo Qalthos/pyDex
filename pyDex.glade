@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkAboutDialog" id="about">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="type">popup</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">normal</property>
+    <property name="deletable">False</property>
     <property name="program_name">pyDex</property>
-    <property name="version">1.1</property>
+    <property name="version">1.2</property>
     <property name="copyright" translatable="yes">All images courtesy Bulbapedia.com</property>
     <property name="website">http://www.gitorious.org/pydex/</property>
     <property name="license" translatable="yes">This program is licensed under the terms of the Don't Be A Dick License http://dbad-license.org</property>
@@ -46,7 +48,9 @@
   <object class="GtkDialog" id="evolution_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="modal">True</property>
     <property name="type_hint">normal</property>
+    <property name="deletable">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="evo_vbox">
         <property name="visible">True</property>
@@ -181,12 +185,14 @@
     <property name="border_width">5</property>
     <property name="modal">True</property>
     <property name="type_hint">normal</property>
+    <property name="deletable">False</property>
     <property name="filter">config_filter</property>
     <signal name="file-activated" handler="on_dialog_clicked" object="continue" swapped="yes"/>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area1">
@@ -233,9 +239,6 @@
             <property name="position">0</property>
           </packing>
         </child>
-        <child>
-          <placeholder/>
-        </child>
       </object>
     </child>
     <action-widgets>
@@ -250,6 +253,7 @@
     <property name="default_width">500</property>
     <property name="default_height">300</property>
     <property name="type_hint">normal</property>
+    <property name="deletable">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -404,6 +408,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_action_appearance">False</property>
+                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
@@ -420,6 +425,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_action_appearance">False</property>
+                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radio_caught</property>
                       </object>
@@ -437,6 +443,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_action_appearance">False</property>
+                        <property name="xalign">0.5</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radio_caught</property>
@@ -687,7 +694,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">3</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -721,7 +728,7 @@
         <property name="tab_pos">left</property>
         <signal name="switch-page" handler="on_tab_flip" swapped="no"/>
         <child>
-          <object class="GtkScrolledWindow" id="scroll1">
+          <object class="GtkScrolledWindow" id="national_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -748,7 +755,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll2">
+          <object class="GtkScrolledWindow" id="kanto_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -779,7 +786,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll3">
+          <object class="GtkScrolledWindow" id="johto_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -810,7 +817,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll4">
+          <object class="GtkScrolledWindow" id="hoenn_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -841,7 +848,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll5">
+          <object class="GtkScrolledWindow" id="sinnoh_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -872,7 +879,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll6">
+          <object class="GtkScrolledWindow" id="unova_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -902,7 +909,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTable" id="table1">
+          <object class="GtkTable" id="unown_tab">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="n_rows">7</property>
@@ -1432,7 +1439,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll7">
+          <object class="GtkScrolledWindow" id="evolution_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -1462,7 +1469,7 @@ Evolutions</property>
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scroll8">
+          <object class="GtkScrolledWindow" id="baby_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>

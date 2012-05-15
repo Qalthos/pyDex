@@ -27,14 +27,15 @@ def read_dex(filename):
     dex = pokedex.get_instance()
 
     with open(filename) as dex_file:
+        # Read the game version
+        game = dex_file.readline().strip()
+        if game in pokedex.GAME_DATA:
+            dex.max_dex = pokedex.MAX_DEXEN[pokedex.GAME_DATA[game]["gen"]]
+            dex.game = game
+            dex.gen = pokedex.GAME_DATA[game]["gen"]
+            dex.region = pokedex.GAME_DATA[game]["region"]
+
         try:
-            # Read the game version
-            game = dex_file.readline().strip()
-            if game in pokedex.GAME_DATA:
-                dex.max_dex = pokedex.MAX_DEXEN[pokedex.GAME_DATA[game]["gen"]]
-                dex.game = game
-                dex.gen = pokedex.GAME_DATA[game]["gen"]
-                dex.region = pokedex.GAME_DATA[game]["region"]
             while True:
                 line = dex_file.readline().strip()
                 if len(line) == 0:
@@ -44,6 +45,9 @@ def read_dex(filename):
                 userdex.append(int(line))
             # Read the Unown code
             dex.unown_code = int(dex_file.readline())
+        except ValueError:
+            print("Old config file has no unown code.")
+            dex.unown_code = 0
         except StopIteration:
             print("Error reading file! Only %d read." % len(userdex))
 
