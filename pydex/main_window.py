@@ -180,15 +180,13 @@ class MainWindow:
 
     def toggle(self, button):
         """Changes the filter depending on which button was pressed."""
-        if button.get_label() == "Missing":
-            self.filter ^= 0b001
-        elif button.get_label() == "Seen":
-            self.filter ^= 0b010
-        elif button.get_label() == "Caught":
-            self.filter ^= 0b100
-        self.config["filter"] = self.filter
-        # Update the lists.
-        self.add_pokemon()
+        filters = ['Missing', 'Seen', 'Caught', 'Show Evolved Pokemon',
+                   'Show Unobtainable Pokemon',]
+        if button.get_label() in filters:
+            self.filter ^= 2 ** filters.index(button.get_label())
+            self.config["filter"] = self.filter
+            # Update the lists.
+            self.add_pokemon()
 
     def show_dialog(self, menu_item):
         item_name = Gtk.Buildable.get_name(menu_item)
