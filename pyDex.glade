@@ -596,6 +596,7 @@
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Show Evolved Pokemon</property>
                     <property name="active">True</property>
+                    <signal name="toggled" handler="on_toggle" swapped="no"/>
                   </object>
                 </child>
                 <child>
@@ -606,6 +607,7 @@
                     <property name="label" translatable="yes">Show Unobtainable Pokemon</property>
                     <property name="use_underline">True</property>
                     <property name="active">True</property>
+                    <signal name="toggled" handler="on_toggle" swapped="no"/>
                   </object>
                 </child>
               </object>
