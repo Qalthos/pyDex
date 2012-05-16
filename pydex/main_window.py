@@ -11,15 +11,16 @@ from gi.repository import Gtk, GdkPixbuf
 from pydex import evolution, io, pokedex, regional_dex
 
 
+IMAGE_DIR = "images/"
+GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
+         "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
+         "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
+         "Black", "White"]
+
 class MainWindow:
 
-    image_dir = "images/"
     changed = False
 
-    games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
-             "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
-             "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-             "Black", "White"]
 
     def __init__(self):
         self.builder = None
@@ -97,7 +98,7 @@ class MainWindow:
 
         # Populate the game dropdown
         game_name = self.builder.get_object("game_name")
-        for game in self.games:
+        for game in GAMES:
             game_name.append_text(game)
         cell = Gtk.CellRendererText()
         game_name.pack_start(cell, True)
@@ -363,8 +364,8 @@ class MainWindow:
     # Convenience Methods
     def open_file(self, filename):
         self.pokedex.user_dex = io.read_dex(filename)
-        if self.pokedex.game in self.games:
-            self.builder.get_object("game_name").set_active(self.games.index(self.pokedex.game))
+        if self.pokedex.game in GAMES:
+            self.builder.get_object("game_name").set_active(GAMES.index(self.pokedex.game))
             self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
 
         for i in range(28):
@@ -385,13 +386,13 @@ class MainWindow:
             self.builder.get_object("%s_tab" % tab).set_visible(self.pokedex.gen != 1)
 
     def load_image(self, image_number, portrait=False):
-        if portrait and os.path.exists("%sportraits/%03d.png" % (self.image_dir, image_number)):
-            return "%sportraits/%03d.png" % (self.image_dir, image_number)
-        elif os.path.exists("%sicons/%03d.png" % (self.image_dir, image_number)):
-            return "%sicons/%03d.png" % (self.image_dir, image_number)
-        elif os.path.exists("%sicons/0.png" % self.image_dir):
-            return "%sicons/0.png" % self.image_dir
-        return "%sblank.png" % self.image_dir
+        if portrait and os.path.exists("%sportraits/%03d.png" % (IMAGE_DIR, image_number)):
+            return "%sportraits/%03d.png" % (IMAGE_DIR, image_number)
+        elif os.path.exists("%sicons/%03d.png" % (IMAGE_DIR, image_number)):
+            return "%sicons/%03d.png" % (IMAGE_DIR, image_number)
+        elif os.path.exists("%sicons/0.png" % IMAGE_DIR):
+            return "%sicons/0.png" % IMAGE_DIR
+        return "%sblank.png" % IMAGE_DIR
 
     def valid_wrapper(self, model, iter, data):
         """A wrapper around pokedex's valid() function for use with
