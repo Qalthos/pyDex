@@ -141,9 +141,6 @@ class MainWindow:
 
         for pokemon in self.pokedex.dex:
             pokenum = int(pokemon["number"])
-            # This hides pokemon which do not match the current filter.
-            if not self.pokedex.valid(pokenum, self.filter):
-                continue
             pokarray = [GdkPixbuf.Pixbuf.new_from_file(
                                   self.load_image(pokenum)),
                             pokenum, pokenum, pokemon["name"],
@@ -193,8 +190,9 @@ class MainWindow:
         if button.get_label() in filters:
             self.filter ^= 2 ** filters.index(button.get_label())
             self.config["filter"] = self.filter
-            # Update the lists.
-            self.add_pokemon()
+            # Update the filters.
+            for model in self.filtermodels.values():
+                model.refilter()
 
     def show_dialog(self, menu_item):
         item_name = Gtk.Buildable.get_name(menu_item)
