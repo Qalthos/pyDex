@@ -129,7 +129,9 @@ class MainWindow:
             self.add_pokemon()
 
     def add_pokemon(self):
-        self.clear_models()
+        """Clear out the stored pokemon and reload the list."""
+        for model in self.models.values():
+            model.clear()
 
         for pokemon in self.pokedex.dex:
             pokenum = int(pokemon["number"])
@@ -378,10 +380,6 @@ class MainWindow:
         # Hide functions not present in Gen I
         for tab in ['national', 'unown', 'baby']:
             self.builder.get_object("%s_tab" % tab).set_visible(self.pokedex.gen != 1)
-
-    def clear_models(self):
-        for model in self.models.values():
-            model.clear()
 
     def load_image(self, image_number, portrait=False):
         if portrait and os.path.exists("%sportraits/%03d.png" % (self.image_dir, image_number)):
