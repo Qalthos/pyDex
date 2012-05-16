@@ -22,6 +22,7 @@ class MainWindow:
              "Black", "White"]
 
     def __init__(self):
+        self.builder = None
         self.pokedex = pokedex.get_instance()
         self.evolutions = evolution.get_instance()
         self.models = {
@@ -35,8 +36,6 @@ class MainWindow:
           "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
         }
         self.models["evolution"].set_sort_func(2, sort)
-
-        self.builder = None
 
         # Read settings and open last open file.
         self.config = io.read_config()
