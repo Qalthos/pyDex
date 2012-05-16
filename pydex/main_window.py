@@ -159,8 +159,8 @@ class MainWindow:
                     pokarray[1] = region.index(pokenum)
                     self.models[region_dict['name']].append(pokarray)
 
-        for evotype, evolution in self.evolutions.evo.items():
-            for pokepair in evolution:
+        for evotype, evolist in self.evolutions.evo.items():
+            for pokepair in evolist:
                 pokeold = pokepair["old"]["number"]
                 pokenew = pokepair["new"]["number"]
                 if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
@@ -394,12 +394,12 @@ class MainWindow:
             return "%sicons/0.png" % IMAGE_DIR
         return "%sblank.png" % IMAGE_DIR
 
-    def valid_wrapper(self, model, iter, data):
+    def valid_wrapper(self, model, model_iter, data):
         """A wrapper around pokedex's valid() function for use with
         TreeModelFilter."""
         # This is different in the national vs the regional dexes, but it's
         # always 5 from the end.
-        pokenum = model.get_value(iter, model.get_n_columns()-5)
+        pokenum = model.get_value(model_iter, model.get_n_columns()-5)
         return self.pokedex.valid(pokenum, self.filter)
 
 
