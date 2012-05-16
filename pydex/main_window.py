@@ -47,6 +47,12 @@ class MainWindow:
                 self.pokedex.filename = filename
 
         self.filter = int(self.config.get("filter", 0b111))
+        self.filtermodels = dict()
+        for model in self.models:
+            self.filtermodels[model] = self.models[model].filter_new()
+            if model in [x['name'] for x in regional_dex.IDS]:
+                self.filtermodels[model].set_visible_func(self.valid_wrapper)
+                self.models[model].set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
     def main(self, parent):
         #Set the Glade file
@@ -71,7 +77,7 @@ class MainWindow:
         # Build the listing of pokemon for each region.
         for region in regional_dex.IDS[1:]:
             list_store = self.builder.get_object("%s_pokemon" % region['name'])
-            list_store.set_model(self.models[region['name']])
+            list_store.set_model(self.filtermodels[region['name']])
             build_pokemon_columns(list_store)
 
         list_store = self.builder.get_object("evolvable_pokemon")
@@ -389,6 +395,14 @@ class MainWindow:
         elif os.path.exists("%sicons/0.png" % self.image_dir):
             return "%sicons/0.png" % self.image_dir
         return "%sblank.png" % self.image_dir
+
+    def valid_wrapper(self, model, iter, data):
+        """A wrapper around pokedex's valid() function for use with
+        TreeModelFilter."""
+        # This is different in the national vs the regional dexes, but it's
+        # always 5 from the end.
+        pokenum = model.get_value(iter, model.get_n_columns()-5)
+        return self.pokedex.valid(pokenum, self.filter)
 
 
 def build_pokemon_columns(list_store, regional=True):
