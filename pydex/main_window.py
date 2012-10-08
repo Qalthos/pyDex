@@ -48,11 +48,11 @@ class MainWindow:
 
         self.filter = int(self.config.get("filter", 0b111))
         self.filtermodels = dict()
-        for model in self.models:
-            self.filtermodels[model] = self.models[model].filter_new()
-            if model in [x['name'] for x in regional_dex.IDS]:
-                self.filtermodels[model].set_visible_func(self.valid_wrapper)
-                self.models[model].set_sort_column_id(1, Gtk.SortType.ASCENDING)
+        for region in regional_dex.IDS:
+            rname = region['name']
+            self.filtermodels[rname] = self.models[rname].filter_new()
+            self.filtermodels[rname].set_visible_func(self.valid_wrapper)
+            self.models[rname].set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
     def main(self, parent):
         #Set the Glade file
