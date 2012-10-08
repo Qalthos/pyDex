@@ -69,16 +69,11 @@ class MainWindow:
             parent.set_title(self.config["filename"])
         parent.add(self.builder.get_object("main_pane"))
 
-        # Build the listing of pokemon (national).
-        list_store = self.builder.get_object("national_pokemon")
-        list_store.set_model(self.models["national"])
-        build_pokemon_columns(list_store, False)
-
-        # Build the listing of pokemon for each region.
-        for region in regional_dex.IDS[1:]:
+        # Build the listing of pokemon for each region (incl. national).
+        for region in regional_dex.IDS:
             list_store = self.builder.get_object("%s_pokemon" % region['name'])
             list_store.set_model(self.filtermodels[region['name']])
-            build_pokemon_columns(list_store)
+            build_pokemon_columns(list_store, not (region['name'] == 'national'))
 
         list_store = self.builder.get_object("evolvable_pokemon")
         list_store.set_model(self.models["evolution"])
