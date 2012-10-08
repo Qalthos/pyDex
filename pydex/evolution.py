@@ -28,6 +28,8 @@ class Evodex:
             })
         data.close()
 
+        self.evolved = [x['new']['number'] for x in self.evo['evolution']]
+
         data = open("data/prevo.dat")
         for line in data:
             entry = line.split()

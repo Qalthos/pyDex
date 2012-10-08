@@ -11,17 +11,19 @@ from gi.repository import Gtk, GdkPixbuf
 from pydex import evolution, io, pokedex, regional_dex
 
 
+IMAGE_DIR = "images/"
+GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
+         "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
+         "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
+         "Black", "White", "Black 2", "White 2"]
+
 class MainWindow:
 
-    image_dir = "images/"
     changed = False
 
-    games = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
-             "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
-             "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-             "Black", "White"]
 
     def __init__(self):
+        self.builder = None
         self.pokedex = pokedex.get_instance()
         self.evolutions = evolution.get_instance()
         self.models = {
@@ -36,8 +38,6 @@ class MainWindow:
         }
         self.models["evolution"].set_sort_func(2, sort)
 
-        self.builder = None
-
         # Read settings and open last open file.
         self.config = io.read_config()
         # If we can find the file, load it.
@@ -47,6 +47,12 @@ class MainWindow:
                 self.pokedex.filename = filename
 
         self.filter = int(self.config.get("filter", 0b111))
+        self.filtermodels = dict()
+        for model in self.models:
+            self.filtermodels[model] = self.models[model].filter_new()
+            if model in [x['name'] for x in regional_dex.IDS]:
+                self.filtermodels[model].set_visible_func(self.valid_wrapper)
+                self.models[model].set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
     def main(self, parent):
         #Set the Glade file
@@ -71,7 +77,7 @@ class MainWindow:
         # Build the listing of pokemon for each region.
         for region in regional_dex.IDS[1:]:
             list_store = self.builder.get_object("%s_pokemon" % region['name'])
-            list_store.set_model(self.models[region['name']])
+            list_store.set_model(self.filtermodels[region['name']])
             build_pokemon_columns(list_store)
 
         list_store = self.builder.get_object("evolvable_pokemon")
@@ -92,7 +98,7 @@ class MainWindow:
 
         # Populate the game dropdown
         game_name = self.builder.get_object("game_name")
-        for game in self.games:
+        for game in GAMES:
             game_name.append_text(game)
         cell = Gtk.CellRendererText()
         game_name.pack_start(cell, True)
@@ -129,13 +135,12 @@ class MainWindow:
             self.add_pokemon()
 
     def add_pokemon(self):
-        self.clear_models()
+        """Clear out the stored pokemon and reload the list."""
+        for model in self.models.values():
+            model.clear()
 
         for pokemon in self.pokedex.dex:
             pokenum = int(pokemon["number"])
-            # This hides pokemon which do not match the current filter.
-            if not self.pokedex.valid(pokenum, self.filter):
-                continue
             pokarray = [GdkPixbuf.Pixbuf.new_from_file(
                                   self.load_image(pokenum)),
                             pokenum, pokenum, pokemon["name"],
@@ -154,8 +159,8 @@ class MainWindow:
                     pokarray[1] = region.index(pokenum)
                     self.models[region_dict['name']].append(pokarray)
 
-        for evotype, evolution in self.evolutions.evo.items():
-            for pokepair in evolution:
+        for evotype, evolist in self.evolutions.evo.items():
+            for pokepair in evolist:
                 pokeold = pokepair["old"]["number"]
                 pokenew = pokepair["new"]["number"]
                 if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
@@ -180,15 +185,14 @@ class MainWindow:
 
     def toggle(self, button):
         """Changes the filter depending on which button was pressed."""
-        if button.get_label() == "Missing":
-            self.filter ^= 0b001
-        elif button.get_label() == "Seen":
-            self.filter ^= 0b010
-        elif button.get_label() == "Caught":
-            self.filter ^= 0b100
-        self.config["filter"] = self.filter
-        # Update the lists.
-        self.add_pokemon()
+        filters = ['Missing', 'Seen', 'Caught', 'Show Evolved Pokemon',
+                   'Show Unobtainable Pokemon',]
+        if button.get_label() in filters:
+            self.filter ^= 2 ** filters.index(button.get_label())
+            self.config["filter"] = self.filter
+            # Update the filters.
+            for model in self.filtermodels.values():
+                model.refilter()
 
     def show_dialog(self, menu_item):
         item_name = Gtk.Buildable.get_name(menu_item)
@@ -360,8 +364,9 @@ class MainWindow:
     # Convenience Methods
     def open_file(self, filename):
         self.pokedex.user_dex = io.read_dex(filename)
-        if self.pokedex.game in self.games:
-            self.builder.get_object("game_name").set_active(self.games.index(self.pokedex.game))
+        if self.pokedex.game in GAMES:
+            self.builder.get_object("game_name").set_active( \
+                GAMES.index(self.pokedex.game))
             self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
 
         for i in range(28):
@@ -381,18 +386,22 @@ class MainWindow:
         for tab in ['national', 'unown', 'baby']:
             self.builder.get_object("%s_tab" % tab).set_visible(self.pokedex.gen != 1)
 
-    def clear_models(self):
-        for model in self.models.values():
-            model.clear()
-
     def load_image(self, image_number, portrait=False):
-        if portrait and os.path.exists("%sportraits/%03d.png" % (self.image_dir, image_number)):
-            return "%sportraits/%03d.png" % (self.image_dir, image_number)
-        elif os.path.exists("%sicons/%03d.png" % (self.image_dir, image_number)):
-            return "%sicons/%03d.png" % (self.image_dir, image_number)
-        elif os.path.exists("%sicons/0.png" % self.image_dir):
-            return "%sicons/0.png" % self.image_dir
-        return "%sblank.png" % self.image_dir
+        if portrait and os.path.exists("%sportraits/%03d.png" % (IMAGE_DIR, image_number)):
+            return "%sportraits/%03d.png" % (IMAGE_DIR, image_number)
+        elif os.path.exists("%sicons/%03d.png" % (IMAGE_DIR, image_number)):
+            return "%sicons/%03d.png" % (IMAGE_DIR, image_number)
+        elif os.path.exists("%sicons/0.png" % IMAGE_DIR):
+            return "%sicons/0.png" % IMAGE_DIR
+        return "%sblank.png" % IMAGE_DIR
+
+    def valid_wrapper(self, model, model_iter, data):
+        """A wrapper around pokedex's valid() function for use with
+        TreeModelFilter."""
+        # This is different in the national vs the regional dexes, but it's
+        # always 5 from the end.
+        pokenum = model.get_value(model_iter, model.get_n_columns()-5)
+        return self.pokedex.valid(pokenum, self.filter)
 
 
 def build_pokemon_columns(list_store, regional=True):

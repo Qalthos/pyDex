@@ -78,12 +78,17 @@ class Pokedex:
             return True
         temp = int(self.user_dex[pokenum])
         try:
-            if bitstring & temp > 0:
-                return True
-            else:
+            if not bitstring & temp:
                 return False
         except ZeroDivisionError:
             return False
+
+        if bitstring & 0b1000:
+            from pydex import evolution
+            if pokenum in evolution.get_instance().evolved:
+                return False
+
+        return True
 
     def new_dex(self):
         self.user_dex = [1] * (self.max_dex + 1)
