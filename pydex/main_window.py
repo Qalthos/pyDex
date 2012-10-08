@@ -15,7 +15,7 @@ IMAGE_DIR = "images/"
 GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
          "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
          "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-         "Black", "White"]
+         "Black", "White", "Black 2", "White 2"]
 
 class MainWindow:
 
@@ -365,7 +365,8 @@ class MainWindow:
     def open_file(self, filename):
         self.pokedex.user_dex = io.read_dex(filename)
         if self.pokedex.game in GAMES:
-            self.builder.get_object("game_name").set_active(GAMES.index(self.pokedex.game))
+            self.builder.get_object("game_name").set_active( \
+                GAMES.index(self.pokedex.game))
             self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
 
         for i in range(28):
