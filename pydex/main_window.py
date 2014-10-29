@@ -15,12 +15,13 @@ IMAGE_DIR = "images/"
 GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
          "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
          "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-         "Black", "White", "Black 2", "White 2"]
+         "Black", "White", "Black 2", "White 2",
+         "X", "Y", "Omega Ruby", "Alpha Sapphire"]
+
 
 class MainWindow:
 
     changed = False
-
 
     def __init__(self):
         self.builder = None
@@ -33,6 +34,7 @@ class MainWindow:
           "Hdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "Sdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "Udex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "CeKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "evolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str),
           "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
         }
