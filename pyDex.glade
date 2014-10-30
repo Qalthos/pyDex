@@ -10,6 +10,7 @@
     <property name="modal">True</property>
     <property name="type_hint">normal</property>
     <property name="deletable">False</property>
+    <property name="transient_for">main_window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="evo_vbox">
         <property name="visible">True</property>
@@ -71,7 +72,7 @@
                   <object class="GtkImage" id="poke1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-missing-image</property>
+                    <property name="icon_name">gtk-missing-image</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -95,7 +96,7 @@
                   <object class="GtkImage" id="poke2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock">gtk-missing-image</property>
+                    <property name="icon_name">gtk-missing-image</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -142,6 +143,7 @@
     <property name="modal">True</property>
     <property name="type_hint">normal</property>
     <property name="deletable">False</property>
+    <property name="transient_for">main_window</property>
     <property name="filter">config_filter</property>
     <signal name="file-activated" handler="on_dialog_clicked" object="continue" swapped="yes"/>
     <child internal-child="vbox">
@@ -208,6 +210,7 @@
     <property name="default_height">300</property>
     <property name="type_hint">normal</property>
     <property name="deletable">False</property>
+    <property name="transient_for">main_window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -285,7 +288,7 @@
                       <object class="GtkImage" id="image">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
+                        <property name="icon_name">gtk-missing-image</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -359,7 +362,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
@@ -375,7 +377,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radio_caught</property>
                       </object>
@@ -392,7 +393,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0.5</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radio_caught</property>
@@ -1284,7 +1284,7 @@
             </child>
           </object>
           <packing>
-            <property name="position">9</property>
+            <property name="position">7</property>
           </packing>
         </child>
         <child type="tab">
@@ -1313,7 +1313,7 @@
             </child>
           </object>
           <packing>
-            <property name="position">7</property>
+            <property name="position">8</property>
           </packing>
         </child>
         <child type="tab">
@@ -1343,7 +1343,7 @@ Evolutions</property>
             </child>
           </object>
           <packing>
-            <property name="position">8</property>
+            <property name="position">9</property>
           </packing>
         </child>
         <child type="tab">
