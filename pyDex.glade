@@ -2,49 +2,6 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <object class="GtkAboutDialog" id="about">
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="type">popup</property>
-    <property name="modal">True</property>
-    <property name="window_position">center</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="type_hint">normal</property>
-    <property name="deletable">False</property>
-    <property name="program_name">pyDex</property>
-    <property name="version">1.2</property>
-    <property name="copyright" translatable="yes">All images courtesy Bulbapedia.com</property>
-    <property name="website">http://www.gitorious.org/pydex/</property>
-    <property name="license" translatable="yes">This program is licensed under the terms of the Don't Be A Dick License http://dbad-license.org</property>
-    <property name="authors">Nathaniel Case</property>
-    <property name="artists"/>
-    <property name="logo_icon_name">image-missing</property>
-    <signal name="close" handler="hide_about" swapped="no"/>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox5">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area5">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkFileFilter" id="config_filter"/>
   <object class="GtkTextBuffer" id="evolution_buffer"/>
   <object class="GtkDialog" id="evolution_dialog">
@@ -607,32 +564,6 @@
             </child>
           </object>
         </child>
-        <child>
-          <object class="GtkMenuItem" id="help_menu">
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="right_justified">True</property>
-            <property name="label" translatable="yes">Help</property>
-            <child type="submenu">
-              <object class="GtkMenu" id="menu3">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkImageMenuItem" id="about_menu_item">
-                    <property name="label">gtk-about</property>
-                    <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="use_stock">True</property>
-                    <signal name="activate" handler="show_about" swapped="no"/>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -727,7 +658,6 @@
               <object class="GtkTreeView" id="national_pokemon">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="rules_hint">True</property>
                 <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection"/>
@@ -754,7 +684,6 @@
               <object class="GtkTreeView" id="Kdex_pokemon">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="rules_hint">True</property>
                 <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection1"/>
@@ -785,7 +714,6 @@
               <object class="GtkTreeView" id="Jdex_pokemon">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="rules_hint">True</property>
                 <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection2"/>
@@ -816,7 +744,6 @@
               <object class="GtkTreeView" id="Hdex_pokemon">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="rules_hint">True</property>
                 <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection3"/>
@@ -847,7 +774,6 @@
               <object class="GtkTreeView" id="Sdex_pokemon">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="rules_hint">True</property>
                 <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection4"/>
@@ -878,7 +804,6 @@
               <object class="GtkTreeView" id="Udex_pokemon">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="rules_hint">True</property>
                 <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection5"/>
