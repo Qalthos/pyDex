@@ -362,9 +362,10 @@ class MainWindow:
     def open_file(self, filename):
         self.pokedex.user_dex = io.read_dex(filename)
         if self.pokedex.game in GAMES:
-            self.builder.get_object("game_name").set_active( \
-                GAMES.index(self.pokedex.game))
-            self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
+            self.builder.get_object("game_name") \
+                .set_active(GAMES.index(self.pokedex.game))
+            self.builder.get_object("dex_type") \
+                .set_current_page(self.pokedex.region)
 
         for i in range(28):
             test = (self.pokedex.unown_code & 2**i)
@@ -397,7 +398,7 @@ class MainWindow:
         TreeModelFilter."""
         # This is different in the national vs the regional dexes, but it's
         # always 5 from the end.
-        pokenum = model.get_value(model_iter, model.get_n_columns()-5)
+        pokenum = model.get_value(model_iter, model.get_n_columns() - 5)
         return self.pokedex.valid(pokenum, self.filter)
 
 
@@ -430,7 +431,7 @@ def sort(model, iter1, iter2, data=None):
 
     method1 = model.get(iter1, 2)[0]
     method2 = model.get(iter2, 2)[0]
-    if method2 == None:
+    if method2 is None:
         # I think this runs when we're past the edge
         return -1
     elif method1[:2] == "Tr" and method2[:2] == "Tr":
