@@ -35,6 +35,8 @@ class MainWindow:
           "Sdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "Udex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "CeKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "CoKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "MoKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "evolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str),
           "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
         }
@@ -376,9 +378,13 @@ class MainWindow:
 
     def refresh_pages(self):
         """Determine visible pages based on current game."""
+        effective_gen = self.pokedex.gen
+        if effective_gen >= 6:
+            # account for the three Kalos pokedexen
+            effective_gen += 2
         for i in range(len(regional_dex.IDS)):
             page = self.builder.get_object("dex_type").get_nth_page(i)
-            page.set_visible(i <= self.pokedex.gen)
+            page.set_visible(i <= effective_gen)
 
         # Hide functions not present in Gen I
         for tab in ['national', 'unown', 'baby']:

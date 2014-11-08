@@ -826,7 +826,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="kalos_tab">
+          <object class="GtkScrolledWindow" id="kalos1_tab">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="shadow_type">in</property>
@@ -846,13 +846,78 @@
           </packing>
         </child>
         <child type="tab">
-          <object class="GtkLabel" id="kalos">
+          <object class="GtkLabel" id="kalos1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Kalos</property>
+            <property name="label" translatable="yes">Central
+Kalos</property>
           </object>
           <packing>
             <property name="position">6</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="kalos2_tab">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTreeView" id="CoKdex_pokemon">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection10"/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">11</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="kalos2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Coastal
+Kalos</property>
+          </object>
+          <packing>
+            <property name="position">7</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="kalos3_tab">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTreeView" id="MoKdex_pokemon">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="row-activated" handler="gtk_info_show" swapped="no"/>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection12"/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">10</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="kalos3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Mountain
+Kalos</property>
+          </object>
+          <packing>
+            <property name="position">8</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -1294,7 +1359,7 @@
             <property name="label" translatable="yes">Unown</property>
           </object>
           <packing>
-            <property name="position">7</property>
+            <property name="position">9</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -1324,7 +1389,7 @@
 Evolutions</property>
           </object>
           <packing>
-            <property name="position">8</property>
+            <property name="position">10</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -1354,7 +1419,7 @@ Evolutions</property>
 Pokemon</property>
           </object>
           <packing>
-            <property name="position">9</property>
+            <property name="position">11</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
