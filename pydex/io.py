@@ -78,6 +78,6 @@ def read_config():
     with open(config_dir + "config") as config_file:
         for line in config_file:
             key, value = line.split(None, 1)
-            config[key] = value
+            config[key] = value.strip()
 
     return config
