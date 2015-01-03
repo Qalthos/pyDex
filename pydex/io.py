@@ -77,11 +77,7 @@ def read_config():
         return config
     with open(config_dir + "config") as config_file:
         for line in config_file:
-            line = line.split()
-            try:
-                config[line[0]] = line[1]
-            except IndexError:
-                config["filename"] = line[0]
-                break
+            key, value = line.split(None, 1)
+            config[key] = value.strip()
 
     return config

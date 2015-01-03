@@ -15,12 +15,13 @@ IMAGE_DIR = "images/"
 GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
          "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
          "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-         "Black", "White", "Black 2", "White 2"]
+         "Black", "White", "Black 2", "White 2",
+         "X", "Y", "Omega Ruby", "Alpha Sapphire"]
+
 
 class MainWindow:
 
     changed = False
-
 
     def __init__(self):
         self.builder = None
@@ -33,6 +34,9 @@ class MainWindow:
           "Hdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "Sdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "Udex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "CeKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "CoKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+          "MoKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
           "evolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str),
           "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
         }
@@ -360,9 +364,10 @@ class MainWindow:
     def open_file(self, filename):
         self.pokedex.user_dex = io.read_dex(filename)
         if self.pokedex.game in GAMES:
-            self.builder.get_object("game_name").set_active( \
-                GAMES.index(self.pokedex.game))
-            self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
+            self.builder.get_object("game_name") \
+                .set_active(GAMES.index(self.pokedex.game))
+            self.builder.get_object("dex_type") \
+                .set_current_page(self.pokedex.region)
 
         for i in range(28):
             test = (self.pokedex.unown_code & 2**i)
@@ -373,9 +378,13 @@ class MainWindow:
 
     def refresh_pages(self):
         """Determine visible pages based on current game."""
+        effective_gen = self.pokedex.gen
+        if effective_gen >= 6:
+            # account for the three Kalos pokedexen
+            effective_gen += 2
         for i in range(len(regional_dex.IDS)):
             page = self.builder.get_object("dex_type").get_nth_page(i)
-            page.set_visible(i <= self.pokedex.gen)
+            page.set_visible(i <= effective_gen)
 
         # Hide functions not present in Gen I
         for tab in ['national', 'unown', 'baby']:
@@ -395,7 +404,7 @@ class MainWindow:
         TreeModelFilter."""
         # This is different in the national vs the regional dexes, but it's
         # always 5 from the end.
-        pokenum = model.get_value(model_iter, model.get_n_columns()-5)
+        pokenum = model.get_value(model_iter, model.get_n_columns() - 5)
         return self.pokedex.valid(pokenum, self.filter)
 
 
@@ -428,7 +437,7 @@ def sort(model, iter1, iter2, data=None):
 
     method1 = model.get(iter1, 2)[0]
     method2 = model.get(iter2, 2)[0]
-    if method2 == None:
+    if method2 is None:
         # I think this runs when we're past the edge
         return -1
     elif method1[:2] == "Tr" and method2[:2] == "Tr":
