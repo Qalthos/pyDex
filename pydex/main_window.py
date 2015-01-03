@@ -8,10 +8,9 @@ import os
 
 from gi.repository import Gtk, GdkPixbuf
 
-from pydex import evolution, io, pokedex, regional_dex
+from pydex import evolution, io, pokedex, regional_dex, utils
 
 
-IMAGE_DIR = "images/"
 GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
          "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
          "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
@@ -141,7 +140,7 @@ class MainWindow:
         for pokemon in self.pokedex.dex:
             pokenum = int(pokemon["number"])
             pokarray = [GdkPixbuf.Pixbuf.new_from_file(
-                                  self.load_image(pokenum)),
+                                  utils.load_image(pokenum)),
                             pokenum, pokenum, pokemon["name"],
                             pokemon["type1"], pokemon["type2"],
                             self.pokedex.status(pokenum)]
@@ -164,10 +163,10 @@ class MainWindow:
                 pokenew = pokepair["new"]["number"]
                 if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
                     pokarray = [
-                      GdkPixbuf.Pixbuf.new_from_file(self.load_image(pokeold)),
+                      GdkPixbuf.Pixbuf.new_from_file(utils.load_image(pokeold)),
                       pokepair["old"]["name"],
                       pokepair["method"],
-                      GdkPixbuf.Pixbuf.new_from_file(self.load_image(pokenew)),
+                      GdkPixbuf.Pixbuf.new_from_file(utils.load_image(pokenew)),
                       pokepair["new"]["name"]
                     ]
                     self.models[evotype].append(pokarray)
@@ -231,7 +230,7 @@ class MainWindow:
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon["number"]))
-        self.builder.get_object("image").set_from_file(self.load_image(pokemon["number"], True))
+        self.builder.get_object("image").set_from_file(utils.load_image(pokemon["number"], True))
         self.builder.get_object("info_type1").set_label(pokemon["type1"])
         if not pokemon["type2"] == "---":
             self.builder.get_object("info_type2").set_label(pokemon["type2"])
@@ -269,7 +268,7 @@ class MainWindow:
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon["number"]))
-        self.builder.get_object("image").set_from_file(self.load_image(pokemon["number"], True))
+        self.builder.get_object("image").set_from_file(utils.load_image(pokemon["number"], True))
         self.builder.get_object("info_type1").set_label(pokemon["type1"])
         if not pokemon["type2"] == "---":
             self.builder.get_object("info_type2").set_label(pokemon["type2"])
@@ -389,15 +388,6 @@ class MainWindow:
         # Hide functions not present in Gen I
         for tab in ['national', 'unown', 'baby']:
             self.builder.get_object("%s_tab" % tab).set_visible(self.pokedex.gen != 1)
-
-    def load_image(self, image_number, portrait=False):
-        if portrait and os.path.exists("%sportraits/%03d.png" % (IMAGE_DIR, image_number)):
-            return "%sportraits/%03d.png" % (IMAGE_DIR, image_number)
-        elif os.path.exists("%sicons/%03d.png" % (IMAGE_DIR, image_number)):
-            return "%sicons/%03d.png" % (IMAGE_DIR, image_number)
-        elif os.path.exists("%sicons/0.png" % IMAGE_DIR):
-            return "%sicons/0.png" % IMAGE_DIR
-        return "%sblank.png" % IMAGE_DIR
 
     def valid_wrapper(self, model, model_iter, data):
         """A wrapper around pokedex's valid() function for use with
