@@ -74,13 +74,15 @@ class Pokedex:
 
     def valid(self, pokenum, bitstring):
         # Make sure pokemon outside the current generation don't show up.
-        if pokenum > self.max_dex:
+        if pokenum > self.max_dex or pokenum < 1:
             return False
         # But also make sure all the current pokemon do.
         elif pokenum >= len(self.user_dex):
             print("%d not initialized" % pokenum)
-            return True
-        temp = int(self.user_dex[pokenum])
+            temp = 1
+        else:
+            temp = int(self.user_dex[pokenum])
+
         try:
             if not bitstring & temp:
                 return False
