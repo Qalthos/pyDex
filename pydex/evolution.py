@@ -47,18 +47,26 @@ def expand(string):
 
     """
 
-    holding = {"OS": "Oval Stone", "RaC": "Razor Claw", "RF": "Razor Fang",
-      "DD": "Dubious Disc", "DS": "Dragon Scale", "DSS": "DeepSeaScale",
-      "DST": "DeepSeaTooth", "E": "Electirizer", "KR": "King's Rock",
-      "M": "Magmarizer", "MC": "Metal Coat", "P": "Protector",
-      "ReC": "Reaper Cloth", "UG": "Up-Grade"}
+    holding = {
+        "OS": "Oval Stone", "RaC": "Razor Claw", "RF": "Razor Fang",
+        "DD": "Dubious Disc", "DS": "Dragon Scale", "DSS": "DeepSeaScale",
+        "DST": "DeepSeaTooth", "E": "Electirizer", "KR": "King's Rock",
+        "M": "Magmarizer", "MC": "Metal Coat", "P": "Protector",
+        "ReC": "Reaper Cloth", "UG": "Up-Grade", 'WD': 'Whipped Dream',
+    }
     knowing = {"AP": "AncientPower", "DH": "Double Hit", "M": "Mimic",
       "RO": "Rollout"}
-    location = {"217": "Route 217", "C": "Mt. Coronet", "EF": "Eterna Forest"}
+    location = {
+        "217": "Route 217", "C": "Mt. Coronet", "EF": "Eterna Forest",
+        'Ra': 'rain',
+    }
     stones = {"Da": "Dawn", "Du": "Dusk", "Fi": "Fire", "Th": "Thunder",
       "Le": "Leaf", "Mo": "Moon", "Su": "Sun", "Sh": "Shiny", "Wa": "Water"}
     trade = {"Sh": "Shelmet", "Ka": "Karrablast"}
-    with_ = {"B": "maximum Beauty", "R": "Remoraid in party"}
+    with_ = {
+        "B": "maximum Beauty", 'D': 'Dark type in party',
+        "R": "Remoraid in party", 'U': '3DS held upside down',
+    }
     other = {"H": "Happiness"}
 
     suffix = ""
@@ -77,7 +85,7 @@ def expand(string):
             end = "up knowing %s" % knowing[end]
         elif end in location:    # Level up at [location]
             end = "up in %s" % location[end]
-        elif end in location:    # Level up with [condition]
+        elif end in with_:    # Level up with [condition]
             end = "up with %s" % with_[end]
         string = "Level %s" % (end)
     elif string[0] == "s":    # Use evolutionary stone
