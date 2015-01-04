@@ -361,7 +361,7 @@ class MainWindow:
 
     # Convenience Methods
     def open_file(self, filename):
-        self.pokedex.user_dex = io.read_dex(filename)
+        io.read_dex(filename)
         if self.pokedex.game in GAMES:
             self.builder.get_object("game_name") \
                 .set_active(GAMES.index(self.pokedex.game))

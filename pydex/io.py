@@ -55,7 +55,7 @@ def read_dex(filename):
     while len(userdex) <= dex.max_dex:
         userdex.append(1)
 
-    return userdex
+    dex.user_dex = userdex
 
 
 def write_config(config):
