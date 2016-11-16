@@ -1,11 +1,11 @@
 #!/usr/bin/env python
+
 import wx
 
-
-from pydex.gui.mainwindow import MainWindow
+from pydex.controller import PokeController
 
 
 if __name__ == "__main__":
     app = wx.App()
-    MainWindow()
+    PokeController()
     app.MainLoop()

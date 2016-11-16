@@ -4,7 +4,7 @@
 import re
 
 this = None
-MAX_DEXEN = [0, 151, 251, 386, 496, 649, 719]
+MAX_DEXEN = [0, 151, 251, 386, 496, 649, 721, 721]
 GAME_DATA = {"Red": {"gen": 1, "region": 1},
              "Blue": {"gen": 1, "region": 1},
              "Yellow": {"gen": 1, "region": 1},
@@ -29,6 +29,8 @@ GAME_DATA = {"Red": {"gen": 1, "region": 1},
              "Y": {"gen": 6, "region": 6},
              "Omega Ruby": {"gen": 6, "region": 3},
              "Alpha Sapphire": {"gen": 6, "region": 3},
+             "Sun": {"gen": 7, "region": 7},
+             "Moon": {"gen": 7, "region": 7},
             }
 
 
