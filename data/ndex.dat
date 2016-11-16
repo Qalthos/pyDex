@@ -32,12 +32,12 @@
 032 Nidoran♂ Poison
 033 Nidorino Poison
 034 Nidoking Poison Ground
-035 Clefairy Normal
-036 Clefable Normal
+035 Clefairy Fairy
+036 Clefable Fairy
 037 Vulpix Fire
 038 Ninetales Fire
-039 Jigglypuff Normal
-040 Wigglytuff Normal
+039 Jigglypuff Normal Fairy
+040 Wigglytuff Normal Fairy
 041 Zubat Poison Flying
 042 Golbat Poison Flying
 043 Oddish Grass Poison
@@ -119,7 +119,7 @@
 119 Seaking Water
 120 Staryu Water
 121 Starmie Water Psychic
-122 Mr._Mime Psychic
+122 Mr._Mime Psychic Fairy
 123 Scyther Bug Flying
 124 Jynx Ice Psychic
 125 Electabuzz Electric
@@ -170,18 +170,18 @@
 170 Chinchou Water Electric
 171 Lanturn Water Electric
 172 Pichu Electric
-173 Cleffa Normal
-174 Igglybuff Normal
-175 Togepi Normal
-176 Togetic Normal Flying
+173 Cleffa Fairy
+174 Igglybuff Normal Fairy
+175 Togepi Fairy
+176 Togetic Fairy Flying
 177 Natu Psychic Flying
 178 Xatu Psychic Flying
 179 Mareep Electric
 180 Flaaffy Electric
 181 Ampharos Electric
 182 Bellossom Grass
-183 Marill Water
-184 Azumarill Water
+183 Marill Water Fairy
+184 Azumarill Water Fairy
 185 Sudowoodo Rock
 186 Politoed Water
 187 Hoppip Grass Flying
@@ -206,8 +206,8 @@
 206 Dunsparce Normal
 207 Gligar Ground Flying
 208 Steelix Steel Ground
-209 Snubbull Normal
-210 Granbull Normal
+209 Snubbull Fairy
+210 Granbull Fairy
 211 Qwilfish Water Poison
 212 Scizor Bug Steel
 213 Shuckle Bug Rock
@@ -277,9 +277,9 @@
 277 Swellow Normal Flying
 278 Wingull Water Flying
 279 Pelipper Water Flying
-280 Ralts Psychic
-281 Kirlia Psychic
-282 Gardevoir Psychic
+280 Ralts Psychic Fairy
+281 Kirlia Psychic Fairy
+282 Gardevoir Psychic Fairy
 283 Surskit Bug Water
 284 Masquerain Bug Flying
 285 Shroomish Grass
@@ -295,12 +295,12 @@
 295 Exploud Normal
 296 Makuhita Fighting
 297 Hariyama Fighting
-298 Azurill Normal
+298 Azurill Normal Fairy
 299 Nosepass Rock
 300 Skitty Normal
 301 Delcatty Normal
 302 Sableye Dark Ghost
-303 Mawile Steel
+303 Mawile Steel Fairy
 304 Aron Steel Rock
 305 Lairon Steel Rock
 306 Aggron Steel Rock
@@ -436,7 +436,7 @@
 436 Bronzor Steel Psychic
 437 Bronzong Steel Psychic
 438 Bonsly Rock
-439 Mime_Jr. Psychic
+439 Mime_Jr. Psychic Fairy
 440 Happiny Normal
 441 Chatot Normal Flying
 442 Spiritomb Ghost Dark
@@ -465,7 +465,7 @@
 465 Tangrowth Grass
 466 Electivire Electric
 467 Magmortar Fire
-468 Togekiss Normal Flying
+468 Togekiss Fairy Flying
 469 Yanmega Bug Flying
 470 Leafeon Grass
 471 Glaceon Ice
@@ -543,8 +543,8 @@
 543 Venipede Bug Poison
 544 Whirlipede Bug Poison
 545 Scolipede Bug Poison
-546 Cottonee Grass
-547 Whimsicott Grass
+546 Cottonee Grass Fairy
+547 Whimsicott Grass Fairy
 548 Petilil Grass
 549 Lilligant Grass
 550 Basculin Water
@@ -647,3 +647,75 @@
 647 Keldeo Water Fighting
 648 Meloetta Normal Psychic
 649 Genesect Bug Steel
+650 Chespin Grass
+651 Quilladin Grass
+652 Chesnaught Grass Fighting
+653 Fennekin Fire
+654 Braixen Fire
+655 Delphox Fire Psychic
+656 Froakie Water
+657 Frogadier Water
+658 Greninja Water Dark
+659 Bunnelby Normal
+660 Diggersby Normal Ground
+661 Fletchling Normal Flying
+662 Fletchinder Fire Flying
+663 Talonflame Fire Flying
+664 Scatterbug Bug
+665 Spewpa Bug
+666 Vivillon Bug Flying
+667 Litleo Fire Normal
+668 Pyroar Fire Normal
+669 Flabébé Fairy
+670 Floette Fairy
+671 Florges Fairy
+672 Skiddo Grass
+673 Gogoat Grass
+674 Pancham Fighting
+675 Pangoro Fighting Dark
+676 Furfrou Normal
+677 Espurr Psychic
+678 Meowstic Psychic
+679 Honedge Steel Ghost
+680 Doublade Steel Ghost
+681 Aegislash Steel Ghost
+682 Spritzee Fairy
+683 Aromatisse Fairy
+684 Swirlix Fairy
+685 Slurpuff Fairy
+686 Inkay Dark Psychic
+687 Malamar Dark Psychic
+688 Binacle Rock Water
+689 Barbaracle Rock Water
+690 Skrelp Poison Water
+691 Dragalge Poison Dragon
+692 Clauncher Water
+693 Clawitzer Water
+694 Helioptile Electric Normal
+695 Heliolisk Electric Normal
+696 Tyrunt Rock Dragon
+697 Tyrantrum Rock Dragon
+698 Amaura Rock Ice
+699 Aurorus Rock Ice
+700 Sylveon Fairy
+701 Hawlucha Fighting Flying
+702 Dedenne Electric Fairy
+703 Carbink Rock Fairy
+704 Goomy Dragon
+705 Sliggoo Dragon
+706 Goodra Dragon
+707 Klefki Steel Fairy
+708 Phantump Ghost Grass
+709 Trevenant Ghost Grass
+710 Pumpkaboo Ghost Grass
+711 Gourgeist Ghost Grass
+712 Bergmite Ice
+713 Avalugg Ice
+714 Noibat Flying Dragon
+715 Noivern Flying Dragon
+716 Xerneas Fairy
+717 Yveltal Dark Flying
+718 Zygarde Dragon Ground
+719 Diancie Rock Fairy
+720 Hoopa Psychic Ghost
+721 Volcanion Fire Water
