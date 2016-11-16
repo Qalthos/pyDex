@@ -1,4 +1,5 @@
 import wx
+from pydex import pokedex, utils
 
 
 class PokedexPage(wx.ListView):
@@ -18,7 +19,9 @@ class PokedexPage(wx.ListView):
         for column in columns:
             self.InsertColumn(-1, column)
 
-    def populate_list(self, filter):
+        self.populate_list()
+
+    def populate_list(self, filter=0b111):
         userdex = pokedex.get_instance()
         for index, pokenum in enumerate(self.pokemon):
             if not userdex.valid(pokenum, filter):
