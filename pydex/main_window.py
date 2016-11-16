@@ -8,33 +8,39 @@ import os
 
 from gi.repository import Gtk, GdkPixbuf
 
-from pydex import evolution, io, pokedex, regional_dex
+from pydex import evolution, io, pokedex, regional_dex, utils
 
 
-IMAGE_DIR = "images/"
-GAMES = ["Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
-         "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
-         "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
-         "Black", "White", "Black 2", "White 2"]
+GAMES = [
+    "Red", "Blue", "Yellow", "Gold", "Silver", "Crystal",
+    "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen",
+    "Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver",
+    "Black", "White", "Black 2", "White 2",
+    "X", "Y", "Omega Ruby", "Alpha Sapphire", "Sun", "Moon",
+]
+
 
 class MainWindow:
 
     changed = False
-
 
     def __init__(self):
         self.builder = None
         self.pokedex = pokedex.get_instance()
         self.evolutions = evolution.get_instance()
         self.models = {
-          "national": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
-          "Kdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
-          "Jdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
-          "Hdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
-          "Sdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
-          "Udex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
-          "evolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str),
-          "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
+            "national": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "Kdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "Jdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "Hdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "Sdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "Udex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "CeKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "CoKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "MoKdex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "Adex": Gtk.ListStore(GdkPixbuf.Pixbuf, int, int, str, str, str, str),
+            "evolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str),
+            "prevolution": Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, GdkPixbuf.Pixbuf, str)
         }
         self.models["evolution"].set_sort_func(2, sort)
 
@@ -137,7 +143,7 @@ class MainWindow:
         for pokemon in self.pokedex.dex:
             pokenum = int(pokemon["number"])
             pokarray = [GdkPixbuf.Pixbuf.new_from_file(
-                                  self.load_image(pokenum)),
+                                  utils.load_image(pokenum)),
                             pokenum, pokenum, pokemon["name"],
                             pokemon["type1"], pokemon["type2"],
                             self.pokedex.status(pokenum)]
@@ -160,10 +166,10 @@ class MainWindow:
                 pokenew = pokepair["new"]["number"]
                 if self.pokedex.valid(pokeold, 0b100) and self.pokedex.valid(pokenew, 0b011):
                     pokarray = [
-                      GdkPixbuf.Pixbuf.new_from_file(self.load_image(pokeold)),
+                      GdkPixbuf.Pixbuf.new_from_file(utils.load_image(pokeold)),
                       pokepair["old"]["name"],
                       pokepair["method"],
-                      GdkPixbuf.Pixbuf.new_from_file(self.load_image(pokenew)),
+                      GdkPixbuf.Pixbuf.new_from_file(utils.load_image(pokenew)),
                       pokepair["new"]["name"]
                     ]
                     self.models[evotype].append(pokarray)
@@ -227,7 +233,7 @@ class MainWindow:
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon["number"]))
-        self.builder.get_object("image").set_from_file(self.load_image(pokemon["number"], True))
+        self.builder.get_object("image").set_from_file(utils.load_image(pokemon["number"], True))
         self.builder.get_object("info_type1").set_label(pokemon["type1"])
         if not pokemon["type2"] == "---":
             self.builder.get_object("info_type2").set_label(pokemon["type2"])
@@ -265,7 +271,7 @@ class MainWindow:
         pokemon = self.pokedex.dex[pokenum - 1]
 
         self.builder.get_object("number").set_label(str(pokemon["number"]))
-        self.builder.get_object("image").set_from_file(self.load_image(pokemon["number"], True))
+        self.builder.get_object("image").set_from_file(utils.load_image(pokemon["number"], True))
         self.builder.get_object("info_type1").set_label(pokemon["type1"])
         if not pokemon["type2"] == "---":
             self.builder.get_object("info_type2").set_label(pokemon["type2"])
@@ -358,11 +364,12 @@ class MainWindow:
 
     # Convenience Methods
     def open_file(self, filename):
-        self.pokedex.user_dex = io.read_dex(filename)
+        io.read_dex(filename)
         if self.pokedex.game in GAMES:
-            self.builder.get_object("game_name").set_active( \
-                GAMES.index(self.pokedex.game))
-            self.builder.get_object("dex_type").set_current_page(self.pokedex.region)
+            self.builder.get_object("game_name") \
+                .set_active(GAMES.index(self.pokedex.game))
+            self.builder.get_object("dex_type") \
+                .set_current_page(self.pokedex.region)
 
         for i in range(28):
             test = (self.pokedex.unown_code & 2**i)
@@ -373,29 +380,24 @@ class MainWindow:
 
     def refresh_pages(self):
         """Determine visible pages based on current game."""
+        effective_gen = self.pokedex.gen
+        if effective_gen >= 6:
+            # account for the three Kalos pokedexen
+            effective_gen += 2
         for i in range(len(regional_dex.IDS)):
             page = self.builder.get_object("dex_type").get_nth_page(i)
-            page.set_visible(i <= self.pokedex.gen)
+            page.set_visible(i <= effective_gen)
 
         # Hide functions not present in Gen I
         for tab in ['national', 'unown', 'baby']:
             self.builder.get_object("%s_tab" % tab).set_visible(self.pokedex.gen != 1)
-
-    def load_image(self, image_number, portrait=False):
-        if portrait and os.path.exists("%sportraits/%03d.png" % (IMAGE_DIR, image_number)):
-            return "%sportraits/%03d.png" % (IMAGE_DIR, image_number)
-        elif os.path.exists("%sicons/%03d.png" % (IMAGE_DIR, image_number)):
-            return "%sicons/%03d.png" % (IMAGE_DIR, image_number)
-        elif os.path.exists("%sicons/0.png" % IMAGE_DIR):
-            return "%sicons/0.png" % IMAGE_DIR
-        return "%sblank.png" % IMAGE_DIR
 
     def valid_wrapper(self, model, model_iter, data):
         """A wrapper around pokedex's valid() function for use with
         TreeModelFilter."""
         # This is different in the national vs the regional dexes, but it's
         # always 5 from the end.
-        pokenum = model.get_value(model_iter, model.get_n_columns()-5)
+        pokenum = model.get_value(model_iter, model.get_n_columns() - 5)
         return self.pokedex.valid(pokenum, self.filter)
 
 
@@ -428,7 +430,7 @@ def sort(model, iter1, iter2, data=None):
 
     method1 = model.get(iter1, 2)[0]
     method2 = model.get(iter2, 2)[0]
-    if method2 == None:
+    if method2 is None:
         # I think this runs when we're past the edge
         return -1
     elif method1[:2] == "Tr" and method2[:2] == "Tr":

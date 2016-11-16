@@ -2,10 +2,10 @@
 # -*- coding: UTF-8 -*-
 """PyDex is an interactive pokédex reader written in Python and Glade"""
 
-from gi.repository import Gtk
-
 import os
 import sys
+
+from gi.repository import Gtk
 
 from pydex import main_window
 
