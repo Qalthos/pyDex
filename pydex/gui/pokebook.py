@@ -3,11 +3,12 @@ import wx
 from pydex import regional_dex
 from pydex.gui.pokepage import PokedexPage
 
+
 class PokedexNotebook(wx.Notebook):
     def __init__(self, *args, **kwargs):
         super(PokedexNotebook, self).__init__(*args, **kwargs)
         for dex_info in regional_dex.IDS:
-            page = PokedexPage(self, data=dex_info)
+            page = PokedexPage(self, dex_info)
             self.AddPage(page, dex_info['region'])
 
     def load(self, filename=None):

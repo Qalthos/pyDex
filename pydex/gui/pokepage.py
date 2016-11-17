@@ -3,15 +3,11 @@ from pydex import pokedex, utils
 
 
 class PokedexPage(wx.ListView):
-    def __init__(self, *args, **kwargs):
-        data = kwargs.pop('data')
-        for key in data:
-            setattr(self, key, data[key])
+    def __init__(self, parent, dex_info):
+        super(PokedexPage, self).__init__(parent, style=wx.LC_REPORT)
 
-        super(PokedexPage, self).__init__(
-            # style=wx.LC_ICON,
-            *args, **kwargs
-        )
+        self.region = dex_info['region']
+        self.pokemon = dex_info['pokemon']
 
         columns = ['Icon', 'Regional #', 'National #', 'Name', 'Type 1', 'Type 2', 'Status']
         if self.region == 'National':
