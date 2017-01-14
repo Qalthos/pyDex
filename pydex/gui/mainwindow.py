@@ -6,10 +6,9 @@ from pydex.gui.pokebook import PokedexNotebook
 
 class MainWindow(wx.Frame):
     def __init__(self):
-        super(MainWindow, self).__init__(None, title='pyDex.py')
+        super(MainWindow, self).__init__(None, title='pyDex.py', size=(700, 600))
 
         self.init_ui()
-        # self.notebook.load()
         self.Show()
 
     def init_ui(self):
