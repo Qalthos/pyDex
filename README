@@ -1,0 +1,8 @@
+pyDex: a Python-based interactive Pokedex application
+-----------------------------------------------------
+
+This code is licensed under the Don't Be A Dick license.
+
+The contents of the data directory come from the PokeAPI project, are
+collectively copyright 2014 Paul Hallett, and are included under the BSD
+license.
