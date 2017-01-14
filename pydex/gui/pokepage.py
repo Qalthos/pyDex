@@ -1,10 +1,13 @@
 import wx
+
 from pydex import pokedex, utils
+from pydex.pokemon import Pokemon
+from pydex.gui.catchbox import CatchBox
 
 
 class PokedexPage(wx.ListView):
     pokedex = pokedex.get_instance()
-    pokemon_il = wx.ImageList(40, 40)
+    pokemon_il = wx.ImageList(96, 96)
     pokicon_list = []
     for pokenum in range(pokedex.max_dex + 1):
         pokicon_list.append(pokemon_il.Add(wx.Bitmap(utils.load_image(pokenum), wx.BITMAP_TYPE_ANY)))
@@ -24,13 +27,17 @@ class PokedexPage(wx.ListView):
             self.InsertColumn(-1, column)
 
         self.populate_list()
+        self.SetColumnWidth(0, wx.LIST_AUTOSIZE)
 
-    def populate_list(self, filter=0b111):
+        self.bind_events()
+
+    def populate_list(self, filters=0b111):
         userdex = pokedex.get_instance()
         for index, pokenum in enumerate(self.pokemon):
-            if not userdex.valid(pokenum, filter):
+            if not userdex.valid(pokenum, filters):
                 continue
-            row_index = self.InsertItem(index, userdex.dex[pokenum - 1]['name'], self.pokicon_list[index])
+            row_index = self.InsertItem(index, userdex.dex[pokenum - 1]['name'], self.pokicon_list[pokenum])
+            self.SetItemData(row_index, pokenum)
             pokarray = [
                 str(index),
                 str(pokenum),
@@ -43,3 +50,11 @@ class PokedexPage(wx.ListView):
 
             for i, data in enumerate(pokarray):
                 self.SetItem(row_index, i+1, data)
+
+    def bind_events(self):
+        self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.catch_box)
+
+    # Event handlers
+    def catch_box(self, event):
+        pokemon = Pokemon(name=event.Label, number=event.Data)
+        box = CatchBox(self, pokemon)
