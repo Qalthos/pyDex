@@ -5,11 +5,9 @@ from pydex import utils
 
 class CatchBox(wx.Dialog):
     def __init__(self, parent, pokemon):
-        super(CatchBox, self).__init__(parent, name=pokemon.name)
+        super(CatchBox, self).__init__(parent, name=pokemon.name, size=(550, 200))
 
         self.init_ui(pokemon)
-
-        self.ShowModal()
 
     def init_ui(self, pokemon):
         topbox = wx.BoxSizer(wx.VERTICAL)
