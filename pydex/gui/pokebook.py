@@ -1,6 +1,7 @@
 import wx
 
 from pydex.gui.pokepage import PokedexPage
+from pydex import io
 from pydex.utils import table_data_gen
 
 

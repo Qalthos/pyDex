@@ -10,9 +10,11 @@ class PokeController(object):
 
         # If we can find the file, load it.
         if 'filename' in self.config:
-            filename = self.config['filename']
-            if os.path.exists(filename):
+            filename = self.config.get('filename')
+            if filename and os.path.exists(filename):
                 self.data_filename = filename
 
         self.view = MainWindow()
+        if self.data_filename:
+            self.view.notebook.load(self.data_filename)
         self.view.Show(True)
