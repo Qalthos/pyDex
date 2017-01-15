@@ -12,11 +12,23 @@ class MainWindow(wx.Frame):
         self.Show()
 
     def init_ui(self):
-        # Menu Setup
-        menubar = wx.MenuBar()
-        filem = wx.Menu()
-        menubar.Append(filem, '&File')
-        self.SetMenuBar(menubar)
+        # Toolbar
+        self.toolbar = self.CreateToolBar(wx.TB_NOICONS)
+
+        self.new = wx.Button(self.toolbar, wx.ID_NEW, 'New...')
+        self.toolbar.AddControl(self.new)
+
+        self.open = wx.Button(self.toolbar, wx.ID_OPEN, 'Open')
+        self.toolbar.AddControl(self.open)
+
+        self.save = wx.Button(self.toolbar, wx.ID_SAVE, 'Save')
+        self.toolbar.AddControl(self.save)
+
+        self.toolbar.AddStretchableSpace()
+        self.toolbar.AddCheckTool(0, 'Missing', wx.NullBitmap)
+        self.toolbar.AddCheckTool(1, 'Seen', wx.NullBitmap)
+        self.toolbar.AddCheckTool(2, 'Caught', wx.NullBitmap)
+        self.toolbar.Realize()
 
         # Contents
         panel = wx.Panel(self)
@@ -26,7 +38,3 @@ class MainWindow(wx.Frame):
         vbox.Add(self.notebook, wx.EXPAND | wx.ALL)
 
         panel.SetSizer(vbox)
-
-        # Status Bar
-        statusbar = wx.StatusBar(self)
-        self.SetStatusBar(statusbar)
