@@ -28,10 +28,13 @@ class CatchBox(wx.Dialog):
         hbox.Add(infobox, flag=wx.EXPAND|wx.ALL)
 
         buttonbox = wx.BoxSizer(wx.VERTICAL)
-        buttonbox.Add(wx.RadioButton(self, label='missing', style=wx.RB_GROUP))
-        buttonbox.Add(wx.RadioButton(self, label='seen'))
-        buttonbox.Add(wx.RadioButton(self, label='caught'))
-        hbox.Add(buttonbox, flag=wx.EXPAND|wx.ALL)
+        self.missing = wx.RadioButton(self, label='missing', style=wx.RB_GROUP)
+        self.seen = wx.RadioButton(self, label='seen')
+        self.caught = wx.RadioButton(self, label='caught')
+        buttonbox.Add(self.missing)
+        buttonbox.Add(self.seen)
+        buttonbox.Add(self.caught)
+        hbox.Add(buttonbox, flag=wx.EXPAND|wx.LEFT)
 
         buttons = self.CreateButtonSizer(flags=wx.OK|wx.CANCEL)
         topbox.Add(buttons)

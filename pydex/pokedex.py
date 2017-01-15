@@ -98,6 +98,9 @@ class Pokedex:
 
         return True
 
+    def mark_pokemon(self, pokenum, new_status):
+        self.user_dex[pokenum] = new_status
+
     def new_dex(self):
         self.user_dex = [1] * (self.max_dex + 1)
         self.gen = 0

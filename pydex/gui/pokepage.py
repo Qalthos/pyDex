@@ -32,6 +32,7 @@ class PokedexPage(wx.ListView):
         self.bind_events()
 
     def populate_list(self, filters=0b111):
+        self.DeleteAllItems()
         userdex = pokedex.get_instance()
         for index, pokenum in enumerate(self.pokemon):
             if not userdex.valid(pokenum, filters):
@@ -58,3 +59,11 @@ class PokedexPage(wx.ListView):
     def catch_box(self, event):
         pokemon = Pokemon(name=event.Label, number=event.Data)
         box = CatchBox(self, pokemon)
+
+        userdex = pokedex.get_instance()
+        if box.ShowModal() == wx.ID_OK:
+            for i, radio in enumerate((box.missing, box.seen, box.caught)):
+                if radio.GetValue:
+                    userdex.mark_pokemon(event.Data, 2**i)
+
+            self.populate_list()
