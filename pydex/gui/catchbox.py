@@ -38,3 +38,29 @@ class CatchBox(wx.Dialog):
 
         buttons = self.CreateButtonSizer(flags=wx.OK|wx.CANCEL)
         topbox.Add(buttons)
+
+    def generate_evolution_text(self, pokenum):
+        evolist = [row for row in utils.table_data_gen('pokemon_evolution')]
+        trigger_list = list(utils.table_data_gen('evolution_trigger_prose'))
+        evorray = evolist[pokenum - 1]
+        trigger_prose = trigger_list[int(evorray['evolution_trigger_id']) - 1]
+
+        print(trigger_prose['name'] +
+              ' after ' + evorray['minimum_level'] +
+              ' with happiness >= ' + evorray['minimum_happiness'] +
+              ' while holding ' + evorray['held_item_id'] +
+              evorray['relative_physical_stats'] +
+              evorray['turn_upside_down'] +
+              ' trading with ' + evorray['trade_species_id'] +
+              evorray['gender_id'] +
+              evorray['time_of_day'] +
+              ' with ' + evorray['party_species_id'] + ' in party ' +
+              evorray['party_type_id'] +
+              evorray['needs_overworld_rain'] +
+              ' knowing ' + evorray['known_move_id'] +
+              ' using ' + evorray['trigger_item_id'] +
+              ' with affection >= ' + evorray['minimum_affection'] +
+              evorray['known_move_type_id'] +
+              ' in ' + evorray['location_id'] +
+              ' with beauty >= ' + evorray['minimum_beauty']
+        )
