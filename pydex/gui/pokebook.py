@@ -22,9 +22,11 @@ class PokedexNotebook(wx.Notebook):
         if not getattr(self, 'config', None):
             self.config = io.read_config()
             self.filter = int(self.config.get('filter', 0b111))
-        if not filename:
-            filename = self.config['filename']
-        io.read_dex(filename)
+
+        if filename:
+            self.config['filename'] = filename
+
+        io.read_dex(self.config['filename'])
         self.refresh_all()
 
     def refresh_all(self):

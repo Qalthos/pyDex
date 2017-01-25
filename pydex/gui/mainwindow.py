@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
+import os
+
 import wx
 
+from pydex import pokedex
 from pydex.gui.pokebook import PokedexNotebook
 
 
@@ -50,10 +53,18 @@ class MainWindow(wx.Frame):
         panel.SetSizer(vbox)
 
     def new_file(self, event):
-        pass
+        dex = pokedex.get_instance()
+        dex.new_dex()
+        self.notebook.refresh_all()
 
     def open_file(self, event):
-        pass
+        wildcard = 'Config files|*.cfg'
+        location = os.path.expanduser('~/.pyDex')
+        dialog = wx.FileDialog(self, defaultDir=location, wildcard=wildcard, style=wx.FD_OPEN)
+
+        if dialog.ShowModal() == wx.ID_OK:
+            path = dialog.GetPath()
+            self.notebook.load(path)
 
     def save_file(self, event):
         pass
