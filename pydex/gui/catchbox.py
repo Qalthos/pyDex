@@ -25,6 +25,7 @@ class CatchBox(wx.Dialog):
         #FIXME: hardcoded version_id
         pokesummary = [row for row in utils.table_data_gen('pokemon_species_flavor_text') if row['version_id'] == '26']
         infobox.Add(wx.StaticText(self, label=pokesummary[pokemon.number]['flavor_text']))
+        infobox.Add(wx.StaticText(self, label=self.generate_evolution_text(pokemon.number)))
         hbox.Add(infobox, flag=wx.EXPAND|wx.ALL)
 
         buttonbox = wx.BoxSizer(wx.VERTICAL)
@@ -40,27 +41,48 @@ class CatchBox(wx.Dialog):
         topbox.Add(buttons)
 
     def generate_evolution_text(self, pokenum):
-        evolist = [row for row in utils.table_data_gen('pokemon_evolution')]
-        trigger_list = list(utils.table_data_gen('evolution_trigger_prose'))
-        evorray = evolist[pokenum - 1]
-        trigger_prose = trigger_list[int(evorray['evolution_trigger_id']) - 1]
+        pokemon_species = list(utils.table_data_gen('pokemon_species'))
 
-        print(trigger_prose['name'] +
-              ' after ' + evorray['minimum_level'] +
-              ' with happiness >= ' + evorray['minimum_happiness'] +
-              ' while holding ' + evorray['held_item_id'] +
-              evorray['relative_physical_stats'] +
-              evorray['turn_upside_down'] +
-              ' trading with ' + evorray['trade_species_id'] +
-              evorray['gender_id'] +
-              evorray['time_of_day'] +
-              ' with ' + evorray['party_species_id'] + ' in party ' +
-              evorray['party_type_id'] +
-              evorray['needs_overworld_rain'] +
-              ' knowing ' + evorray['known_move_id'] +
-              ' using ' + evorray['trigger_item_id'] +
-              ' with affection >= ' + evorray['minimum_affection'] +
-              evorray['known_move_type_id'] +
-              ' in ' + evorray['location_id'] +
-              ' with beauty >= ' + evorray['minimum_beauty']
-        )
+        prevo_id = pokemon_species[pokenum - 1]['evolves_from_species_id']
+        if not prevo_id:
+            return ''
+
+        evorray = [
+            row for row in utils.table_data_gen('pokemon_evolution')
+            if row['evolved_species_id'] == str(pokenum)
+        ][0]
+        trigger_prose = list(utils.table_data_gen('evolution_trigger_prose'))[int(evorray['evolution_trigger_id']) - 1]
+
+        gender_cond = 'a {} '.format(evorray['gender_id']) if evorray['gender_id'] else ''
+        trigger = 'Evolves from {}{} after a {}'.format(gender_cond, prevo_id, trigger_prose['name'])
+        conditions = []
+        if evorray['minimum_level']:
+            conditions.append('starting at level {}'.format(evorray['minimum_level']))
+        if evorray['minimum_happiness']:
+            conditions.append('with happiness >= {}'.format(evorray['minimum_happiness']))
+        if evorray['held_item_id']:
+            conditions.append('while holding {}'.format(evorray['held_item_id']))
+        if evorray['known_move_id']:
+            conditions.append('knowing {}'.format(evorray['known_move_id']))
+        if evorray['location_id']:
+            conditions.append('in {}'.format(evorray['location_id']))
+        if evorray['trade_species_id']:
+            conditions.append('trading for {}'.format(evorray['trade_species_id']))
+        if evorray['trigger_item_id']:
+            conditions.append('using {}'.format(evorray['trigger_item_id']))
+        if evorray['party_species_id']:
+            conditions.append('with {} in party '.format(evorray['party_species_id']))
+        if evorray['turn_upside_down'] == '1':
+            conditions.append('while holding the console upside down')
+        if evorray['time_of_day']:
+            conditions.append('during the {}'.format(evorray['time_of_day']))
+        if evorray['needs_overworld_rain'] == '1':
+            conditions.append('in the rain')
+        if evorray['minimum_affection']:
+            conditions.append('with affection >= {}'.format(evorray['minimum_affection']))
+        if evorray['known_move_type_id']:
+            conditions.append('while knowing a {}-type move'.format(evorray['known_move_type_id']))
+        if evorray['minimum_beauty']:
+            conditions.append('with beauty >= {}'.format(evorray['minimum_beauty']))
+
+        return ' '.join([trigger] + conditions) + evorray['relative_physical_stats'] + evorray['party_type_id']
