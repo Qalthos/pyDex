@@ -8,6 +8,9 @@ from pydex.utils import table_data_gen
 class PokedexNotebook(wx.Notebook):
     def __init__(self, *args, **kwargs):
         super(PokedexNotebook, self).__init__(*args, **kwargs)
+        self.config = None
+        self.filter = 0b111
+
         regions = list(table_data_gen('region_names'))
         pokedexen = list(table_data_gen('pokedexes'))
         pokedex_map = list(table_data_gen('pokemon_dex_numbers'))
@@ -19,7 +22,7 @@ class PokedexNotebook(wx.Notebook):
             self.AddPage(page, region['name'])
 
     def load(self, filename=None):
-        if not getattr(self, 'config', None):
+        if not self.config:
             self.config = io.read_config()
             self.filter = int(self.config.get('filter', 0b111))
 
@@ -32,4 +35,4 @@ class PokedexNotebook(wx.Notebook):
     def refresh_all(self):
         for i in range(self.GetPageCount()):
             page = self.GetPage(i)
-            page.populate_list(self.filter)
+            page.populate_list()

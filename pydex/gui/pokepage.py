@@ -14,6 +14,7 @@ class PokedexPage(wx.ListView):
 
     def __init__(self, parent, dex_info):
         super(PokedexPage, self).__init__(parent, style=wx.LC_REPORT)
+        self.parent = parent
 
         self.region = dex_info['region']
         self.pokemon = dex_info['pokemon']
@@ -31,11 +32,11 @@ class PokedexPage(wx.ListView):
 
         self.bind_events()
 
-    def populate_list(self, filters=0b111):
+    def populate_list(self):
         self.DeleteAllItems()
         userdex = pokedex.get_instance()
         for index, pokenum in enumerate(self.pokemon):
-            if not userdex.valid(pokenum, filters):
+            if not userdex.valid(pokenum, self.parent.filter):
                 continue
             row_index = self.InsertItem(index, userdex.dex[pokenum - 1]['name'], self.pokicon_list[pokenum])
             self.SetItemData(row_index, pokenum)
