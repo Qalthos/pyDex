@@ -3,7 +3,7 @@ import os
 
 import wx
 
-from pydex import pokedex
+from pydex import io, pokedex
 from pydex.gui.pokebook import PokedexNotebook
 
 
@@ -67,7 +67,18 @@ class MainWindow(wx.Frame):
             self.notebook.load(path)
 
     def save_file(self, event):
-        pass
+        io.write_dex()
+
+    def save_as_file(self, event):
+        wildcard = 'Config files|*.cfg'
+        location = os.path.expanduser('~/.pyDex')
+        dialog = wx.FileDialog(self, defaultDir=location, wildcard=wildcard, style=wx.FD_SAVE)
+
+        if dialog.ShowModal() == wx.ID_OK:
+            path = dialog.GetPath()
+            userdex = pokedex.get_instance()
+            userdex.filename = path
+            io.write_dex()
 
     def filter_pages(self, event):
         for i, id in enumerate((ID_MISS, ID_SEEN, ID_HAVE)):
