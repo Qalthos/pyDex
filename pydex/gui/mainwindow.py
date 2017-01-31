@@ -81,8 +81,8 @@ class MainWindow(wx.Frame):
             io.write_dex()
 
     def filter_pages(self, event):
-        for i, id in enumerate((ID_MISS, ID_SEEN, ID_HAVE)):
-            if event.Id == id:
+        for i, id_ in enumerate((ID_MISS, ID_SEEN, ID_HAVE)):
+            if event.Id == id_:
                 break
 
         self.notebook.filter ^= 2**i
