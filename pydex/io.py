@@ -8,8 +8,9 @@ from pydex import pokedex
 config_dir = os.path.expanduser("~/.pyDex/")
 
 
-def write_dex(userdex):
+def write_dex():
     """Writes the current pokedex to a file."""
+    userdex = pokedex.get_instance()
     print("Writing to %s" % userdex.filename)
     with open(userdex.filename, "w") as dex_file:
         dex_file.write("%s\n" % userdex.game)
@@ -25,6 +26,7 @@ def read_dex(filename):
     print("Reading from %s" % filename)
     userdex = [0]
     dex = pokedex.get_instance()
+    dex.filename = filename
 
     with open(filename) as dex_file:
         # Read the game version
