@@ -64,7 +64,7 @@ class PokedexPage(wx.ListView):
         userdex = pokedex.get_instance()
         if box.ShowModal() == wx.ID_OK:
             for i, radio in enumerate((box.missing, box.seen, box.caught)):
-                if radio.GetValue:
+                if radio.GetValue():
                     userdex.mark_pokemon(event.Data, 2**i)
 
             self.populate_list()
