@@ -11,15 +11,20 @@ class PokedexNotebook(wx.Notebook):
         self.config = None
         self.filter = 0b111
 
-        regions = list(table_data_gen('region_names'))
-        pokedexen = list(table_data_gen('pokedexes'))
+        pokedex_ids = [row['id'] for row in table_data_gen('pokedexes') if row['is_main_series'] == '1']
+        pokedex_names = [
+            (row['pokedex_id'], row['name']) for row in table_data_gen('pokedex_prose')
+            if row['pokedex_id'] in pokedex_ids
+        ]
         pokedex_map = list(table_data_gen('pokemon_dex_numbers'))
-        for region in regions:
-            pokedex = [dex for dex in pokedexen if dex['region_id'] ==
-                       region['region_id']][-1]
-            pokedex_list = [int(pokemon['species_id']) for pokemon in pokedex_map if pokemon['pokedex_id'] == pokedex['id']]
-            page = PokedexPage(self, {'name': region['name'], 'region': region['name'], 'pokemon': pokedex_list})
-            self.AddPage(page, region['name'])
+
+        for dex_id, dex_name in sorted(pokedex_names):
+            regional_dex = sorted([
+                (int(row['pokedex_number']), int(row['species_id'])) for row
+                in pokedex_map if row['pokedex_id'] == dex_id
+            ])
+            page = PokedexPage(self, {'region': dex_name, 'pokemon': regional_dex})
+            self.AddPage(page, dex_name)
 
     def load(self, filename=None):
         if not self.config:

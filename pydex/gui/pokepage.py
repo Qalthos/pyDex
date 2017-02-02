@@ -35,7 +35,7 @@ class PokedexPage(wx.ListView):
     def populate_list(self):
         self.DeleteAllItems()
         userdex = pokedex.get_instance()
-        for index, pokenum in enumerate(self.pokemon):
+        for index, pokenum in self.pokemon:
             if not userdex.valid(pokenum, self.parent.filter):
                 continue
             row_index = self.InsertItem(index, userdex.dex[pokenum - 1]['name'], self.pokicon_list[pokenum])
