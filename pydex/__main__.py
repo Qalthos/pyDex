@@ -117,7 +117,7 @@ def main():
         dex = pick(game.version_group.pokedexes, "pokedexen")
     dex = Pokedex(dex)
 
-    catch_command = re.compile(r"(c) (\d+)", re.I)
+    catch_command = re.compile(r"(c) (\d+)(?:-(\d+))?", re.I)
     detail_command = re.compile(r"d (\d+)", re.I)
     page_command = re.compile(r"(p)( \d+)?", re.I)
 
@@ -132,10 +132,20 @@ def main():
                     func = dex.catch
                     if match.group(1) == "C":
                         func = dex.uncatch
-                    if (item := int(match.group(2))) in dex:
-                        func(item)
+                    start = int(match.group(2))
+                    end = match.group(3)
+                    if start in dex:
+                        if end:
+                            end = int(end)
+                            if end in dex:
+                                for i in range(start, int(end) + 1):
+                                    func(i)
+                            else:
+                                print(f"{end} not in pokedex [1-{len(dex.all_entries)}]")
+                        else:
+                            func(start)
                     else:
-                        print(f"{item} not in pokedex [1-{len(dex.all_entries)}]")
+                        print(f"{start} not in pokedex [1-{len(dex.all_entries)}]")
                         continue
                 elif match := detail_command.match(command):
                     if (item := int(match.group(1))) in dex:
