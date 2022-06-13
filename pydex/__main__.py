@@ -47,7 +47,7 @@ class Pokedex:
     def page(self, index: int) -> str:
         lines = []
         for line in paginate(self.entries, index - 1):
-            lines.append(" ".join(f"{item.entry_number:03d} {name(item.pokemon_species):12s}" for item in line))
+            lines.append(" ".join(f"{item.entry_number:03d} {name(item.pokemon_species):11s}" for item in line))
         return "\n".join(lines)
 
     def catch(self, index: int) -> None:
@@ -74,7 +74,7 @@ def flatten(things: list[list[T]]) -> Iterable[T]:
         yield from thing
 
 
-def paginate(things: list[T], page: int = 0, rows: int = 5, cols: int = 6) -> list[list[T]]:
+def paginate(things: list[T], page: int = 0, rows: int = 6, cols: int = 5) -> list[list[T]]:
     page_size = rows * cols
     window = things[page_size * page: page_size * (page + 1)]
 
