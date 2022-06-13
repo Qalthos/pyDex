@@ -102,10 +102,20 @@ def pick(choices: list[T], thing: str) -> T:
 
 
 def main():
-    generation = pokebase.generation(int(input("Select generation: ")))
+    initial_input = input("Select generation: ").split()
+    generation = pokebase.generation(int(initial_input.pop(0)))
+
     games = list(flatten([vg.versions for vg in generation.version_groups]))
-    game = pick(games, "games")
-    dex = Pokedex(pick(game.version_group.pokedexes, "pokedexen"))
+    if initial_input:
+        game = games[int(initial_input.pop(0)) - 1]
+    else:
+        game = pick(games, "games")
+
+    if initial_input:
+        dex = game.version_group.pokedexes[int(initial_input.pop(0)) - 1]
+    else:
+        dex = pick(game.version_group.pokedexes, "pokedexen")
+    dex = Pokedex(dex)
 
     catch_command = re.compile(r"(c) (\d+)", re.I)
     detail_command = re.compile(r"d (\d+)", re.I)
