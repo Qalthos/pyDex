@@ -164,6 +164,7 @@ def main():
                         new_page = page + direction
                     if new_page in range(1, len(dex) + 1):
                         page = new_page
+                        print(f"Page {page} of {len(dex)}")
                     else:
                         print(f"{new_page} not in [1-{len(dex)}]")
                         continue
