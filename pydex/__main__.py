@@ -1,3 +1,4 @@
+import math
 import re
 from typing import TypeVar, Iterable
 
@@ -21,7 +22,7 @@ class Pokedex:
         return item in range(1, len(self.all_entries) + 1)
 
     def __len__(self) -> int:
-        return round(len(self.entries) / 30)
+        return math.ceil(len(self.entries) / 30)
 
     def _gen_entries(self):
         for i, entry in enumerate(self.all_entries):
@@ -37,7 +38,7 @@ class Pokedex:
 
     def save(self):
         with open(self.name, "wb") as data:
-            data.write(self.caught.to_bytes(length=round(len(self.all_entries) / 8), byteorder="little"))
+            data.write(self.caught.to_bytes(length=math.ceil(len(self.all_entries) / 8), byteorder="little"))
 
     @property
     def entries(self) -> list:
